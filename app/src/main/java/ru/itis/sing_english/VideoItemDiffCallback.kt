@@ -21,6 +21,7 @@ class VideoItemDiffCallback(
         val diffBundle = Bundle()
         if (newItem.snippet.title != oldItem.snippet.title) {
             diffBundle.putString("title", newItem.snippet.title)
+            diffBundle.putString("artist", newItem.snippet.channelTitle)
         }
         if (newItem.snippet.thumbnails.high.url != oldItem.snippet.thumbnails.high.url) {
             diffBundle.putString("cover", newItem.snippet.thumbnails.high.url)

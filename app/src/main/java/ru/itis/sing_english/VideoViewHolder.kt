@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_video.*
 
@@ -15,7 +16,11 @@ class VideoViewHolder (override val containerView: View,
     : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     fun bind(video: VideoItem) {
-        setTitle(video.snippet.title)
+        setTitle(video.snippet.title, video.snippet.channelTitle)
+
+        Glide.with(containerView)
+            .load(video.snippet.thumbnails.high.url)
+            .into(iv_cover)
 
 //      TODO: глайдом или чем-то скачивать картинки
 //        iv_cover.setImageResource()
@@ -28,17 +33,25 @@ class VideoViewHolder (override val containerView: View,
     fun updateFromBundle(bundle: Bundle) {
         for (key in bundle.keySet()) {
             if (key == "title") {
-                setTitle(bundle.getString(key).toString())
-            } else if (key == "name") {
-                tv_name.text = bundle.getDouble(key).toString()
+                setTitle(bundle.getString(key).toString(), bundle.getString("artist").toString())
+            } else if(key == "cover") {
+                Glide.with(containerView)
+                    .load(bundle.getString(key).toString())
+                    .into(iv_cover)
             }
         }
     }
 
-    private fun setTitle(title: String) {
+    private fun setTitle(title: String, channelTitle: String) {
+        val artist = if (channelTitle.contains("VEVO")) {
+            channelTitle.removeRange(channelTitle.length - 4, channelTitle.length)
+        } else {
+            channelTitle
+        }
         val sTitle = title.split(" - ")
-        tv_artist.text = sTitle[0]
-        tv_name.text = sTitle[1]
+        Log.e("TITLE", title)
+        tv_artist.text = artist
+        tv_name.text = sTitle[sTitle.size - 1]
     }
 
     companion object {
