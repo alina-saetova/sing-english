@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="ru.itis.sing_english.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:name="ru.itis.sing_english.fragments.FavouritesFragment"
+        android:label="@string/title_fav"
+        tools:layout="@layout/fragment_favourites" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="ru.itis.sing_english.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:name="ru.itis.sing_english.fragments.MainPageFragment"
+        android:label="@string/title_main"
+        tools:layout="@layout/fragment_mainpage" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="ru.itis.sing_english.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="ru.itis.sing_english.fragments.VocabularyFragment"
+        android:label="@string/title_vocab"
+        tools:layout="@layout/fragment_vocabulary" />
 </navigation>

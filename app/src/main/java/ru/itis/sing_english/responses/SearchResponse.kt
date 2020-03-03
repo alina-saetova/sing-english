@@ -1,4 +1,4 @@
-package ru.itis.sing_english
+package ru.itis.sing_english.responses
 
 import com.google.gson.annotations.SerializedName
 

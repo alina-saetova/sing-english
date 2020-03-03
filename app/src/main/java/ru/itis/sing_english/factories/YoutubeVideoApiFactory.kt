@@ -1,16 +1,20 @@
-package ru.itis.sing_english
+package ru.itis.sing_english.factories
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.itis.sing_english.BuildConfig
+import ru.itis.sing_english.services.YoutubeVideoService
 
-object ApiFactory {
+object YoutubeVideoApiFactory {
 
     private val authInterceptor = Interceptor { chain ->
         val newUrl = chain.request().url().newBuilder()
-            .addQueryParameter("key", BuildConfig.YOUTUBE_API_KEY)
+            .addQueryParameter("key",
+                BuildConfig.YOUTUBE_API_KEY
+            )
             .build()
 
         val newRequest = chain.request().newBuilder().url(newUrl).build()
@@ -45,5 +49,6 @@ object ApiFactory {
             .build()
     }
 
-    val youtubeService: YoutubeService by lazy { retrofit.create(YoutubeService::class.java) }
+    val youtubeService: YoutubeVideoService by lazy { retrofit.create(
+        YoutubeVideoService::class.java) }
 }

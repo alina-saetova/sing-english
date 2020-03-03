@@ -1,4 +1,4 @@
-package ru.itis.sing_english
+package ru.itis.sing_english.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,37 +8,29 @@ import androidx.fragment.app.Fragment
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_favourites.*
+import ru.itis.sing_english.R
 
 
-class HomeFragment : Fragment() {
-
-    private lateinit var youTubePlayerView: YouTubePlayerView
+class FavouritesFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_favourites, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        youTubePlayerView = youtube_player_view
-        lifecycle.addObserver(youTubePlayerView)
-        youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-            override fun onReady(youTubePlayer: YouTubePlayer) {
-                val videoId = "qolmz4FlnZ0"
-                youTubePlayer.cueVideo(videoId, 0f)
-            }
-        })
+
     }
 
     companion object {
 
         private const val ARG_SUM = "sum"
 
-        fun newInstance(sum: Int = 0): HomeFragment = HomeFragment().apply {
+        fun newInstance(sum: Int = 0): FavouritesFragment = FavouritesFragment().apply {
             arguments = Bundle().apply {
                 putInt(ARG_SUM, sum)
             }

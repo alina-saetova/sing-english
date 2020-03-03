@@ -1,7 +1,8 @@
-package ru.itis.sing_english
+package ru.itis.sing_english.recycler_view_video
 
 import android.os.Bundle
 import androidx.recyclerview.widget.DiffUtil
+import ru.itis.sing_english.responses.VideoItem
 
 class VideoItemDiffCallback(
     private var oldList: MutableList<VideoItem>,

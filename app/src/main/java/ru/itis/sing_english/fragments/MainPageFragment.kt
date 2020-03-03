@@ -1,4 +1,4 @@
-package ru.itis.sing_english
+package ru.itis.sing_english.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -7,18 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_mainpage.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.channels.consumeEach
 import retrofit2.HttpException
+import ru.itis.sing_english.*
+import ru.itis.sing_english.factories.YoutubeVideoApiFactory
+import ru.itis.sing_english.recycler_view_video.VideoAdapter
+import ru.itis.sing_english.responses.VideoItem
+import ru.itis.sing_english.services.YoutubeVideoService
+import ru.itis.sing_english.utils.ListPaddingDecoration
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
-class DashboardFragment : Fragment(), CoroutineScope by MainScope(), SearchView.OnQueryTextListener {
+class MainPageFragment : Fragment(), CoroutineScope by MainScope(), SearchView.OnQueryTextListener {
 
-    private lateinit var service: YoutubeService
+    private lateinit var service: YoutubeVideoService
     private var adapter: VideoAdapter? = null
     private val broadcast = ConflatedBroadcastChannel<String>()
 
@@ -27,8 +32,8 @@ class DashboardFragment : Fragment(), CoroutineScope by MainScope(), SearchView.
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        service = ApiFactory.youtubeService
-        return inflater.inflate(R.layout.fragment_dashboard, container, false)
+        service = YoutubeVideoApiFactory.youtubeService
+        return inflater.inflate(R.layout.fragment_mainpage, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,9 +56,12 @@ class DashboardFragment : Fragment(), CoroutineScope by MainScope(), SearchView.
                                 0
                             )
                         )
-                        rv_videos.adapter = VideoAdapter(response.videoItems as MutableList<VideoItem>) {
-                            goToVideo("aaa")
-                        }
+                        rv_videos.adapter =
+                            VideoAdapter(
+                                response.videoItems as MutableList<VideoItem>
+                            ) {
+                                goToVideo(it)
+                            }
                     } catch (e: HttpException) {
                         Log.e("EXC_HANDLER", "$e")
                     }
@@ -74,16 +82,20 @@ class DashboardFragment : Fragment(), CoroutineScope by MainScope(), SearchView.
     }
 
     private fun goToVideo(id: String) {
-//        val intent = Intent(this@MainActivity, WeatherActivity::class.java)
-//        intent.putExtra("id", id)
-//        startActivity(intent)
+        activity?.supportFragmentManager?.also {
+            it.beginTransaction().apply {
+                replace(R.id.container, SongFragment.newInstance(id))
+                addToBackStack(SongFragment::class.java.name)
+                commit()
+            }
+        }
     }
 
     companion object {
 
         private const val ARG_SUM = "sum"
 
-        fun newInstance(sum: Int = 0): DashboardFragment = DashboardFragment().apply {
+        fun newInstance(sum: Int = 0): MainPageFragment = MainPageFragment().apply {
             arguments = Bundle().apply {
                 putInt(ARG_SUM, sum)
             }

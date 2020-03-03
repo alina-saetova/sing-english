@@ -1,15 +1,16 @@
-package ru.itis.sing_english
+package ru.itis.sing_english.recycler_view_video
 
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_video.*
+import ru.itis.sing_english.R
+import ru.itis.sing_english.responses.VideoItem
 
 class VideoViewHolder (override val containerView: View,
                        private val clickLambda: (String) -> Unit)
@@ -21,10 +22,6 @@ class VideoViewHolder (override val containerView: View,
         Glide.with(containerView)
             .load(video.snippet.thumbnails.high.url)
             .into(iv_cover)
-
-//      TODO: глайдом или чем-то скачивать картинки
-//        iv_cover.setImageResource()
-
         itemView.setOnClickListener {
             clickLambda(video.id.videoId)
         }
@@ -58,7 +55,11 @@ class VideoViewHolder (override val containerView: View,
 
         fun create(parent: ViewGroup, clickLambda: (String) -> Unit) =
             VideoViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.item_video, parent, false),
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.item_video,
+                    parent,
+                    false
+                ),
                 clickLambda
             )
     }

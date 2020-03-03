@@ -1,10 +1,11 @@
-package ru.itis.sing_english
+package ru.itis.sing_english.utils
 
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import ru.itis.sing_english.R
 
 class ListPaddingDecoration(
     context: Context?,
@@ -15,7 +16,9 @@ class ListPaddingDecoration(
     private var mDivider: Drawable? = null
 
     init {
-        mDivider = context?.let { ContextCompat.getDrawable(it, R.drawable.divider) }
+        mDivider = context?.let { ContextCompat.getDrawable(it,
+            R.drawable.divider
+        ) }
     }
 
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {

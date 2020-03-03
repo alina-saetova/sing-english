@@ -1,29 +1,71 @@
 package ru.itis.sing_english
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
+import ru.itis.sing_english.fragments.FavouritesFragment
+import ru.itis.sing_english.fragments.MainPageFragment
+import ru.itis.sing_english.fragments.VocabularyFragment
 
-class MainActivity : AppCompatActivity() {
+@ExperimentalCoroutinesApi
+@ObsoleteCoroutinesApi
+class MainActivity : AppCompatActivity(),  BottomNavigationView.OnNavigationItemSelectedListener  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-        val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+//        setSupportActionBar(toolbar)
+        nav_view.setOnNavigationItemSelectedListener(this)
+
+        if (savedInstanceState == null) {
+            val fragment = MainPageFragment.newInstance()
+            supportFragmentManager.beginTransaction().replace(R.id.container, fragment, fragment.javaClass.simpleName)
+                .commit()
+        }
+    }
+
+    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
+        when (menuItem.itemId) {
+            R.id.navigation_fav -> {
+                supportActionBar?.title = "Favourite"
+                supportFragmentManager.also {
+                    it.beginTransaction().apply {
+                        replace(R.id.container, FavouritesFragment.newInstance())
+                        addToBackStack(FavouritesFragment::class.java.simpleName)
+                        commit()
+                    }
+                }
+                return true
+            }
+            R.id.navigation_main -> {
+                supportActionBar?.title = "Main"
+                supportFragmentManager.also {
+                    it.beginTransaction().apply {
+                        replace(R.id.container, MainPageFragment.newInstance())
+                        addToBackStack(MainPageFragment::class.java.simpleName)
+                        commit()
+                    }
+                }
+                return true
+            }
+            R.id.navigation_vocab -> {
+                supportActionBar?.title = "Vocabulary"
+                supportFragmentManager.also {
+                    it.beginTransaction().apply {
+                        replace(R.id.container, VocabularyFragment.newInstance())
+                        addToBackStack(VocabularyFragment::class.java.simpleName)
+                        commit()
+                    }
+                }
+                return true
+            }
+        }
+        return false
     }
 }
