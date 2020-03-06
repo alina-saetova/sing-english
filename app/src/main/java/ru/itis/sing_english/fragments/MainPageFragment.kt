@@ -13,26 +13,32 @@ import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.channels.consumeEach
 import retrofit2.HttpException
 import ru.itis.sing_english.*
-import ru.itis.sing_english.factories.YoutubeVideoApiFactory
+import ru.itis.sing_english.di.App
 import ru.itis.sing_english.recycler_view_video.VideoAdapter
 import ru.itis.sing_english.responses.VideoItem
 import ru.itis.sing_english.services.YoutubeVideoService
 import ru.itis.sing_english.utils.ListPaddingDecoration
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
 class MainPageFragment : Fragment(), CoroutineScope by MainScope(), SearchView.OnQueryTextListener {
 
-    private lateinit var service: YoutubeVideoService
+    @Inject
+    lateinit var service: YoutubeVideoService
     private var adapter: VideoAdapter? = null
     private val broadcast = ConflatedBroadcastChannel<String>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        App.component.injectMainPage(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        service = YoutubeVideoApiFactory.youtubeService
         return inflater.inflate(R.layout.fragment_mainpage, container, false)
     }
 
@@ -50,11 +56,7 @@ class MainPageFragment : Fragment(), CoroutineScope by MainScope(), SearchView.O
                             service.videosByName(it)
                         }
                         rv_videos.addItemDecoration(
-                            ListPaddingDecoration(
-                                context,
-                                0,
-                                0
-                            )
+                            ListPaddingDecoration(context, 0, 0)
                         )
                         rv_videos.adapter =
                             VideoAdapter(

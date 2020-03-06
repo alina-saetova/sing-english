@@ -12,17 +12,22 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import kotlinx.android.synthetic.main.fragment_song.*
 import kotlinx.coroutines.*
 import ru.itis.sing_english.R
-import ru.itis.sing_english.factories.SubtitleApiFactory
+import ru.itis.sing_english.di.App
 import ru.itis.sing_english.responses.SubtitleResponse
+import ru.itis.sing_english.services.SubtitleService
+import ru.itis.sing_english.services.YoutubeVideoService
+import javax.inject.Inject
 
 class SongFragment : Fragment(), CoroutineScope by MainScope() {
 
     private var videoId: String? = null
     private lateinit var youTubePlayerView: YouTubePlayerView
-
+    @Inject
+    lateinit var service: SubtitleService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        App.component.injectSongPage(this)
         arguments?.let {
             videoId = it.getString(ID_PARAM)
         }
@@ -40,7 +45,6 @@ class SongFragment : Fragment(), CoroutineScope by MainScope() {
         lifecycle.addObserver(youTubePlayerView)
         youTubePlayerView.addYouTubePlayerListener(playerListener)
 
-        val service = SubtitleApiFactory.subtitleService
         launch {
             var response: List<SubtitleResponse>
             var text = ""
