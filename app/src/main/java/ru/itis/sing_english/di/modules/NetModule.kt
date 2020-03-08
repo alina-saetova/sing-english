@@ -7,11 +7,11 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.itis.sing_english.BuildConfig
+import ru.itis.sing_english.data.source.remote.SubtitleService
+import ru.itis.sing_english.data.source.remote.YoutubeVideoService
 import ru.itis.sing_english.domain.SubtitleAuthInterceptor
 import ru.itis.sing_english.domain.YoutubeAuthInterceptor
 import ru.itis.sing_english.domain.YoutubeDefReqInterceptor
-import ru.itis.sing_english.services.SubtitleService
-import ru.itis.sing_english.services.YoutubeVideoService
 import javax.inject.Named
 import javax.inject.Singleton
 

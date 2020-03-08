@@ -1,7 +1,7 @@
 package ru.itis.sing_english.di
 
 import android.app.Application
-import ru.itis.sing_english.di.components.DaggerNetComponent
+import ru.itis.sing_english.view.components.DaggerNetComponent
 import ru.itis.sing_english.di.components.NetComponent
 
 

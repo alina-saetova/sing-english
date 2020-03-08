@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools = "http://schemas.android.com/tools"
+    tools:context = "ru.itis.sing_english.MainActivity">
 
     <item
         android:id="@+id/navigation_fav"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/ic_favourites"
         android:title="@string/title_fav" />
 
     <item
         android:id="@+id/navigation_main"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_main_page"
         android:title="@string/title_main" />
 
     <item
         android:id="@+id/navigation_vocab"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_vocab"
         android:title="@string/title_vocab" />
 
 </menu>

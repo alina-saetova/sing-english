@@ -1,4 +1,4 @@
-package ru.itis.sing_english.fragments
+package ru.itis.sing_english.view.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -13,11 +13,11 @@ import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.channels.consumeEach
 import retrofit2.HttpException
 import ru.itis.sing_english.*
+import ru.itis.sing_english.data.model.VideoItem
+import ru.itis.sing_english.data.source.remote.YoutubeVideoService
 import ru.itis.sing_english.di.App
-import ru.itis.sing_english.recycler_view_video.VideoAdapter
-import ru.itis.sing_english.responses.VideoItem
-import ru.itis.sing_english.services.YoutubeVideoService
 import ru.itis.sing_english.utils.ListPaddingDecoration
+import ru.itis.sing_english.view.recyclerview.VideoAdapter
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi

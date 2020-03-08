@@ -1,4 +1,4 @@
-package ru.itis.sing_english.recycler_view_video
+package ru.itis.sing_english.view.recyclerview
 
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_video.*
 import ru.itis.sing_english.R
-import ru.itis.sing_english.responses.VideoItem
+import ru.itis.sing_english.data.model.VideoItem
 
 class VideoViewHolder (override val containerView: View,
                        private val clickLambda: (String) -> Unit)

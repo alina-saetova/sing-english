@@ -3,18 +3,18 @@ package ru.itis.sing_english
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
-import ru.itis.sing_english.fragments.FavouritesFragment
-import ru.itis.sing_english.fragments.MainPageFragment
-import ru.itis.sing_english.fragments.VocabularyFragment
+import ru.itis.sing_english.view.ui.FavouritesFragment
+import ru.itis.sing_english.view.ui.MainPageFragment
+import ru.itis.sing_english.view.ui.VocabularyFragment
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
-class MainActivity : AppCompatActivity(),  BottomNavigationView.OnNavigationItemSelectedListener  {
+class MainActivity : AppCompatActivity(),  BottomNavigationView.OnNavigationItemSelectedListener   {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,48 +24,40 @@ class MainActivity : AppCompatActivity(),  BottomNavigationView.OnNavigationItem
         nav_view.setOnNavigationItemSelectedListener(this)
 
         if (savedInstanceState == null) {
-            val fragment = MainPageFragment.newInstance()
-            supportFragmentManager.beginTransaction().replace(R.id.container, fragment, fragment.javaClass.simpleName)
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.container, MainPageFragment.newInstance(), MainPageFragment::class.java.simpleName)
                 .commit()
         }
     }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
+        var title = ""
+        var fragment: Fragment? = null
         when (menuItem.itemId) {
             R.id.navigation_fav -> {
-                supportActionBar?.title = "Favourite"
-                supportFragmentManager.also {
-                    it.beginTransaction().apply {
-                        replace(R.id.container, FavouritesFragment.newInstance())
-                        addToBackStack(FavouritesFragment::class.java.simpleName)
-                        commit()
-                    }
-                }
-                return true
+                title = "Favourite"
+                fragment = FavouritesFragment.newInstance()
             }
             R.id.navigation_main -> {
-                supportActionBar?.title = "Main"
-                supportFragmentManager.also {
-                    it.beginTransaction().apply {
-                        replace(R.id.container, MainPageFragment.newInstance())
-                        addToBackStack(MainPageFragment::class.java.simpleName)
-                        commit()
-                    }
-                }
-                return true
+                title = "Main"
+                fragment = MainPageFragment.newInstance()
             }
             R.id.navigation_vocab -> {
-                supportActionBar?.title = "Vocabulary"
-                supportFragmentManager.also {
-                    it.beginTransaction().apply {
-                        replace(R.id.container, VocabularyFragment.newInstance())
-                        addToBackStack(VocabularyFragment::class.java.simpleName)
-                        commit()
-                    }
-                }
-                return true
+                title = "Vocabulary"
+                fragment = VocabularyFragment.newInstance()
             }
         }
-        return false
+        supportActionBar?.title = title
+        supportFragmentManager.also {
+            it.beginTransaction().apply {
+                if (fragment != null) {
+                    replace(R.id.container, fragment)
+                }
+                addToBackStack(fragment?.javaClass?.simpleName)
+                commit()
+            }
+        }
+        return true
     }
 }

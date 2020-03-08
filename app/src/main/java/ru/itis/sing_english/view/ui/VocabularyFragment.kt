@@ -1,4 +1,4 @@
-package ru.itis.sing_english.fragments
+package ru.itis.sing_english.view.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

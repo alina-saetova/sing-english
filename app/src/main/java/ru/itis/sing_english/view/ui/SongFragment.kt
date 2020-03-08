@@ -1,4 +1,4 @@
-package ru.itis.sing_english.fragments
+package ru.itis.sing_english.view.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -12,10 +12,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import kotlinx.android.synthetic.main.fragment_song.*
 import kotlinx.coroutines.*
 import ru.itis.sing_english.R
+import ru.itis.sing_english.data.model.SubtitleResponse
+import ru.itis.sing_english.data.source.remote.SubtitleService
 import ru.itis.sing_english.di.App
-import ru.itis.sing_english.responses.SubtitleResponse
-import ru.itis.sing_english.services.SubtitleService
-import ru.itis.sing_english.services.YoutubeVideoService
 import javax.inject.Inject
 
 class SongFragment : Fragment(), CoroutineScope by MainScope() {

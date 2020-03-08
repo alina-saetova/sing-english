@@ -4,8 +4,8 @@ import dagger.Component
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import ru.itis.sing_english.di.modules.NetModule
-import ru.itis.sing_english.fragments.MainPageFragment
-import ru.itis.sing_english.fragments.SongFragment
+import ru.itis.sing_english.view.ui.MainPageFragment
+import ru.itis.sing_english.view.ui.SongFragment
 import javax.inject.Singleton
 
 @Singleton

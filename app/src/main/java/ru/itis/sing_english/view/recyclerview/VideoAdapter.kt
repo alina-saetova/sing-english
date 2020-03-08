@@ -1,10 +1,10 @@
-package ru.itis.sing_english.recycler_view_video
+package ru.itis.sing_english.view.recyclerview
 
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import ru.itis.sing_english.responses.VideoItem
+import ru.itis.sing_english.data.model.VideoItem
 
 class VideoAdapter(
     private var list: MutableList<VideoItem>,
