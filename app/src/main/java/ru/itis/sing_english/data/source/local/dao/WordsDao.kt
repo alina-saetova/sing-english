@@ -14,7 +14,7 @@ interface WordsDao {
     fun insert(word: Word)
 
     @Query("SELECT * FROM words")
-    fun getAllWords(id: String): LiveData<List<Word>>
+    fun getAllWords(): LiveData<List<Word>>
 
     @Query("DELETE FROM words")
     fun deleteAllWords()
