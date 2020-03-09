@@ -10,5 +10,5 @@ class ContextModule(val context: Context) {
 
     @Singleton
     @Provides
-    fun context(): Context = context
+    fun provideContext(): Context = context
 }

@@ -63,5 +63,4 @@ class VideoViewHolder (override val containerView: View,
                 clickLambda
             )
     }
-
 }

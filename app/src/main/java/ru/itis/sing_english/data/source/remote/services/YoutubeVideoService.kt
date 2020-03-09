@@ -1,4 +1,4 @@
-package ru.itis.sing_english.data.source.remote
+package ru.itis.sing_english.data.source.remote.services
 
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -6,6 +6,7 @@ import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import ru.itis.sing_english.data.source.local.AppDatabase
+import ru.itis.sing_english.data.source.local.SubtitleLocalSource
 import ru.itis.sing_english.data.source.local.dao.SubtitlesDao
 import ru.itis.sing_english.data.source.local.dao.WordsDao
 import javax.inject.Named
@@ -26,13 +27,14 @@ class LocalDataModule {
 
     @Provides
     @Singleton
-    fun provideSubtitleDao(db: AppDatabase): SubtitlesDao {
-        return db.subtitleDao()
-    }
+    fun provideSubtitleDao(db: AppDatabase): SubtitlesDao = db.subtitleDao()
 
     @Provides
     @Singleton
-    fun provideWordsDao(db: AppDatabase): WordsDao {
-        return db.wordDao()
-    }
+    fun provideWordsDao(db: AppDatabase): WordsDao = db.wordDao()
+
+    @Provides
+    @Singleton
+    fun provideSubLocalSource(subtitlesDao: SubtitlesDao): SubtitleLocalSource =
+        SubtitleLocalSource(subtitlesDao)
 }

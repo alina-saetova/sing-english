@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 import ru.itis.sing_english.data.model.SubtitleResponse
 
 @Entity(tableName = "subtitles")
-data class Subtitle (
+data class Subtitle(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     @ColumnInfo(name = "video_id")

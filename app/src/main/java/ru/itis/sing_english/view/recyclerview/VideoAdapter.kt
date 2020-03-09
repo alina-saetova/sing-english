@@ -46,4 +46,3 @@ class VideoAdapter(
         list.addAll(newList)
     }
 }
-

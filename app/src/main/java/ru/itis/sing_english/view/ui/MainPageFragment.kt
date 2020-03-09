@@ -14,7 +14,7 @@ import kotlinx.coroutines.channels.consumeEach
 import retrofit2.HttpException
 import ru.itis.sing_english.*
 import ru.itis.sing_english.data.model.VideoItem
-import ru.itis.sing_english.data.source.remote.YoutubeVideoService
+import ru.itis.sing_english.data.source.remote.services.YoutubeVideoService
 import ru.itis.sing_english.di.App
 import ru.itis.sing_english.utils.ListPaddingDecoration
 import ru.itis.sing_english.view.recyclerview.VideoAdapter

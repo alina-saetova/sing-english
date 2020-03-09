@@ -10,7 +10,7 @@ import ru.itis.sing_english.data.model.Subtitle
 interface SubtitlesDao {
 
     @Insert
-    fun insert(subtitle: Subtitle)
+    fun insertAll(subtitles: List<Subtitle>)
 
     @Query("SELECT * FROM subtitles WHERE video_id = :id ORDER BY row_num ASC")
     fun getSubtitlesByVideoId(id: String): LiveData<List<Subtitle>>
