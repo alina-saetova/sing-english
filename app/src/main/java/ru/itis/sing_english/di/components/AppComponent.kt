@@ -7,6 +7,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import ru.itis.sing_english.data.source.local.dao.SubtitlesDao
 import ru.itis.sing_english.data.source.local.dao.WordsDao
+import ru.itis.sing_english.data.source.remote.services.WordsService
 import ru.itis.sing_english.data.source.repository.SubtitlesRepository
 import ru.itis.sing_english.di.modules.ContextModule
 import ru.itis.sing_english.di.modules.LocalDataModule
@@ -29,4 +30,5 @@ interface AppComponent {
     fun wordsDao() : WordsDao
 
     fun subtitlesRepository() : SubtitlesRepository
+    fun wordsService(): WordsService
 }

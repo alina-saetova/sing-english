@@ -28,6 +28,8 @@ android {
         it.buildConfigField 'String', 'YOUTUBE_API_KEY', youtubeApiKey
         it.buildConfigField 'String', 'SUBTITLES_API_ENDPOINT', subtitlesRapidApiBaseUrl
         it.buildConfigField 'String', 'SUBTITLES_API_KEY', subtitlesRapidApiKey
+        it.buildConfigField 'String', 'DICT_API_ENDPOINT', dictApiBaseUrl
+        it.buildConfigField 'String', 'DICT_API_KEY', dictApiKey
     }
     compileOptions {
         sourceCompatibility = "1.8"
@@ -103,5 +105,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+    debugImplementation 'com.idescout.sql:sqlscout-server:4.1'
+    releaseImplementation 'com.idescout.sql:sqlscout-server-noop:4.1'
 
 }

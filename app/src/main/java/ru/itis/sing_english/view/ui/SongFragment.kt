@@ -13,8 +13,6 @@ import kotlinx.android.synthetic.main.fragment_song.*
 import kotlinx.coroutines.*
 import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.Subtitle
-import ru.itis.sing_english.data.model.SubtitleResponse
-import ru.itis.sing_english.data.source.remote.services.SubtitleService
 import ru.itis.sing_english.data.source.repository.SubtitlesRepository
 import ru.itis.sing_english.di.App
 import javax.inject.Inject

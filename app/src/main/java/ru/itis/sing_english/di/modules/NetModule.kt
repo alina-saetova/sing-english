@@ -9,10 +9,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.itis.sing_english.BuildConfig
 import ru.itis.sing_english.data.source.remote.SubtitleRemoteSource
 import ru.itis.sing_english.data.source.remote.services.SubtitleService
+import ru.itis.sing_english.data.source.remote.services.WordsService
 import ru.itis.sing_english.data.source.remote.services.YoutubeVideoService
-import ru.itis.sing_english.domain.SubtitleAuthInterceptor
-import ru.itis.sing_english.domain.YoutubeAuthInterceptor
-import ru.itis.sing_english.domain.YoutubeDefReqInterceptor
+import ru.itis.sing_english.data.source.remote.services.interceptors.SubtitleAuthInterceptor
+import ru.itis.sing_english.data.source.remote.services.interceptors.YandexDefReqInterceptor
+import ru.itis.sing_english.data.source.remote.services.interceptors.YoutubeAuthInterceptor
+import ru.itis.sing_english.data.source.remote.services.interceptors.YoutubeDefReqInterceptor
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -77,4 +79,31 @@ class NetModule {
     @Provides
     @Singleton
     fun provideSubRemoteSource(subtitleService: SubtitleService) = SubtitleRemoteSource(subtitleService)
+
+    @Provides
+    @Singleton
+    @Named("ok-yandex")
+    fun provideYandexOkHttpClient(): OkHttpClient {
+        return OkHttpClient().newBuilder()
+            .addInterceptor(YandexDefReqInterceptor())
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    @Named("yandex-retrofit")
+    fun provideYandexRetrofit(@Named("ok-yandex") client: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .client(client)
+            .baseUrl(BuildConfig.DICT_API_ENDPOINT)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideYandexService(@Named("yandex-retrofit")retrofit: Retrofit): WordsService {
+        return retrofit.create(WordsService::class.java)
+    }
 }
