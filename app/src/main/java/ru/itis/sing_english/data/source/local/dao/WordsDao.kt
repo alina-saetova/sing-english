@@ -11,7 +11,7 @@ import ru.itis.sing_english.data.model.Word
 interface WordsDao {
 
     @Insert
-    fun insert(word: Word)
+    fun insert(words: List<Word>)
 
     @Query("SELECT * FROM words")
     fun getAllWords(): LiveData<List<Word>>

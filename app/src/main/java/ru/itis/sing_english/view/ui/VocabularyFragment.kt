@@ -17,6 +17,7 @@ import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.VideoItem
 import ru.itis.sing_english.data.source.remote.services.SubtitleService
 import ru.itis.sing_english.data.source.remote.services.WordsService
+import ru.itis.sing_english.data.source.repository.WordsRepository
 import ru.itis.sing_english.di.App
 import ru.itis.sing_english.utils.ListPaddingDecoration
 import ru.itis.sing_english.view.recyclerview.VideoAdapter
@@ -29,14 +30,14 @@ class VocabularyFragment : Fragment(), CoroutineScope by MainScope(), SearchView
 
     private val broadcast = ConflatedBroadcastChannel<String>()
     @Inject
-    lateinit var service: WordsService
+    lateinit var repository: WordsRepository
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        service = App.component.wordsService()
+        repository = App.component.wordsRepository()
         return inflater.inflate(R.layout.fragment_vocabulary, container, false)
     }
 
@@ -50,9 +51,7 @@ class VocabularyFragment : Fragment(), CoroutineScope by MainScope(), SearchView
                 lastTimeout = launch {
                     delay(1000)
                     try {
-                        val response = withContext(Dispatchers.IO) {
-                            service.word(it)
-                        }
+                        val response = repository.getWord(it)
                         Log.e("WORD", response.toString())
                     } catch (e: HttpException) {
                         Log.e("EXC_HANDLER", "$e")

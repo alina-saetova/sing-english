@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.Provides
 import ru.itis.sing_english.data.source.local.AppDatabase
 import ru.itis.sing_english.data.source.local.SubtitleLocalSource
+import ru.itis.sing_english.data.source.local.WordsLocalSource
 import ru.itis.sing_english.data.source.local.dao.SubtitlesDao
 import ru.itis.sing_english.data.source.local.dao.WordsDao
 import javax.inject.Named
@@ -37,4 +38,9 @@ class LocalDataModule {
     @Singleton
     fun provideSubLocalSource(subtitlesDao: SubtitlesDao): SubtitleLocalSource =
         SubtitleLocalSource(subtitlesDao)
+
+    @Provides
+    @Singleton
+    fun provideYandexLocalSource(wordsDao: WordsDao): WordsLocalSource =
+        WordsLocalSource(wordsDao)
 }

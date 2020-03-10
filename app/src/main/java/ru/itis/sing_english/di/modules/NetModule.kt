@@ -8,6 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.itis.sing_english.BuildConfig
 import ru.itis.sing_english.data.source.remote.SubtitleRemoteSource
+import ru.itis.sing_english.data.source.remote.WordsRemoteSource
 import ru.itis.sing_english.data.source.remote.services.SubtitleService
 import ru.itis.sing_english.data.source.remote.services.WordsService
 import ru.itis.sing_english.data.source.remote.services.YoutubeVideoService
@@ -106,4 +107,8 @@ class NetModule {
     fun provideYandexService(@Named("yandex-retrofit")retrofit: Retrofit): WordsService {
         return retrofit.create(WordsService::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideYandexRemoteSource(wordsService: WordsService) = WordsRemoteSource(wordsService)
 }
