@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
@@ -14,55 +17,54 @@ import kotlinx.coroutines.*
 import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.Subtitle
 import ru.itis.sing_english.data.source.repository.SubtitlesRepository
+import ru.itis.sing_english.databinding.FragmentSongBinding
 import ru.itis.sing_english.di.App
+import ru.itis.sing_english.viewmodel.SongViewModel
+import ru.itis.sing_english.viewmodel.BaseViewModelFactory
 import javax.inject.Inject
 
 class SongFragment : Fragment(), CoroutineScope by MainScope() {
 
-    private var videoId: String? = null
     private lateinit var youTubePlayerView: YouTubePlayerView
+    lateinit var viewModel: SongViewModel
     @Inject
     lateinit var repository: SubtitlesRepository
+    lateinit var binding: FragmentSongBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        App.component.injectSongPage(this)
-        arguments?.let {
-            videoId = it.getString(ID_PARAM)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_song, container, false)
+        binding = FragmentSongBinding.inflate(inflater)
+        repository = App.component.subtitlesRepository()
+        binding.lifecycleOwner = viewLifecycleOwner
+        var videoId = ""
+        arguments?.let {
+            videoId = it.getString(ID_PARAM).toString()
+        }
+
+        viewModel = ViewModelProvider(this,
+            BaseViewModelFactory { SongViewModel(videoId, repository) } ).get(SongViewModel::class.java)
+
+        viewModel.subs.observe(viewLifecycleOwner, Observer {newSubs ->
+            binding.tvLyric.text = newSubs.toString()
+        })
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         youTubePlayerView = youtube_player_view
         lifecycle.addObserver(youTubePlayerView)
         youTubePlayerView.addYouTubePlayerListener(playerListener)
-
-        launch {
-            var response: List<Subtitle>
-            var text = ""
-            withContext(Dispatchers.IO) {
-                response = repository.getSubtitles(videoId.toString()).value!!
-                Log.e("resp", response.toString())
-                for (x in response) {
-                    text += "\n${x.row.text}"
-                }
-            }
-            launch(Dispatchers.Main) {
-                tv_lyric.text = text
-            }
-        }
     }
 
     private val playerListener : AbstractYouTubePlayerListener = object: AbstractYouTubePlayerListener() {
         override fun onReady(youTubePlayer: YouTubePlayer) {
-            youTubePlayer.cueVideo(videoId.toString(), 0f)
+            youTubePlayer.cueVideo(viewModel.videoId, 0f)
         }
     }
 

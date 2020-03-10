@@ -12,16 +12,13 @@ import javax.inject.Inject
 class SubtitleRemoteSource @Inject constructor(
     private var subtitleService: SubtitleService
 ) {
-    suspend fun retrieveData(videoId: String): LiveData<List<Subtitle>> = withContext(Dispatchers.IO) {
-        val subsLiveData = MutableLiveData<List<Subtitle>>()
+    suspend fun retrieveData(videoId: String): List<Subtitle> = withContext(Dispatchers.IO) {
         val subList = fromResponseToModel(subtitleService.subtitlesByVideoId(videoId), videoId)
-
-        subsLiveData.postValue(subList)
-        subsLiveData
+        subList
     }
 
     private fun fromResponseToModel(list: List<SubtitleResponse>, videoId: String): List<Subtitle> {
-        val subList: MutableList<Subtitle> = emptyList<Subtitle>().toMutableList()
+        val subList = mutableListOf<Subtitle>()
         for (sub in list) {
             subList.add(Subtitle(0, videoId, sub))
         }

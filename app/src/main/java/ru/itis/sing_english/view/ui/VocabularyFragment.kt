@@ -63,7 +63,14 @@ class VocabularyFragment : Fragment(), CoroutineScope by MainScope(), SearchView
     }
 
     override fun onQueryTextSubmit(newText: String?): Boolean {
-        broadcast.offer(newText ?: "")
+//        broadcast.offer(newText ?: "")
+        activity?.supportFragmentManager?.also {
+            it.beginTransaction().apply {
+                replace(R.id.container, WordDetailFragment.newInstance(newText.toString()))
+                addToBackStack(WordDetailFragment::class.java.name)
+                commit()
+            }
+        }
         return true
     }
 

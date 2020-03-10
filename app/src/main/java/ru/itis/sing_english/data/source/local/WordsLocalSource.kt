@@ -1,6 +1,7 @@
 package ru.itis.sing_english.data.source.local
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.itis.sing_english.data.model.Word
@@ -12,7 +13,9 @@ class WordsLocalSource @Inject constructor(
 ) {
     suspend fun retrieveData(): LiveData<List<Word>> = withContext(Dispatchers.IO) {
         val words = wordsDao.getAllWords()
-        words
+        val wordsLiveData = MutableLiveData<List<Word>>()
+        wordsLiveData.postValue(words)
+        wordsLiveData
     }
 
     suspend fun refreshData(words: List<Word>) = withContext(Dispatchers.IO) {

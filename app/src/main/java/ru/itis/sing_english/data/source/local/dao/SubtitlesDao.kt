@@ -12,8 +12,8 @@ interface SubtitlesDao {
     @Insert
     fun insertAll(subtitles: List<Subtitle>)
 
-    @Query("SELECT * FROM subtitles WHERE video_id = :id ORDER BY row_num ASC")
-    fun getSubtitlesByVideoId(id: String): LiveData<List<Subtitle>>
+    @Query("SELECT * FROM subtitles WHERE video_id = :id")
+    fun getSubtitlesByVideoId(id: String): List<Subtitle>
 
     @Query("DELETE FROM subtitles")
     fun deleteAllSubtitles()

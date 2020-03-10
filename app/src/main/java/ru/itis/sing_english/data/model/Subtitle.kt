@@ -9,7 +9,7 @@ import ru.itis.sing_english.data.model.SubtitleResponse
 @Entity(tableName = "subtitles")
 data class Subtitle(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Long = 0,
     @ColumnInfo(name = "video_id")
     val videoId: String,
     @Embedded

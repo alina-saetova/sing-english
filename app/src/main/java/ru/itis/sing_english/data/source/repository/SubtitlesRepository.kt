@@ -1,5 +1,6 @@
 package ru.itis.sing_english.data.source.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import ru.itis.sing_english.data.model.Subtitle
 import ru.itis.sing_english.data.source.local.SubtitleLocalSource
@@ -13,20 +14,21 @@ class SubtitlesRepository @Inject constructor(
     private var remoteSource: SubtitleRemoteSource
 ) {
 
-    suspend fun getSubtitles(videoId: String):LiveData<List<Subtitle>> {
-        val data = localSource.retrieveData(videoId)
-
-        return if (data.value.isNullOrEmpty())
+    suspend fun getSubtitles(videoId: String): List<Subtitle> {
+        val data = retrieveLocalData(videoId)
+        Log.e("LOCAL", data.toString())
+        return if (data.isNullOrEmpty())
             retrieveRemoteData(videoId)
         else
-            retrieveLocalData(videoId)
+            data
     }
 
     private suspend fun retrieveLocalData(videoId: String) = localSource.retrieveData(videoId)
 
-    private suspend fun retrieveRemoteData(videoId: String): LiveData<List<Subtitle>> {
+    private suspend fun retrieveRemoteData(videoId: String): List<Subtitle> {
         val subtitles = remoteSource.retrieveData(videoId)
-        subtitles.value?.let { localSource.refreshData(it) }
+        localSource.refreshData(subtitles)
         return subtitles
     }
+
 }
