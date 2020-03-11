@@ -17,7 +17,7 @@ import ru.itis.sing_english.data.model.VideoItem
 import ru.itis.sing_english.data.source.remote.services.YoutubeVideoService
 import ru.itis.sing_english.di.App
 import ru.itis.sing_english.utils.ListPaddingDecoration
-import ru.itis.sing_english.view.recyclerview.VideoAdapter
+import ru.itis.sing_english.view.recyclerview.videos.VideoAdapter
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi

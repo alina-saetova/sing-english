@@ -7,21 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_mainpage.*
 import kotlinx.android.synthetic.main.fragment_vocabulary.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.channels.consumeEach
 import retrofit2.HttpException
 import ru.itis.sing_english.R
-import ru.itis.sing_english.data.model.VideoItem
-import ru.itis.sing_english.data.source.remote.services.SubtitleService
-import ru.itis.sing_english.data.source.remote.services.WordsService
 import ru.itis.sing_english.data.source.repository.WordsRepository
 import ru.itis.sing_english.di.App
-import ru.itis.sing_english.utils.ListPaddingDecoration
-import ru.itis.sing_english.view.recyclerview.VideoAdapter
-import ru.itis.sing_english.view.recyclerview.words.WordsAdapter
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi

@@ -19,6 +19,7 @@ import ru.itis.sing_english.data.model.Subtitle
 import ru.itis.sing_english.data.source.repository.SubtitlesRepository
 import ru.itis.sing_english.databinding.FragmentSongBinding
 import ru.itis.sing_english.di.App
+import ru.itis.sing_english.view.recyclerview.songs_row.SubtitleAdapter
 import ru.itis.sing_english.viewmodel.SongViewModel
 import ru.itis.sing_english.viewmodel.BaseViewModelFactory
 import javax.inject.Inject
@@ -40,6 +41,8 @@ class SongFragment : Fragment(), CoroutineScope by MainScope() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSongBinding.inflate(inflater)
+        val adapter = SubtitleAdapter(emptyList<Subtitle>().toMutableList())
+        binding.rvSubs.adapter = adapter
         repository = App.component.subtitlesRepository()
         binding.lifecycleOwner = viewLifecycleOwner
         var videoId = ""
@@ -49,10 +52,7 @@ class SongFragment : Fragment(), CoroutineScope by MainScope() {
 
         viewModel = ViewModelProvider(this,
             BaseViewModelFactory { SongViewModel(videoId, repository) } ).get(SongViewModel::class.java)
-
-        viewModel.subs.observe(viewLifecycleOwner, Observer {newSubs ->
-            binding.tvLyric.text = newSubs.toString()
-        })
+        binding.songViewModel = viewModel
         return binding.root
     }
 

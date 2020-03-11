@@ -1,4 +1,4 @@
-package ru.itis.sing_english.view.recyclerview
+package ru.itis.sing_english.view.recyclerview.videos
 
 import android.os.Bundle
 import androidx.recyclerview.widget.DiffUtil
