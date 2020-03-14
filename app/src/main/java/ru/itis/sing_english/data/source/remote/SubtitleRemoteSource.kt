@@ -1,5 +1,6 @@
 package ru.itis.sing_english.data.source.remote
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +14,8 @@ class SubtitleRemoteSource @Inject constructor(
     private var subtitleService: SubtitleService
 ) {
     suspend fun retrieveData(videoId: String): List<Subtitle> = withContext(Dispatchers.IO) {
-        val subList = fromResponseToModel(subtitleService.subtitlesByVideoId(videoId), videoId)
+        var subList = fromResponseToModel(subtitleService.subtitlesByVideoId(videoId), videoId)
+//        subList = cleanSubs(subList)
         subList
     }
 
@@ -24,5 +26,12 @@ class SubtitleRemoteSource @Inject constructor(
         }
         return subList
     }
+
+//    private fun cleanSubs(subs: List<Subtitle>): List<Subtitle> {
+//        for (s in subs) {
+//            s.row.text.replace("&#39;".toRegex(), "\'")
+//        }
+//        return subs
+//    }
 
 }

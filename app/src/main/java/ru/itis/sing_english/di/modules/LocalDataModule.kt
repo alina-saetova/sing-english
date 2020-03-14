@@ -7,8 +7,10 @@ import dagger.Module
 import dagger.Provides
 import ru.itis.sing_english.data.source.local.AppDatabase
 import ru.itis.sing_english.data.source.local.SubtitleLocalSource
+import ru.itis.sing_english.data.source.local.VideoLocalSource
 import ru.itis.sing_english.data.source.local.WordsLocalSource
 import ru.itis.sing_english.data.source.local.dao.SubtitlesDao
+import ru.itis.sing_english.data.source.local.dao.VideoDao
 import ru.itis.sing_english.data.source.local.dao.WordsDao
 import javax.inject.Named
 import javax.inject.Singleton
@@ -36,6 +38,10 @@ class LocalDataModule {
 
     @Provides
     @Singleton
+    fun provideVideoDao(db: AppDatabase): VideoDao = db.videoDao()
+
+    @Provides
+    @Singleton
     fun provideSubLocalSource(subtitlesDao: SubtitlesDao): SubtitleLocalSource =
         SubtitleLocalSource(subtitlesDao)
 
@@ -43,4 +49,9 @@ class LocalDataModule {
     @Singleton
     fun provideYandexLocalSource(wordsDao: WordsDao): WordsLocalSource =
         WordsLocalSource(wordsDao)
+
+    @Provides
+    @Singleton
+    fun provideVideoLocalSource(videoDao: VideoDao): VideoLocalSource =
+        VideoLocalSource(videoDao)
 }

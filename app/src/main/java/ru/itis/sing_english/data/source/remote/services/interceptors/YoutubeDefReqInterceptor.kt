@@ -15,6 +15,7 @@ class YoutubeDefReqInterceptor @Inject constructor() : Interceptor {
             .addQueryParameter("order", "relevance")
             .addQueryParameter("type", "video")
             .addQueryParameter("maxResults", "15")
+            .addQueryParameter("videoCaption", "closedCaption")
             .build()
         val request = chain.request().newBuilder().url(url).build()
         return chain.proceed(request)

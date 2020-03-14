@@ -14,9 +14,9 @@ class WordsRepository @Inject constructor(
     private var remoteSource: WordsRemoteSource
 )  {
 
-    suspend fun getListWords(): LiveData<List<Word>> = localSource.retrieveData()
+    suspend fun getListWords() = localSource.retrieveData()
 
-    suspend fun getWord(text: String): LiveData<DictionaryResponse> = remoteSource.retrieveData(text)
+    suspend fun getWord(text: String) = remoteSource.retrieveData(text)
 
     suspend fun saveWord(response: DictionaryResponse) {
         saveListWords(listOf(response))

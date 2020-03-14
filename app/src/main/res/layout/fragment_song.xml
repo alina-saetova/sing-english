@@ -40,7 +40,7 @@
             app:layout_constraintTop_toBottomOf="@id/youtube_player_view"
             app:layout_constraintVertical_bias="0.0"
             tools:listitem="@layout/item_subtitle"
-            app:subs="@{songViewModel.subs}"/>
+            app:recycler="@{songViewModel.subs}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

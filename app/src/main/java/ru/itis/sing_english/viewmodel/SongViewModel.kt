@@ -10,7 +10,9 @@ import ru.itis.sing_english.data.model.Subtitle
 import ru.itis.sing_english.data.source.repository.SubtitlesRepository
 import javax.inject.Inject
 
-class SongViewModel @Inject constructor(val videoId: String, val repository: SubtitlesRepository) : ViewModel() {
+class SongViewModel @Inject constructor(val videoId: String,
+                                        val repository: SubtitlesRepository)
+    : ViewModel() {
 
     private lateinit var viewModelJob: Job
     private var _subs = MutableLiveData<List<Subtitle>>()

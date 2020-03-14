@@ -12,13 +12,8 @@ import javax.inject.Inject
 class WordsRemoteSource @Inject constructor(
     private var wordsService: WordsService
 ) {
-    suspend fun retrieveData(text: String): LiveData<DictionaryResponse> = withContext(Dispatchers.IO) {
-        val wordsLiveData = MutableLiveData<DictionaryResponse>()
+    suspend fun retrieveData(text: String): DictionaryResponse = withContext(Dispatchers.IO) {
         val word = wordsService.word(text)
-        wordsLiveData.postValue(word)
-        wordsLiveData
+        word
     }
-
-
-
 }

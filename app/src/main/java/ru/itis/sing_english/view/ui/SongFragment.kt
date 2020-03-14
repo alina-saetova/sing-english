@@ -1,20 +1,17 @@
 package ru.itis.sing_english.view.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import kotlinx.android.synthetic.main.fragment_song.*
 import kotlinx.coroutines.*
-import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.Subtitle
 import ru.itis.sing_english.data.source.repository.SubtitlesRepository
 import ru.itis.sing_english.databinding.FragmentSongBinding
@@ -60,6 +57,11 @@ class SongFragment : Fragment(), CoroutineScope by MainScope() {
         youTubePlayerView = youtube_player_view
         lifecycle.addObserver(youTubePlayerView)
         youTubePlayerView.addYouTubePlayerListener(playerListener)
+        var videoId = "dudu"
+        arguments?.let {
+            videoId = it.getString(ID_PARAM).toString()
+        }
+        Toast.makeText(activity?.applicationContext, videoId, Toast.LENGTH_LONG).show()
     }
 
     private val playerListener : AbstractYouTubePlayerListener = object: AbstractYouTubePlayerListener() {

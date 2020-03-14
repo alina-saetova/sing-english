@@ -1,6 +1,5 @@
 package ru.itis.sing_english.view.ui
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -44,7 +43,7 @@ class WordDetailFragment : Fragment(), CoroutineScope by MainScope() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         launch {
-            resp = repository.getWord(wordText).value!!
+            resp = repository.getWord(wordText)
             tv.text = resp.toString()
         }
 

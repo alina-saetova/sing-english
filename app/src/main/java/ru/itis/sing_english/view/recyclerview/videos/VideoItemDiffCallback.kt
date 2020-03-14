@@ -2,11 +2,12 @@ package ru.itis.sing_english.view.recyclerview.videos
 
 import android.os.Bundle
 import androidx.recyclerview.widget.DiffUtil
+import ru.itis.sing_english.data.model.Video
 import ru.itis.sing_english.data.model.VideoItem
 
 class VideoItemDiffCallback(
-    private var oldList: MutableList<VideoItem>,
-    private var newList: MutableList<VideoItem>
+    private var oldList: MutableList<Video>,
+    private var newList: MutableList<Video>
 ) : DiffUtil.Callback() {
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = oldList[oldItemPosition].id == newList[newItemPosition].id
 
@@ -20,12 +21,12 @@ class VideoItemDiffCallback(
         val newItem = newList[newItemPosition]
         val oldItem = oldList[oldItemPosition]
         val diffBundle = Bundle()
-        if (newItem.snippet.title != oldItem.snippet.title) {
-            diffBundle.putString("title", newItem.snippet.title)
-            diffBundle.putString("artist", newItem.snippet.channelTitle)
+        if (newItem.title != oldItem.title) {
+            diffBundle.putString("title", newItem.title)
+            diffBundle.putString("artist", newItem.channelTitle)
         }
-        if (newItem.snippet.thumbnails.high.url != oldItem.snippet.thumbnails.high.url) {
-            diffBundle.putString("cover", newItem.snippet.thumbnails.high.url)
+        if (newItem.imgUrl != oldItem.imgUrl) {
+            diffBundle.putString("cover", newItem.imgUrl)
         }
 
         return if (diffBundle.size() == 0) null else diffBundle

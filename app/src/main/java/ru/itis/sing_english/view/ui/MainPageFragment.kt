@@ -7,27 +7,32 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_mainpage.*
-import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
-import kotlinx.coroutines.channels.consumeEach
-import retrofit2.HttpException
+import androidx.lifecycle.ViewModelProvider
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 import ru.itis.sing_english.*
+import ru.itis.sing_english.data.model.Video
 import ru.itis.sing_english.data.model.VideoItem
 import ru.itis.sing_english.data.source.remote.services.YoutubeVideoService
+import ru.itis.sing_english.data.source.repository.VideoRepository
+import ru.itis.sing_english.databinding.FragmentMainpageBinding
 import ru.itis.sing_english.di.App
 import ru.itis.sing_english.utils.ListPaddingDecoration
 import ru.itis.sing_english.view.recyclerview.videos.VideoAdapter
+import ru.itis.sing_english.viewmodel.BaseViewModelFactory
+import ru.itis.sing_english.viewmodel.MainPageViewModel
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
-class MainPageFragment : Fragment(), CoroutineScope by MainScope(), SearchView.OnQueryTextListener {
+class MainPageFragment : Fragment(), SearchView.OnQueryTextListener {
 
     @Inject
     lateinit var service: YoutubeVideoService
-    private var adapter: VideoAdapter? = null
-    private val broadcast = ConflatedBroadcastChannel<String>()
+    @Inject
+    lateinit var repository: VideoRepository
+    lateinit var viewModel: MainPageViewModel
+    lateinit var binding: FragmentMainpageBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,48 +44,26 @@ class MainPageFragment : Fragment(), CoroutineScope by MainScope(), SearchView.O
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_mainpage, container, false)
+        binding = FragmentMainpageBinding.inflate(inflater)
+        repository = App.component.videoRepository()
+
+        binding.searchView.setOnQueryTextListener(this)
+
+        val adapter = VideoAdapter(emptyList<Video>().toMutableList()) { goToVideo("kokoko")}
+        binding.rvVideos.addItemDecoration(
+                ListPaddingDecoration(context, 0, 0))
+        binding.rvVideos.adapter = adapter
+
+        binding.lifecycleOwner = viewLifecycleOwner
+        viewModel = ViewModelProvider(this,
+            BaseViewModelFactory { MainPageViewModel(repository) } ).get(MainPageViewModel::class.java)
+        binding.mainPageViewModel = viewModel
+
+        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        searchView.setOnQueryTextListener(this)
-
-        launch {
-            var lastTimeout: Job? = null
-            broadcast.consumeEach {
-                lastTimeout?.cancel()
-                lastTimeout = launch {
-                    delay(1000)
-                    try {
-                        val response = withContext(Dispatchers.IO) {
-                            service.videosByName(it)
-                        }
-                        rv_videos.addItemDecoration(
-                            ListPaddingDecoration(context, 0, 0)
-                        )
-                        rv_videos.adapter =
-                            VideoAdapter(
-                                response.videoItems as MutableList<VideoItem>
-                            ) {
-                                goToVideo(it)
-                            }
-                    } catch (e: HttpException) {
-                        Log.e("EXC_HANDLER", "$e")
-                    }
-                }
-            }
-            lastTimeout?.join()
-        }
-    }
-
-    override fun onQueryTextSubmit(newText: String?): Boolean {
-        broadcast.offer(newText ?: "")
-        return true
-    }
-
-    override fun onQueryTextChange(newText: String?): Boolean {
-        broadcast.offer(newText ?: "")
-        return true
+    private fun likeVideo(id: String) {
+        println("dd")
     }
 
     private fun goToVideo(id: String) {
@@ -91,6 +74,16 @@ class MainPageFragment : Fragment(), CoroutineScope by MainScope(), SearchView.O
                 commit()
             }
         }
+    }
+
+    override fun onQueryTextSubmit(text: String?): Boolean {
+        text?.let { viewModel.search(it) }
+        return true
+    }
+
+    override fun onQueryTextChange(text: String?): Boolean {
+        text?.let { viewModel.search(it) }
+        return true
     }
 
     companion object {

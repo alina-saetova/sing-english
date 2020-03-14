@@ -10,21 +10,27 @@ import com.bumptech.glide.Glide
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_video.*
 import ru.itis.sing_english.R
+import ru.itis.sing_english.data.model.Video
 import ru.itis.sing_english.data.model.VideoItem
 
 class VideoViewHolder (override val containerView: View,
-                       private val clickLambda: (String) -> Unit)
+                       private val openLambda: (String) -> Unit
+//                       private val likeLambda: (String) -> Unit
+)
     : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-    fun bind(video: VideoItem) {
-        setTitle(video.snippet.title, video.snippet.channelTitle)
+    fun bind(video: Video) {
+        setTitle(video.title, video.channelTitle)
 
         Glide.with(containerView)
-            .load(video.snippet.thumbnails.high.url)
+            .load(video.imgUrl)
             .into(iv_cover)
         itemView.setOnClickListener {
-            clickLambda(video.id.videoId)
+            openLambda(video.videoId)
         }
+//        ib_like.setOnClickListener{
+//            likeLambda(video.id.videoId)
+//        }
     }
 
     fun updateFromBundle(bundle: Bundle) {
@@ -46,21 +52,23 @@ class VideoViewHolder (override val containerView: View,
             channelTitle
         }
         val sTitle = title.split(" - ")
-        Log.e("TITLE", title)
         tv_artist.text = artist
         tv_name.text = sTitle[sTitle.size - 1]
     }
 
     companion object {
 
-        fun create(parent: ViewGroup, clickLambda: (String) -> Unit) =
-            VideoViewHolder(
+        fun create(parent: ViewGroup,
+                   clickLambda: (String) -> Unit
+//                   likeLambda: (String) -> Unit
+        ) = VideoViewHolder(
                 LayoutInflater.from(parent.context).inflate(
                     R.layout.item_video,
                     parent,
                     false
                 ),
                 clickLambda
+//                likeLambda
             )
     }
 }

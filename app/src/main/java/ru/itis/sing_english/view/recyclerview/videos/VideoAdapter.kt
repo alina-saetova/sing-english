@@ -4,16 +4,21 @@ import android.os.Bundle
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import ru.itis.sing_english.data.model.VideoItem
+import ru.itis.sing_english.data.model.Video
+import ru.itis.sing_english.view.recyclerview.songs_row.BindableAdapter
 
 class VideoAdapter(
-    private var list: MutableList<VideoItem>,
-    private var clickLambda: (String) -> Unit) : RecyclerView.Adapter<VideoViewHolder>() {
+    private var list: MutableList<Video>,
+    private var openLambda: (String) -> Unit
+//    private var likeLambda: (String) -> Unit
+) : RecyclerView.Adapter<VideoViewHolder>(),
+    BindableAdapter<MutableList<Video>> {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder =
         VideoViewHolder.create(
             parent,
-            clickLambda
+            openLambda
+//            likeLambda
         )
 
     override fun getItemCount(): Int = list.size
@@ -34,15 +39,16 @@ class VideoAdapter(
             holder.updateFromBundle(bundle)
         }
     }
-    fun update(newList: MutableList<VideoItem>) {
+    override fun update(data: MutableList<Video>?) {
+        if (data.isNullOrEmpty()) return
         val callback =
             VideoItemDiffCallback(
                 list,
-                newList
+                data
             )
         val diffResult = DiffUtil.calculateDiff(callback, true)
         diffResult.dispatchUpdatesTo(this)
         list.clear()
-        list.addAll(newList)
+        list.addAll(data)
     }
 }

@@ -1,14 +1,12 @@
 package ru.itis.sing_english.di.components
 
-import android.content.Context
-import dagger.BindsInstance
 import dagger.Component
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import ru.itis.sing_english.data.source.local.dao.SubtitlesDao
 import ru.itis.sing_english.data.source.local.dao.WordsDao
-import ru.itis.sing_english.data.source.remote.services.WordsService
 import ru.itis.sing_english.data.source.repository.SubtitlesRepository
+import ru.itis.sing_english.data.source.repository.VideoRepository
 import ru.itis.sing_english.data.source.repository.WordsRepository
 import ru.itis.sing_english.di.modules.ContextModule
 import ru.itis.sing_english.di.modules.LocalDataModule
@@ -32,4 +30,5 @@ interface AppComponent {
 
     fun subtitlesRepository() : SubtitlesRepository
     fun wordsRepository() : WordsRepository
+    fun videoRepository() : VideoRepository
 }

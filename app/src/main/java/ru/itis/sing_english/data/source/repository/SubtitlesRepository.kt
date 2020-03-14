@@ -16,7 +16,6 @@ class SubtitlesRepository @Inject constructor(
 
     suspend fun getSubtitles(videoId: String): List<Subtitle> {
         val data = retrieveLocalData(videoId)
-        Log.e("LOCAL", data.toString())
         return if (data.isNullOrEmpty())
             retrieveRemoteData(videoId)
         else
