@@ -19,14 +19,27 @@ class VideoRemoteSource @Inject constructor(
     private fun fromResponseToModel(response: SearchResponse): List<Video> {
         val list = mutableListOf<Video>()
         for (v in response.videoItems) {
+            val title = splitTitle(v.snippet.title,
+                v.snippet.channelTitle)
             list.add(Video(0,
                 v.id.videoId,
                 v.snippet.thumbnails.high.url,
-                v.snippet.title,
-                v.snippet.channelTitle,
+                title.first,
+                title.second,
                 false)
             )
         }
         return list
     }
+
+    private fun splitTitle(title: String, channelTitle: String): Pair<String, String> {
+        val artist = if (channelTitle.contains("VEVO")) {
+            channelTitle.removeRange(channelTitle.length - 4, channelTitle.length)
+        } else {
+            channelTitle
+        }
+        val sTitle = title.split(" - ")
+        return Pair(artist, sTitle[sTitle.size - 1])
+    }
+
 }

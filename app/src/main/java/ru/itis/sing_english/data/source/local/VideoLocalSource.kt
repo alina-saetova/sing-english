@@ -15,6 +15,7 @@ class VideoLocalSource @Inject constructor(
     }
 
     suspend fun refreshData(video: Video) = withContext(Dispatchers.IO) {
+        video.like = true
         videoDao.insert(video)
     }
 

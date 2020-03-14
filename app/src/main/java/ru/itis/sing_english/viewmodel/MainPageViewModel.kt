@@ -1,6 +1,7 @@
 package ru.itis.sing_english.viewmodel
 
 import android.util.Log
+import android.view.View
 import android.widget.SearchView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,7 +18,7 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
 class MainPageViewModel @Inject constructor(val repository: VideoRepository)
-    : ViewModel(), CoroutineScope by MainScope()  {
+    : ViewModel(), CoroutineScope by MainScope() {
 
     private lateinit var viewModelJob: Job
     private val broadcast = ConflatedBroadcastChannel<String>()
@@ -51,6 +52,11 @@ class MainPageViewModel @Inject constructor(val repository: VideoRepository)
         broadcast.offer(text)
     }
 
+    fun like(video: Video) {
+        viewModelJob = viewModelScope.launch {
+            repository.addVideoToFavourite(video)
+        }
+    }
 
     override fun onCleared() {
         super.onCleared()

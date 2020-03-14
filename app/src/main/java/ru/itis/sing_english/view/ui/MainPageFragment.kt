@@ -1,7 +1,6 @@
 package ru.itis.sing_english.view.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,20 +11,20 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import ru.itis.sing_english.*
 import ru.itis.sing_english.data.model.Video
-import ru.itis.sing_english.data.model.VideoItem
 import ru.itis.sing_english.data.source.remote.services.YoutubeVideoService
 import ru.itis.sing_english.data.source.repository.VideoRepository
 import ru.itis.sing_english.databinding.FragmentMainpageBinding
 import ru.itis.sing_english.di.App
 import ru.itis.sing_english.utils.ListPaddingDecoration
 import ru.itis.sing_english.view.recyclerview.videos.VideoAdapter
+import ru.itis.sing_english.view.recyclerview.videos.VideoClickListener
 import ru.itis.sing_english.viewmodel.BaseViewModelFactory
 import ru.itis.sing_english.viewmodel.MainPageViewModel
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
-class MainPageFragment : Fragment(), SearchView.OnQueryTextListener {
+class MainPageFragment : Fragment(), SearchView.OnQueryTextListener, VideoClickListener {
 
     @Inject
     lateinit var service: YoutubeVideoService
@@ -49,7 +48,7 @@ class MainPageFragment : Fragment(), SearchView.OnQueryTextListener {
 
         binding.searchView.setOnQueryTextListener(this)
 
-        val adapter = VideoAdapter(emptyList<Video>().toMutableList()) { goToVideo("kokoko")}
+        val adapter = VideoAdapter(emptyList<Video>().toMutableList(), this)
         binding.rvVideos.addItemDecoration(
                 ListPaddingDecoration(context, 0, 0))
         binding.rvVideos.adapter = adapter
@@ -66,7 +65,17 @@ class MainPageFragment : Fragment(), SearchView.OnQueryTextListener {
         println("dd")
     }
 
-    private fun goToVideo(id: String) {
+    override fun onQueryTextSubmit(text: String?): Boolean {
+        text?.let { viewModel.search(it) }
+        return true
+    }
+
+    override fun onQueryTextChange(text: String?): Boolean {
+        text?.let { viewModel.search(it) }
+        return true
+    }
+
+    override fun onVideoClickListener(view: View, id: String) {
         activity?.supportFragmentManager?.also {
             it.beginTransaction().apply {
                 replace(R.id.container, SongFragment.newInstance(id))
@@ -76,14 +85,8 @@ class MainPageFragment : Fragment(), SearchView.OnQueryTextListener {
         }
     }
 
-    override fun onQueryTextSubmit(text: String?): Boolean {
-        text?.let { viewModel.search(it) }
-        return true
-    }
-
-    override fun onQueryTextChange(text: String?): Boolean {
-        text?.let { viewModel.search(it) }
-        return true
+    override fun onLikeClickListener(view: View, video: Video) {
+        viewModel.like(video)
     }
 
     companion object {

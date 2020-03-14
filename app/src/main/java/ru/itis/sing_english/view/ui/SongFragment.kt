@@ -29,10 +29,6 @@ class SongFragment : Fragment(), CoroutineScope by MainScope() {
     lateinit var repository: SubtitlesRepository
     lateinit var binding: FragmentSongBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,11 +53,6 @@ class SongFragment : Fragment(), CoroutineScope by MainScope() {
         youTubePlayerView = youtube_player_view
         lifecycle.addObserver(youTubePlayerView)
         youTubePlayerView.addYouTubePlayerListener(playerListener)
-        var videoId = "dudu"
-        arguments?.let {
-            videoId = it.getString(ID_PARAM).toString()
-        }
-        Toast.makeText(activity?.applicationContext, videoId, Toast.LENGTH_LONG).show()
     }
 
     private val playerListener : AbstractYouTubePlayerListener = object: AbstractYouTubePlayerListener() {
