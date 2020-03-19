@@ -1,13 +1,12 @@
-package ru.itis.sing_english.data.source.local.dao
+package ru.itis.sing_english.data.local.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import ru.itis.sing_english.data.model.Subtitle
 
 @Dao
-interface SubtitlesDao {
+interface SubtitleDao {
 
     @Insert
     fun insertAll(subtitles: List<Subtitle>)

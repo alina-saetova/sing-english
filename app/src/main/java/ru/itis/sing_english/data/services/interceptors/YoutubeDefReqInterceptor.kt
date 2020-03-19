@@ -1,4 +1,4 @@
-package ru.itis.sing_english.data.source.remote.services.interceptors
+package ru.itis.sing_english.data.services.interceptors
 
 import okhttp3.Interceptor
 import okhttp3.Response

@@ -7,26 +7,25 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.word_detail_fragment.*
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.DictionaryResponse
-import ru.itis.sing_english.data.source.repository.WordsRepository
+import ru.itis.sing_english.data.repository.WordRepository
 import ru.itis.sing_english.di.App
 import javax.inject.Inject
 
 class WordDetailFragment : Fragment(), CoroutineScope by MainScope() {
 
     @Inject
-    lateinit var repository: WordsRepository
+    lateinit var repository: WordRepository
     lateinit var wordText: String
     lateinit var resp: DictionaryResponse
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        repository = App.component.wordsRepository()
+        repository = App.component.wordRepository()
         arguments?.let {
             wordText = it.getString(WORD_PARAM).toString()
         }

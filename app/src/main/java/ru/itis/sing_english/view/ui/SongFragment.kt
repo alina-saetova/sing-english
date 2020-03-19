@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -13,7 +12,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import kotlinx.android.synthetic.main.fragment_song.*
 import kotlinx.coroutines.*
 import ru.itis.sing_english.data.model.Subtitle
-import ru.itis.sing_english.data.source.repository.SubtitlesRepository
+import ru.itis.sing_english.data.repository.SubtitleRepository
 import ru.itis.sing_english.databinding.FragmentSongBinding
 import ru.itis.sing_english.di.App
 import ru.itis.sing_english.view.recyclerview.songs_row.SubtitleAdapter
@@ -26,7 +25,7 @@ class SongFragment : Fragment(), CoroutineScope by MainScope() {
     private lateinit var youTubePlayerView: YouTubePlayerView
     lateinit var viewModel: SongViewModel
     @Inject
-    lateinit var repository: SubtitlesRepository
+    lateinit var repository: SubtitleRepository
     lateinit var binding: FragmentSongBinding
 
     override fun onCreateView(
@@ -36,7 +35,7 @@ class SongFragment : Fragment(), CoroutineScope by MainScope() {
         binding = FragmentSongBinding.inflate(inflater)
         val adapter = SubtitleAdapter(emptyList<Subtitle>().toMutableList())
         binding.rvSubs.adapter = adapter
-        repository = App.component.subtitlesRepository()
+        repository = App.component.subtitleRepository()
         binding.lifecycleOwner = viewLifecycleOwner
         var videoId = ""
         arguments?.let {

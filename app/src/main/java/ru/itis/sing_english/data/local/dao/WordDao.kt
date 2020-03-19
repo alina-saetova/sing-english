@@ -1,6 +1,5 @@
-package ru.itis.sing_english.data.source.local.dao
+package ru.itis.sing_english.data.local.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -8,7 +7,7 @@ import androidx.room.Query
 import ru.itis.sing_english.data.model.Word
 
 @Dao
-interface WordsDao {
+interface WordDao {
 
     @Insert
     fun insert(words: List<Word>)

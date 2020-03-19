@@ -2,15 +2,15 @@ package ru.itis.sing_english.di.modules
 
 import dagger.Module
 import dagger.Provides
-import ru.itis.sing_english.data.source.local.SubtitleLocalSource
-import ru.itis.sing_english.data.source.local.VideoLocalSource
-import ru.itis.sing_english.data.source.local.WordsLocalSource
-import ru.itis.sing_english.data.source.remote.SubtitleRemoteSource
-import ru.itis.sing_english.data.source.remote.VideoRemoteSource
-import ru.itis.sing_english.data.source.remote.WordsRemoteSource
-import ru.itis.sing_english.data.source.repository.SubtitlesRepository
-import ru.itis.sing_english.data.source.repository.VideoRepository
-import ru.itis.sing_english.data.source.repository.WordsRepository
+import ru.itis.sing_english.data.local.dao.SubtitleDao
+import ru.itis.sing_english.data.local.dao.VideoDao
+import ru.itis.sing_english.data.local.dao.WordDao
+import ru.itis.sing_english.data.services.SubtitleService
+import ru.itis.sing_english.data.services.WordService
+import ru.itis.sing_english.data.services.YoutubeVideoService
+import ru.itis.sing_english.data.repository.SubtitlesRepositoryImpl
+import ru.itis.sing_english.data.repository.VideoRepositoryImpl
+import ru.itis.sing_english.data.repository.WordRepositoryImpl
 import javax.inject.Singleton
 
 @Module(includes = [NetModule::class, LocalDataModule::class])
@@ -18,19 +18,19 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideSubtitleRepository(localSource: SubtitleLocalSource,
-                                  remoteSource: SubtitleRemoteSource): SubtitlesRepository =
-        SubtitlesRepository(localSource, remoteSource)
+    fun provideSubtitleRepository(api: SubtitleService,
+                                  dao: SubtitleDao): SubtitlesRepositoryImpl =
+        SubtitlesRepositoryImpl(api, dao)
 
     @Provides
     @Singleton
-    fun provideWordsRepository(localSource: WordsLocalSource,
-                               remoteSource: WordsRemoteSource): WordsRepository =
-        WordsRepository(localSource, remoteSource)
+    fun provideWordsRepository(api: WordService,
+                               dao: WordDao): WordRepositoryImpl =
+        WordRepositoryImpl(api, dao)
 
     @Provides
     @Singleton
-    fun provideVideoRepository(localSource: VideoLocalSource,
-                               remoteSource: VideoRemoteSource): VideoRepository =
-        VideoRepository(localSource, remoteSource)
+    fun provideVideoRepository(api: YoutubeVideoService,
+                               dao: VideoDao): VideoRepositoryImpl =
+        VideoRepositoryImpl(api, dao)
 }

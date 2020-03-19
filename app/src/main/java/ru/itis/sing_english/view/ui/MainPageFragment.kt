@@ -11,8 +11,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import ru.itis.sing_english.*
 import ru.itis.sing_english.data.model.Video
-import ru.itis.sing_english.data.source.remote.services.YoutubeVideoService
-import ru.itis.sing_english.data.source.repository.VideoRepository
+import ru.itis.sing_english.data.repository.VideoRepository
 import ru.itis.sing_english.databinding.FragmentMainpageBinding
 import ru.itis.sing_english.di.App
 import ru.itis.sing_english.utils.ListPaddingDecoration
@@ -26,8 +25,6 @@ import javax.inject.Inject
 @ObsoleteCoroutinesApi
 class MainPageFragment : Fragment(), SearchView.OnQueryTextListener, VideoClickListener {
 
-    @Inject
-    lateinit var service: YoutubeVideoService
     @Inject
     lateinit var repository: VideoRepository
     lateinit var viewModel: MainPageViewModel

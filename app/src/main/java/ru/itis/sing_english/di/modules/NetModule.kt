@@ -1,5 +1,6 @@
 package ru.itis.sing_english.di.modules
 
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -7,17 +8,31 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.itis.sing_english.BuildConfig
-import ru.itis.sing_english.data.source.remote.SubtitleRemoteSource
-import ru.itis.sing_english.data.source.remote.WordsRemoteSource
-import ru.itis.sing_english.data.source.remote.services.SubtitleService
-import ru.itis.sing_english.data.source.remote.services.WordsService
-import ru.itis.sing_english.data.source.remote.services.YoutubeVideoService
-import ru.itis.sing_english.data.source.remote.services.interceptors.SubtitleAuthInterceptor
-import ru.itis.sing_english.data.source.remote.services.interceptors.YandexDefReqInterceptor
-import ru.itis.sing_english.data.source.remote.services.interceptors.YoutubeAuthInterceptor
-import ru.itis.sing_english.data.source.remote.services.interceptors.YoutubeDefReqInterceptor
+import ru.itis.sing_english.data.services.SubtitleService
+import ru.itis.sing_english.data.services.WordService
+import ru.itis.sing_english.data.services.YoutubeVideoService
+import ru.itis.sing_english.data.services.interceptors.SubtitleAuthInterceptor
+import ru.itis.sing_english.data.services.interceptors.YandexDefReqInterceptor
+import ru.itis.sing_english.data.services.interceptors.YoutubeAuthInterceptor
+import ru.itis.sing_english.data.services.interceptors.YoutubeDefReqInterceptor
+import ru.itis.sing_english.data.repository.*
 import javax.inject.Named
 import javax.inject.Singleton
+
+@Module(includes = [NetModule::class])
+abstract class RemoteSourceModule {
+    @Binds
+    @Singleton
+    abstract fun bindVideoRepository(videoRepositoryImpl: VideoRepositoryImpl): VideoRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindWordRepository(wordRepositoryImpl: WordRepositoryImpl): WordRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindSubtitleRepository(subtitlesRepositoryImpl: SubtitlesRepositoryImpl): SubtitleRepository
+}
 
 @Module
 class NetModule {
@@ -79,10 +94,6 @@ class NetModule {
 
     @Provides
     @Singleton
-    fun provideSubRemoteSource(subtitleService: SubtitleService) = SubtitleRemoteSource(subtitleService)
-
-    @Provides
-    @Singleton
     @Named("ok-yandex")
     fun provideYandexOkHttpClient(): OkHttpClient {
         return OkHttpClient().newBuilder()
@@ -104,11 +115,7 @@ class NetModule {
 
     @Provides
     @Singleton
-    fun provideYandexService(@Named("yandex-retrofit")retrofit: Retrofit): WordsService {
-        return retrofit.create(WordsService::class.java)
+    fun provideYandexService(@Named("yandex-retrofit")retrofit: Retrofit): WordService {
+        return retrofit.create(WordService::class.java)
     }
-
-    @Provides
-    @Singleton
-    fun provideYandexRemoteSource(wordsService: WordsService) = WordsRemoteSource(wordsService)
 }

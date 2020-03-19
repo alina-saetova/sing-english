@@ -33,16 +33,16 @@ class SubtitleAdapter(private var list: MutableList<Subtitle>)
             holder.updateFromBundle(bundle)
         }
     }
-    override fun update(newList: MutableList<Subtitle>?) {
-        if (newList.isNullOrEmpty()) return
+    override fun update(data: MutableList<Subtitle>?) {
+        if (data.isNullOrEmpty()) return
         val callback =
             SubtitleItemDiffCallback(
                 list,
-                newList
+                data
             )
         val diffResult = DiffUtil.calculateDiff(callback, true)
         diffResult.dispatchUpdatesTo(this)
         list.clear()
-        list.addAll(newList)
+        list.addAll(data)
     }
 }

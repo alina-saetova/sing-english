@@ -1,8 +1,6 @@
 package ru.itis.sing_english.viewmodel
 
 import android.util.Log
-import android.view.View
-import android.widget.SearchView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +10,7 @@ import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.channels.consumeEach
 import retrofit2.HttpException
 import ru.itis.sing_english.data.model.Video
-import ru.itis.sing_english.data.source.repository.VideoRepository
+import ru.itis.sing_english.data.repository.VideoRepository
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi

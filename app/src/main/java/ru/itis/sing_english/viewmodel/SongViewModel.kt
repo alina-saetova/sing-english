@@ -7,12 +7,12 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ru.itis.sing_english.data.model.Subtitle
-import ru.itis.sing_english.data.source.repository.SubtitlesRepository
+import ru.itis.sing_english.data.repository.SubtitleRepository
 import javax.inject.Inject
 
 class SongViewModel @Inject constructor(val videoId: String,
-                                        val repository: SubtitlesRepository)
-    : ViewModel() {
+                                        val repository: SubtitleRepository
+) : ViewModel() {
 
     private lateinit var viewModelJob: Job
     private var _subs = MutableLiveData<List<Subtitle>>()

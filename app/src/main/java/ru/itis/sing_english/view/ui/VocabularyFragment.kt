@@ -13,7 +13,7 @@ import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.channels.consumeEach
 import retrofit2.HttpException
 import ru.itis.sing_english.R
-import ru.itis.sing_english.data.source.repository.WordsRepository
+import ru.itis.sing_english.data.repository.WordRepository
 import ru.itis.sing_english.di.App
 import javax.inject.Inject
 
@@ -23,14 +23,14 @@ class VocabularyFragment : Fragment(), CoroutineScope by MainScope(), SearchView
 
     private val broadcast = ConflatedBroadcastChannel<String>()
     @Inject
-    lateinit var repository: WordsRepository
+    lateinit var repository: WordRepository
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        repository = App.component.wordsRepository()
+        repository = App.component.wordRepository()
         return inflater.inflate(R.layout.fragment_vocabulary, container, false)
     }
 
