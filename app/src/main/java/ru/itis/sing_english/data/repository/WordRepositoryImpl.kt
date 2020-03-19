@@ -36,6 +36,12 @@ class WordRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun deleteWord(id: Long) {
+        withContext(Dispatchers.IO) {
+            wordDao.deleteWord(id)
+        }
+    }
+
     private fun fromResponseToModel(responses: List<DictionaryResponse>): List<Word> {
         val list = mutableListOf<Word>()
         for (r in responses) {

@@ -1,4 +1,4 @@
-package ru.itis.sing_english.view.recyclerview.songs_row
+package ru.itis.sing_english.view.recyclerview
 
 interface BindableAdapter<T> {
     fun update(data: T?)

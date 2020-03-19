@@ -58,10 +58,6 @@ class MainPageFragment : Fragment(), SearchView.OnQueryTextListener, VideoClickL
         return binding.root
     }
 
-    private fun likeVideo(id: String) {
-        println("dd")
-    }
-
     override fun onQueryTextSubmit(text: String?): Boolean {
         text?.let { viewModel.search(it) }
         return true

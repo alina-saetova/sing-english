@@ -1,75 +1,77 @@
 package ru.itis.sing_english.view.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_vocabulary.*
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
-import kotlinx.coroutines.channels.consumeEach
-import retrofit2.HttpException
 import ru.itis.sing_english.R
+import ru.itis.sing_english.data.model.Word
 import ru.itis.sing_english.data.repository.WordRepository
+import ru.itis.sing_english.databinding.FragmentVocabularyBinding
 import ru.itis.sing_english.di.App
+import ru.itis.sing_english.view.recyclerview.words.WordClickListener
+import ru.itis.sing_english.view.recyclerview.words.WordAdapter
+import ru.itis.sing_english.viewmodel.BaseViewModelFactory
+import ru.itis.sing_english.viewmodel.VocabularyViewModel
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
-class VocabularyFragment : Fragment(), CoroutineScope by MainScope(), SearchView.OnQueryTextListener {
-
-    private val broadcast = ConflatedBroadcastChannel<String>()
+class VocabularyFragment : Fragment(),
+    CoroutineScope by MainScope(),
+    SearchView.OnQueryTextListener,
+    WordClickListener
+{
     @Inject
     lateinit var repository: WordRepository
+    lateinit var viewModel: VocabularyViewModel
+    lateinit var binding: FragmentVocabularyBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentVocabularyBinding.inflate(inflater)
+        binding.svWords.setOnQueryTextListener(this)
+
+        val adapter = WordAdapter(emptyList<Word>().toMutableList(), this)
+        binding.rvWords.adapter = adapter
         repository = App.component.wordRepository()
-        return inflater.inflate(R.layout.fragment_vocabulary, container, false)
-    }
+        binding.lifecycleOwner = viewLifecycleOwner
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        sv_words.setOnQueryTextListener(this)
-
-        launch {
-            var lastTimeout: Job? = null
-            broadcast.consumeEach {
-                lastTimeout?.cancel()
-                lastTimeout = launch {
-                    delay(1000)
-                    try {
-                        val response = repository.getWord(it)
-                        Log.e("WORD", response.toString())
-                    } catch (e: HttpException) {
-                        Log.e("EXC_HANDLER", "$e")
-                    }
-                }
-            }
-            lastTimeout?.join()
-        }
+        viewModel = ViewModelProvider(this,
+            BaseViewModelFactory { VocabularyViewModel(repository) } )
+            .get(VocabularyViewModel::class.java)
+        binding.vocabViewModel = viewModel
+        return binding.root
     }
 
     override fun onQueryTextSubmit(newText: String?): Boolean {
-//        broadcast.offer(newText ?: "")
-        activity?.supportFragmentManager?.also {
-            it.beginTransaction().apply {
-                replace(R.id.container, WordDetailFragment.newInstance(newText.toString()))
-                addToBackStack(WordDetailFragment::class.java.name)
-                commit()
-            }
-        }
+        newText?.let { goToWord(it) }
         return true
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        broadcast.offer(newText ?: "")
         return true
+    }
+
+    private fun goToWord(query: String) {
+        activity?.supportFragmentManager?.also {
+            it.beginTransaction().apply {
+                replace(R.id.container, WordDetailFragment.newInstance(query))
+                addToBackStack(WordDetailFragment::class.java.name)
+                commit()
+            }
+        }
+    }
+
+    override fun onWordDeleteListener(id: Long) {
+        viewModel.deleteWord(id)
     }
 
     companion object {

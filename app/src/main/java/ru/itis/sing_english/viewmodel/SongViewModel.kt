@@ -28,7 +28,6 @@ class SongViewModel @Inject constructor(val videoId: String,
              val respSubs = repository.getSubtitles(videoId)
              _subs.postValue(respSubs)
          }
-
     }
 
     override fun onCleared() {

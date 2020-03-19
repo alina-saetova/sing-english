@@ -9,4 +9,5 @@ interface WordRepository {
     suspend fun getWord(text: String): DictionaryResponse
     suspend fun saveWord(response: DictionaryResponse)
     suspend fun saveListWords(list: List<DictionaryResponse>)
+    suspend fun deleteWord(id: Long)
 }

@@ -4,7 +4,6 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import ru.itis.sing_english.view.recyclerview.songs_row.BindableAdapter
 
 @BindingAdapter("recycler")
 fun <T> setSubsRecyclerViewProperties(recyclerView: RecyclerView, data: T) {

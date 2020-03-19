@@ -9,6 +9,7 @@ import ru.itis.sing_english.databinding.ItemVideoBinding
 
 class VideoViewHolder (val binding: ItemVideoBinding)
     : RecyclerView.ViewHolder(binding.root) {
+
     companion object {
         fun create(parent: ViewGroup) = VideoViewHolder(
                 DataBindingUtil.inflate(

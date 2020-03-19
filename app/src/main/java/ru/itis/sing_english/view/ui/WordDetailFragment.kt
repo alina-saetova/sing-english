@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 
 import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.DictionaryResponse
+import ru.itis.sing_english.data.model.Word
 import ru.itis.sing_english.data.repository.WordRepository
 import ru.itis.sing_english.di.App
 import javax.inject.Inject
@@ -45,7 +46,6 @@ class WordDetailFragment : Fragment(), CoroutineScope by MainScope() {
             resp = repository.getWord(wordText)
             tv.text = resp.toString()
         }
-
     }
 
     companion object {

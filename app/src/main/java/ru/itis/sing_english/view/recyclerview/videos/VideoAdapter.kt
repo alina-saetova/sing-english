@@ -3,7 +3,7 @@ package ru.itis.sing_english.view.recyclerview.videos
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.itis.sing_english.data.model.Video
-import ru.itis.sing_english.view.recyclerview.songs_row.BindableAdapter
+import ru.itis.sing_english.view.recyclerview.BindableAdapter
 
 class VideoAdapter(
     private var list: MutableList<Video>,
