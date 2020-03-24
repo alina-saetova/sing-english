@@ -4,7 +4,7 @@ import ru.itis.sing_english.data.model.Video
 
 interface VideoRepository {
 
-    suspend fun getFavouriteVideos(videoId: String): List<Video>
+    suspend fun getFavouriteVideos(): List<Video>
 
     suspend fun addVideoToFavourite(video: Video)
 

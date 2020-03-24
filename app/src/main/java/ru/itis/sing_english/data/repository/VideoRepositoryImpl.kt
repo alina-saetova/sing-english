@@ -1,5 +1,6 @@
 package ru.itis.sing_english.data.repository
 
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.itis.sing_english.data.model.SearchResponse
@@ -13,7 +14,7 @@ class VideoRepositoryImpl @Inject constructor(
     private var videoDao: VideoDao
 ) : VideoRepository {
 
-    override suspend fun getFavouriteVideos(videoId: String): List<Video> = withContext(Dispatchers.IO) {
+    override suspend fun getFavouriteVideos(): List<Video> = withContext(Dispatchers.IO) {
         val videos = videoDao.getAllVideos()
         videos
     }
@@ -35,7 +36,7 @@ class VideoRepositoryImpl @Inject constructor(
         val favourites = videoDao.getAllVideos()
         for (fav in favourites) {
             loop@for (video in list) {
-                if (fav.id == video.id) {
+                if (fav.videoId == video.videoId) {
                     video.like = true
                     break@loop
                 }

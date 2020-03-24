@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/navigation_fav"
-        android:icon="@drawable/ic_favourites"
+        android:icon="@drawable/ic_favourites_empty"
         android:title="@string/title_fav" />
 
     <item
