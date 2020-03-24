@@ -48,7 +48,13 @@ class VocabularyFragment : Fragment(),
             BaseViewModelFactory { VocabularyViewModel(repository) } )
             .get(VocabularyViewModel::class.java)
         binding.vocabViewModel = viewModel
+
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadWords()
     }
 
     override fun onQueryTextSubmit(newText: String?): Boolean {

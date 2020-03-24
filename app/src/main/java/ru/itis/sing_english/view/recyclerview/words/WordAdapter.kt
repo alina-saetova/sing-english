@@ -26,7 +26,7 @@ class WordAdapter(
     }
 
     override fun update(data: MutableList<Word>?) {
-        if (data.isNullOrEmpty()) return
+        if (data == null) return
         list.clear()
         list.addAll(data)
         notifyDataSetChanged()

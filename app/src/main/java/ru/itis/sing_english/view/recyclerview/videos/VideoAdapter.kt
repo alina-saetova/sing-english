@@ -29,7 +29,7 @@ class VideoAdapter(
     }
 
     override fun update(data: MutableList<Video>?) {
-        if (data.isNullOrEmpty()) return
+        if (data == null) return
         list.clear()
         list.addAll(data)
         notifyDataSetChanged()
