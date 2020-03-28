@@ -1,8 +1,10 @@
 package ru.itis.sing_english
 
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,9 +28,11 @@ class MainActivity : AppCompatActivity(),  BottomNavigationView.OnNavigationItem
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.container, MainPageFragment.newInstance(), MainPageFragment::class.java.simpleName)
+                .replace(R.id.main_container, MainPageFragment.newInstance(), MainPageFragment::class.java.simpleName)
+                .addToBackStack(MainPageFragment.newInstance().javaClass.simpleName)
                 .commit()
         }
+        nav_view.selectedItemId = R.id.navigation_main
     }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
@@ -52,7 +56,7 @@ class MainActivity : AppCompatActivity(),  BottomNavigationView.OnNavigationItem
         supportFragmentManager.also {
             it.beginTransaction().apply {
                 if (fragment != null) {
-                    replace(R.id.container, fragment)
+                    replace(R.id.main_container, fragment)
                 }
                 addToBackStack(fragment?.javaClass?.simpleName)
                 commit()

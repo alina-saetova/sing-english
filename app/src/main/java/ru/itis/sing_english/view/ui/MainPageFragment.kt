@@ -71,7 +71,7 @@ class MainPageFragment : Fragment(), SearchView.OnQueryTextListener, VideoClickL
     override fun onVideoClickListener(view: View, id: String) {
         activity?.supportFragmentManager?.also {
             it.beginTransaction().apply {
-                replace(R.id.container, SongFragment.newInstance(id))
+                replace(R.id.main_container, SongFragment.newInstance(id))
                 addToBackStack(SongFragment::class.java.name)
                 commit()
             }

@@ -36,12 +36,21 @@ class VocabularyFragment : Fragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        repository = App.component.wordRepository()
         binding = FragmentVocabularyBinding.inflate(inflater)
         binding.svWords.setOnQueryTextListener(this)
+        binding.btnQuiz.setOnClickListener {
+            activity?.supportFragmentManager?.also {
+                it.beginTransaction().apply {
+                    replace(R.id.main_container, QuizFragment.newInstance())
+                    addToBackStack(QuizFragment::class.java.name)
+                    commit()
+                }
+            }
+        }
 
         val adapter = WordAdapter(emptyList<Word>().toMutableList(), this)
         binding.rvWords.adapter = adapter
-        repository = App.component.wordRepository()
         binding.lifecycleOwner = viewLifecycleOwner
 
         viewModel = ViewModelProvider(this,
@@ -69,7 +78,7 @@ class VocabularyFragment : Fragment(),
     private fun goToWord(query: String) {
         activity?.supportFragmentManager?.also {
             it.beginTransaction().apply {
-                replace(R.id.container, WordDetailFragment.newInstance(query))
+                replace(R.id.main_container, WordDetailFragment.newInstance(query))
                 addToBackStack(WordDetailFragment::class.java.name)
                 commit()
             }

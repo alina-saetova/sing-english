@@ -1,6 +1,5 @@
 package ru.itis.sing_english.data.repository
 
-import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.itis.sing_english.data.model.SearchResponse

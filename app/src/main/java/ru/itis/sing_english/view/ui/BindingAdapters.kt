@@ -1,11 +1,15 @@
-package ru.itis.sing_english.view.recyclerview
+package ru.itis.sing_english.view.ui
 
+import android.util.Log
+import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.itis.sing_english.R
+import ru.itis.sing_english.data.model.State
+import ru.itis.sing_english.view.recyclerview.BindableAdapter
 
 @BindingAdapter("recycler")
 fun <T> setSubsRecyclerViewProperties(recyclerView: RecyclerView, data: T) {
@@ -28,5 +32,19 @@ fun setImage(view: ImageButton, like: Boolean) {
     }
     else {
         view.setImageResource(R.drawable.ic_favourites_empty)
+    }
+}
+
+@BindingAdapter("btnColor")
+fun changeColor(view: View, state: State?) {
+    Log.e("btnColor", state.toString())
+    if (state == null) {
+        view.setBackgroundResource(R.color.colorDefault)
+        return
+    }
+    when (state) {
+        State.DEFAULT -> view.setBackgroundResource(R.color.colorDefault)
+        State.RIGHT -> view.setBackgroundResource(R.color.colorRight)
+        State.WRONG -> view.setBackgroundResource(R.color.colorWrong)
     }
 }
