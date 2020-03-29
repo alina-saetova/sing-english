@@ -18,6 +18,7 @@ class SubtitleAdapter(private var list: MutableList<Subtitle>)
 
     override fun onBindViewHolder(holder: SubtitleViewHolder, position: Int) {
         holder.binding.subtitle = list[position]
+        holder.binding.executePendingBindings()
     }
 
     override fun update(data: MutableList<Subtitle>?) {

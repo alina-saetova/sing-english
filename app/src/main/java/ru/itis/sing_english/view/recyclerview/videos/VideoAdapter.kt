@@ -20,6 +20,7 @@ class VideoAdapter(
 
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
         holder.binding.video = list[position]
+        holder.binding.executePendingBindings()
         holder.binding.root.setOnClickListener() {
             clickListener.onVideoClickListener(holder.binding.ibLike, list[position].videoId)
         }

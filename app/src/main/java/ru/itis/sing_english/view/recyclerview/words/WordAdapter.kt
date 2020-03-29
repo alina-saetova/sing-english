@@ -20,8 +20,10 @@ class WordAdapter(
 
     override fun onBindViewHolder(holder: WordsViewHolder, position: Int) {
         holder.binding.word = list[position]
+        holder.binding.executePendingBindings()
         holder.binding.ibDelete.setOnClickListener {
             clickListener.onWordDeleteListener(list[position].id)
+            delete(position)
         }
     }
 
@@ -30,5 +32,10 @@ class WordAdapter(
         list.clear()
         list.addAll(data)
         notifyDataSetChanged()
+    }
+
+    private fun delete(position: Int) {
+        list.removeAt(position)
+        notifyItemRemoved(position)
     }
 }

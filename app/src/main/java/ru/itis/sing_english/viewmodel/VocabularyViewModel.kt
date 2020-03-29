@@ -1,14 +1,15 @@
 package ru.itis.sing_english.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import ru.itis.sing_english.data.model.LoadingStatus
 import ru.itis.sing_english.data.model.Word
 import ru.itis.sing_english.data.repository.WordRepository
+import java.lang.Exception
 import javax.inject.Inject
 
 class VocabularyViewModel @Inject constructor(
@@ -16,9 +17,14 @@ class VocabularyViewModel @Inject constructor(
 ) : ViewModel() {
 
     private lateinit var viewModelJob: Job
+
     private var _words = MutableLiveData<List<Word>>()
     val words: LiveData<List<Word>>
         get() = _words
+
+    private var _progress = MutableLiveData<LoadingStatus>()
+    val progress: LiveData<LoadingStatus>
+        get() = _progress
 
     init {
         loadWords()
@@ -26,16 +32,21 @@ class VocabularyViewModel @Inject constructor(
 
     fun loadWords() {
         viewModelJob = viewModelScope.launch {
-            val words = repository.getListWords()
-            _words.postValue(words)
+            try {
+                _progress.postValue(LoadingStatus.RUNNING)
+                val words = repository.getListWords()
+                _words.postValue(words)
+                _progress.postValue(LoadingStatus.SUCCESS)
+            }
+            catch (e: Exception) {
+                _progress.postValue(LoadingStatus.FAILED)
+            }
         }
     }
 
     fun deleteWord(id: Long) {
         viewModelJob = viewModelScope.launch {
             repository.deleteWord(id)
-            val words = repository.getListWords()
-            _words.postValue(words)
         }
     }
 
