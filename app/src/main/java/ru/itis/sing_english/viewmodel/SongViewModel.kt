@@ -10,8 +10,8 @@ import ru.itis.sing_english.data.model.Subtitle
 import ru.itis.sing_english.data.repository.SubtitleRepository
 import javax.inject.Inject
 
-class SongViewModel @Inject constructor(val videoId: String,
-                                        val repository: SubtitleRepository
+class SongViewModel @Inject constructor(
+    val repository: SubtitleRepository
 ) : ViewModel() {
 
     private lateinit var viewModelJob: Job
@@ -19,11 +19,11 @@ class SongViewModel @Inject constructor(val videoId: String,
     val subs: LiveData<List<Subtitle>>
         get() = _subs
 
-    init {
-        loadSong(videoId)
-    }
+//    init {
+//        loadSong(videoId)
+//    }
 
-    private fun loadSong(videoId: String) {
+    fun loadSong(videoId: String) {
          viewModelJob = viewModelScope.launch {
              val respSubs = repository.getSubtitles(videoId)
              _subs.postValue(respSubs)

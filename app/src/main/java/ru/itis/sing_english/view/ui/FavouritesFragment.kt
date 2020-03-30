@@ -13,6 +13,7 @@ import ru.itis.sing_english.data.model.Video
 import ru.itis.sing_english.data.repository.VideoRepository
 import ru.itis.sing_english.databinding.FragmentFavouritesBinding
 import ru.itis.sing_english.di.App
+import ru.itis.sing_english.di.Injectable
 import ru.itis.sing_english.utils.ListPaddingDecoration
 import ru.itis.sing_english.view.recyclerview.videos.VideoAdapter
 import ru.itis.sing_english.view.recyclerview.videos.VideoClickListener
@@ -21,10 +22,10 @@ import ru.itis.sing_english.viewmodel.FavouritesViewModel
 import javax.inject.Inject
 
 
-class FavouritesFragment : Fragment(), CoroutineScope by MainScope(), VideoClickListener {
+class FavouritesFragment : Fragment(), CoroutineScope by MainScope(), VideoClickListener, Injectable {
 
     @Inject
-    lateinit var repository: VideoRepository
+    lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: FavouritesViewModel
     lateinit var binding: FragmentFavouritesBinding
 
@@ -36,15 +37,13 @@ class FavouritesFragment : Fragment(), CoroutineScope by MainScope(), VideoClick
         binding = FragmentFavouritesBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        repository = App.component.videoRepository()
         val adapter = VideoAdapter(emptyList<Video>().toMutableList(), this)
         binding.rvVideos.addItemDecoration(
             ListPaddingDecoration(context, 0, 0)
         )
         binding.rvVideos.adapter = adapter
 
-        viewModel = ViewModelProvider(this,
-            BaseViewModelFactory { FavouritesViewModel(repository) } )
+        viewModel = ViewModelProvider(this, viewModelFactory)
             .get(FavouritesViewModel::class.java)
         binding.favViewModel = viewModel
 

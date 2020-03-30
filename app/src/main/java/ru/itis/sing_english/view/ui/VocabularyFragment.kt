@@ -13,6 +13,7 @@ import ru.itis.sing_english.data.model.Word
 import ru.itis.sing_english.data.repository.WordRepository
 import ru.itis.sing_english.databinding.FragmentVocabularyBinding
 import ru.itis.sing_english.di.App
+import ru.itis.sing_english.di.Injectable
 import ru.itis.sing_english.view.recyclerview.words.WordClickListener
 import ru.itis.sing_english.view.recyclerview.words.WordAdapter
 import ru.itis.sing_english.viewmodel.BaseViewModelFactory
@@ -25,10 +26,10 @@ import javax.inject.Inject
 class VocabularyFragment : Fragment(),
     CoroutineScope by MainScope(),
     SearchView.OnQueryTextListener,
-    WordClickListener
+    WordClickListener, Injectable
 {
     @Inject
-    lateinit var repository: WordRepository
+    lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var viewModel: VocabularyViewModel
     lateinit var binding: FragmentVocabularyBinding
 
@@ -37,7 +38,6 @@ class VocabularyFragment : Fragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        repository = App.component.wordRepository()
         binding = FragmentVocabularyBinding.inflate(inflater)
         binding.svWords.setOnQueryTextListener(this)
         binding.btnQuiz.setOnClickListener {
@@ -54,8 +54,7 @@ class VocabularyFragment : Fragment(),
         binding.rvWords.adapter = adapter
         binding.lifecycleOwner = viewLifecycleOwner
 
-        viewModel = ViewModelProvider(this,
-            BaseViewModelFactory { VocabularyViewModel(repository) } )
+        viewModel = ViewModelProvider(this, viewModelFactory)
             .get(VocabularyViewModel::class.java)
         binding.vocabViewModel = viewModel
 

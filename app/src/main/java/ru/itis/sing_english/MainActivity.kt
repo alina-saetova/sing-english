@@ -7,16 +7,28 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
+import ru.itis.sing_english.di.Injectable
 import ru.itis.sing_english.view.ui.FavouritesFragment
 import ru.itis.sing_english.view.ui.MainPageFragment
 import ru.itis.sing_english.view.ui.VocabularyFragment
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
-class MainActivity : AppCompatActivity(),  BottomNavigationView.OnNavigationItemSelectedListener   {
+class MainActivity : AppCompatActivity(),
+    BottomNavigationView.OnNavigationItemSelectedListener,
+    HasAndroidInjector,
+    Injectable {
+
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
+
+    override fun androidInjector() = dispatchingAndroidInjector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

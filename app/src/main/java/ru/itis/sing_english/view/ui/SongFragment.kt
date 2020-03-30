@@ -12,21 +12,22 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import kotlinx.android.synthetic.main.fragment_song.*
 import kotlinx.coroutines.*
 import ru.itis.sing_english.data.model.Subtitle
-import ru.itis.sing_english.data.repository.SubtitleRepository
 import ru.itis.sing_english.databinding.FragmentSongBinding
 import ru.itis.sing_english.di.App
+import ru.itis.sing_english.di.Injectable
 import ru.itis.sing_english.view.recyclerview.songs_row.SubtitleAdapter
 import ru.itis.sing_english.viewmodel.SongViewModel
 import ru.itis.sing_english.viewmodel.BaseViewModelFactory
 import javax.inject.Inject
 
-class SongFragment : Fragment(), CoroutineScope by MainScope() {
+class SongFragment : Fragment(), CoroutineScope by MainScope(), Injectable {
 
     private lateinit var youTubePlayerView: YouTubePlayerView
     lateinit var viewModel: SongViewModel
     @Inject
-    lateinit var repository: SubtitleRepository
+    lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var binding: FragmentSongBinding
+    lateinit var videoId: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,15 +36,13 @@ class SongFragment : Fragment(), CoroutineScope by MainScope() {
         binding = FragmentSongBinding.inflate(inflater)
         val adapter = SubtitleAdapter(emptyList<Subtitle>().toMutableList())
         binding.rvSubs.adapter = adapter
-        repository = App.component.subtitleRepository()
         binding.lifecycleOwner = viewLifecycleOwner
-        var videoId = ""
+
+        viewModel = ViewModelProvider(this, viewModelFactory).get(SongViewModel::class.java)
         arguments?.let {
             videoId = it.getString(ID_PARAM).toString()
         }
-
-        viewModel = ViewModelProvider(this,
-            BaseViewModelFactory { SongViewModel(videoId, repository) } ).get(SongViewModel::class.java)
+        viewModel.loadSong(videoId)
         binding.songViewModel = viewModel
         return binding.root
     }
@@ -56,7 +55,7 @@ class SongFragment : Fragment(), CoroutineScope by MainScope() {
 
     private val playerListener : AbstractYouTubePlayerListener = object: AbstractYouTubePlayerListener() {
         override fun onReady(youTubePlayer: YouTubePlayer) {
-            youTubePlayer.cueVideo(viewModel.videoId, 0f)
+            youTubePlayer.cueVideo(videoId, 0f)
         }
     }
 

@@ -1,25 +1,20 @@
 package ru.itis.sing_english.di
 
 import android.app.Application
-import ru.itis.sing_english.di.components.AppComponent
-import ru.itis.sing_english.di.components.DaggerAppComponent
-import ru.itis.sing_english.di.modules.ContextModule
-import ru.itis.sing_english.di.modules.LocalDataModule
-import ru.itis.sing_english.di.modules.NetModule
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import javax.inject.Inject
 
 
-class App: Application() {
+class App: Application(), HasAndroidInjector {
 
-    companion object {
-        lateinit var component: AppComponent
-    }
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     override fun onCreate() {
         super.onCreate()
-        component = DaggerAppComponent.builder()
-            .contextModule(ContextModule(this))
-            .localDataModule(LocalDataModule())
-            .netModule(NetModule())
-            .build()
+        AppInjector.init(this)
     }
+
+    override fun androidInjector(): DispatchingAndroidInjector<Any> = dispatchingAndroidInjector
 }

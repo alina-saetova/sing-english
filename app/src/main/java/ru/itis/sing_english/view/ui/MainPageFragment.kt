@@ -14,6 +14,7 @@ import ru.itis.sing_english.data.model.Video
 import ru.itis.sing_english.data.repository.VideoRepository
 import ru.itis.sing_english.databinding.FragmentMainpageBinding
 import ru.itis.sing_english.di.App
+import ru.itis.sing_english.di.Injectable
 import ru.itis.sing_english.utils.ListPaddingDecoration
 import ru.itis.sing_english.view.recyclerview.videos.VideoAdapter
 import ru.itis.sing_english.view.recyclerview.videos.VideoClickListener
@@ -23,16 +24,15 @@ import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
-class MainPageFragment : Fragment(), SearchView.OnQueryTextListener, VideoClickListener {
+class MainPageFragment : Fragment(), SearchView.OnQueryTextListener, VideoClickListener, Injectable {
 
     @Inject
-    lateinit var repository: VideoRepository
+    lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var viewModel: MainPageViewModel
     lateinit var binding: FragmentMainpageBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        App.component.injectMainPage(this)
     }
 
     override fun onCreateView(
@@ -41,7 +41,6 @@ class MainPageFragment : Fragment(), SearchView.OnQueryTextListener, VideoClickL
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMainpageBinding.inflate(inflater)
-        repository = App.component.videoRepository()
 
         binding.searchView.setOnQueryTextListener(this)
 
@@ -51,8 +50,8 @@ class MainPageFragment : Fragment(), SearchView.OnQueryTextListener, VideoClickL
         binding.rvVideos.adapter = adapter
 
         binding.lifecycleOwner = viewLifecycleOwner
-        viewModel = ViewModelProvider(this,
-            BaseViewModelFactory { MainPageViewModel(repository) } ).get(MainPageViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(MainPageViewModel::class.java)
         binding.mainPageViewModel = viewModel
 
         return binding.root

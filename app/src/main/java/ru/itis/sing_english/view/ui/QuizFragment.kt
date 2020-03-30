@@ -15,22 +15,22 @@ import ru.itis.sing_english.R
 import ru.itis.sing_english.data.repository.WordRepository
 import ru.itis.sing_english.databinding.FragmentQuizBinding
 import ru.itis.sing_english.di.App
+import ru.itis.sing_english.di.Injectable
 import ru.itis.sing_english.viewmodel.BaseViewModelFactory
 import ru.itis.sing_english.viewmodel.QuizViewModel
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
-class QuizFragment : Fragment(), CoroutineScope by MainScope() {
+class QuizFragment : Fragment(), CoroutineScope by MainScope(), Injectable {
 
     @Inject
-    lateinit var repository: WordRepository
+    lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: QuizViewModel
     lateinit var binding: FragmentQuizBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        repository = App.component.wordRepository()
     }
 
     override fun onCreateView(
@@ -39,8 +39,7 @@ class QuizFragment : Fragment(), CoroutineScope by MainScope() {
     ): View? {
         binding = FragmentQuizBinding.inflate(inflater)
 
-        viewModel = ViewModelProvider(this,
-            BaseViewModelFactory { QuizViewModel(repository) } )
+        viewModel = ViewModelProvider(this, viewModelFactory)
             .get(QuizViewModel::class.java)
         binding.quizViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

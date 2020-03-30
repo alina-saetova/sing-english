@@ -1,35 +1,41 @@
 package ru.itis.sing_english.di.components
 
+import android.app.Application
+import dagger.BindsInstance
 import dagger.Component
+import dagger.android.AndroidInjectionModule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import ru.itis.sing_english.data.local.dao.SubtitleDao
 import ru.itis.sing_english.data.local.dao.WordDao
 import ru.itis.sing_english.data.repository.*
+import ru.itis.sing_english.di.App
 import ru.itis.sing_english.di.modules.*
 import ru.itis.sing_english.view.ui.MainPageFragment
 import ru.itis.sing_english.view.ui.SongFragment
 import javax.inject.Singleton
 
+@ObsoleteCoroutinesApi
+@ExperimentalCoroutinesApi
 @Singleton
 @Component(modules = [
     NetModule::class,
     LocalDataModule::class,
-    ContextModule::class,
     RepositoryModule::class,
-    RemoteSourceModule::class
+    RemoteSourceModule::class,
+    AndroidInjectionModule::class,
+    MainActivityModule::class,
+    ViewModelModule::class
 ])
 interface AppComponent {
 
-    @ObsoleteCoroutinesApi
-    @ExperimentalCoroutinesApi
-    fun injectMainPage(mainPageFragment: MainPageFragment)
-    fun injectSongPage(songFragment: SongFragment)
+    @Component.Builder
+    interface Builder {
+        @BindsInstance
+        fun application(application: Application): Builder
 
-    fun subtitlesDao() : SubtitleDao
-    fun wordsDao() : WordDao
+        fun build(): AppComponent
+    }
 
-    fun subtitleRepository() : SubtitleRepository
-    fun wordRepository() : WordRepository
-    fun videoRepository() : VideoRepository
+    fun inject(application: App)
 }

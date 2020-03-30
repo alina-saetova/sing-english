@@ -15,26 +15,18 @@ import ru.itis.sing_english.data.model.Word
 import ru.itis.sing_english.data.repository.WordRepository
 import ru.itis.sing_english.databinding.WordDetailFragmentBinding
 import ru.itis.sing_english.di.App
+import ru.itis.sing_english.di.Injectable
 import ru.itis.sing_english.viewmodel.BaseViewModelFactory
 import ru.itis.sing_english.viewmodel.WordViewModel
 import javax.inject.Inject
 
-class WordDetailFragment : Fragment(), CoroutineScope by MainScope() {
+class WordDetailFragment : Fragment(), CoroutineScope by MainScope(), Injectable {
 
     @Inject
-    lateinit var repository: WordRepository
+    lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var wordText: String
     private lateinit var binding: WordDetailFragmentBinding
     private lateinit var viewModel: WordViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        repository = App.component.wordRepository()
-        arguments?.let {
-            wordText = it.getString(WORD_PARAM).toString()
-        }
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,11 +35,12 @@ class WordDetailFragment : Fragment(), CoroutineScope by MainScope() {
         binding = WordDetailFragmentBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        viewModel = ViewModelProvider(this,
-            BaseViewModelFactory { WordViewModel(wordText, repository) } )
+        viewModel = ViewModelProvider(this, viewModelFactory)
             .get(WordViewModel::class.java)
+        arguments?.let {
+            viewModel.loadWord(it.getString(WORD_PARAM).toString())
+        }
         binding.wordViewModel = viewModel
-
         return binding.root
     }
 
