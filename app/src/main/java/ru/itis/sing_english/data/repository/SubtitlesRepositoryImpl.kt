@@ -1,5 +1,6 @@
 package ru.itis.sing_english.data.repository
 
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.itis.sing_english.data.model.Subtitle
@@ -24,13 +25,13 @@ class SubtitlesRepositoryImpl @Inject constructor(
     }
 
     private suspend fun retrieveLocalData(videoId: String) = withContext(Dispatchers.IO) {
-        val subList = fromResponseToModel(subtitlesApi.subtitlesByVideoId(videoId), videoId)
-//        subList = cleanSubs(subList)
+        val subList = subtitleDao.getSubtitlesByVideoId(videoId)
         subList
     }
 
     private suspend fun retrieveRemoteData(videoId: String): List<Subtitle> = withContext(Dispatchers.IO) {
-        val subtitles = subtitleDao.getSubtitlesByVideoId(videoId)
+        var subtitles = fromResponseToModel(subtitlesApi.subtitlesByVideoId(videoId), videoId)
+        subtitles = cleanSubs(subtitles.toMutableList())
         subtitleDao.insertAll(subtitles)
         subtitles
     }
@@ -43,11 +44,14 @@ class SubtitlesRepositoryImpl @Inject constructor(
         return subList
     }
 
-    //    private fun cleanSubs(subs: List<Subtitle>): List<Subtitle> {
-//        for (s in subs) {
-//            s.row.text.replace("&#39;".toRegex(), "\'")
-//        }
-//        return subs
-//    }
+        private fun cleanSubs(subs: MutableList<Subtitle>): List<Subtitle> {
+        for (s in subs) {
+            s.row.text = s.row.text.replace("♪ ", "")
+            s.row.text = s.row.text.replace(" ♪", "")
+            s.row.text = s.row.text.replace("&#39;", "'")
+            s.row.text = s.row.text.replace("\n", " ")
+        }
+        return subs
+    }
 
 }

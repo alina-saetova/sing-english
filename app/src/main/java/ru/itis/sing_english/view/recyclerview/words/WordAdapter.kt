@@ -37,5 +37,6 @@ class WordAdapter(
     private fun delete(position: Int) {
         list.removeAt(position)
         notifyItemRemoved(position)
+        notifyItemRangeChanged(position, list.size)
     }
 }

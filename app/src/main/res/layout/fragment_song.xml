@@ -12,7 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.ui.SongFragment">
+        tools:context=".view.ui.SongFragment"
+        android:orientation="vertical">
 
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
             android:id="@+id/youtube_player_view"
@@ -22,25 +23,195 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showFullScreenButton="false"/>
+            app:showFullScreenButton="false"
+            app:showSeekBar="false"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_subs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/youtube_player_view"
-            app:layout_constraintVertical_bias="0.0"
-            tools:listitem="@layout/item_subtitle"
-            app:recycler="@{songViewModel.subs}"/>
+            app:layout_constraintTop_toBottomOf="@+id/youtube_player_view"
+            app:layout_constraintVertical_bias="0.332">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/ll_previous_sub"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_prev_first"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{songViewModel.previousSub.first}"
+                        android:textAlignment="textEnd" />
+
+                    <TextView
+                        android:id="@+id/tv_prev_word"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="@{songViewModel.userAnswer}"
+                        android:textAlignment="center"
+                        android:textColor="#00796B"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_prev_second"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{songViewModel.previousSub.second}"
+                        android:textAlignment="viewStart" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_active_sub"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="40dp"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_active_first"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{songViewModel.activeSub.first}"
+                        android:textAlignment="textEnd" />
+
+                    <TextView
+                        android:id="@+id/tv_active_word"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="@{songViewModel.userAnswer}"
+                        android:textAlignment="center"
+                        android:textColor="#00796B"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_active_second"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{songViewModel.activeSub.second}"
+                        android:textAlignment="viewStart" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_next_sub"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_next_first"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{songViewModel.nextSub.first}"
+                        android:textAlignment="textEnd" />
+
+                    <TextView
+                        android:id="@+id/tv_next_word"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="@{songViewModel.userAnswer}"
+                        android:textAlignment="center"
+                        android:textColor="#00796B"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_next_second"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{songViewModel.nextSub.second}"
+                        android:textAlignment="viewStart" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_weight="0"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/btn_first"
+                        android:layout_width="160dp"
+                        android:layout_height="60dp"
+                        android:text="@{songViewModel.firstOption}"
+                        android:onClick="@{ (view) -> songViewModel.answer(view) }"/>
+
+                    <Button
+                        android:id="@+id/btn_third"
+                        android:layout_width="160dp"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@{songViewModel.thirdOption}"
+                        android:onClick="@{ (view) -> songViewModel.answer(view) }"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/btn_second"
+                        android:layout_width="160dp"
+                        android:layout_height="60dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@{songViewModel.secondOption}"
+                        android:onClick="@{ (view) -> songViewModel.answer(view) }"/>
+
+                    <Button
+                        android:id="@+id/btn_fourth"
+                        android:layout_width="160dp"
+                        android:layout_height="60dp"
+                        android:text="@{songViewModel.fourthOption}"
+                        android:onClick="@{ (view) -> songViewModel.answer(view) }"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

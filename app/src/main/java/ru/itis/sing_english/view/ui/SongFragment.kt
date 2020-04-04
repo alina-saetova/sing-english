@@ -1,11 +1,13 @@
 package ru.itis.sing_english.view.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
@@ -34,8 +36,8 @@ class SongFragment : Fragment(), CoroutineScope by MainScope(), Injectable {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSongBinding.inflate(inflater)
-        val adapter = SubtitleAdapter(emptyList<Subtitle>().toMutableList())
-        binding.rvSubs.adapter = adapter
+//        val adapter = SubtitleAdapter(emptyList<Subtitle>().toMutableList())
+//        binding.rvSubs.adapter = adapter
         binding.lifecycleOwner = viewLifecycleOwner
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(SongViewModel::class.java)
@@ -56,6 +58,22 @@ class SongFragment : Fragment(), CoroutineScope by MainScope(), Injectable {
     private val playerListener : AbstractYouTubePlayerListener = object: AbstractYouTubePlayerListener() {
         override fun onReady(youTubePlayer: YouTubePlayer) {
             youTubePlayer.cueVideo(videoId, 0f)
+        }
+
+        var flag = false
+        override fun onStateChange(
+            youTubePlayer: YouTubePlayer,
+            state: PlayerConstants.PlayerState
+        ) {
+            if (state == PlayerConstants.PlayerState.PLAYING && !flag) {
+                viewModel.start()
+                flag = true
+            }
+            super.onStateChange(youTubePlayer, state)
+        }
+
+        override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {
+            viewModel.onPlaying(second)
         }
     }
 
