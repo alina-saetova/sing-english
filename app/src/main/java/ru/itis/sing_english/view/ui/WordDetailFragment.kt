@@ -1,5 +1,6 @@
 package ru.itis.sing_english.view.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.word_detail_fragment.*
 import kotlinx.coroutines.*
+import ru.itis.sing_english.MainActivity
 
 import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.DictionaryResponse
@@ -44,6 +46,16 @@ class WordDetailFragment : Fragment(), CoroutineScope by MainScope(), Injectable
         return binding.root
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as MainActivity).hideBottomNavigation()
+    }
+
+    override fun onDetach() {
+        (activity as MainActivity).showBottomNavigation()
+        super.onDetach()
+    }
+
     companion object {
 
         fun newInstance(param1: String) =
@@ -53,6 +65,6 @@ class WordDetailFragment : Fragment(), CoroutineScope by MainScope(), Injectable
                 }
             }
 
-        private const val WORD_PARAM = "word"
+        const val WORD_PARAM = "word"
     }
 }

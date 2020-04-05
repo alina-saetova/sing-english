@@ -1,5 +1,6 @@
 package ru.itis.sing_english.view.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,18 +8,17 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.fragment_vocabulary.*
 import kotlinx.coroutines.*
+import ru.itis.sing_english.MainActivity
 import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.Word
-import ru.itis.sing_english.data.repository.WordRepository
 import ru.itis.sing_english.databinding.FragmentVocabularyBinding
-import ru.itis.sing_english.di.App
 import ru.itis.sing_english.di.Injectable
 import ru.itis.sing_english.view.recyclerview.words.WordClickListener
 import ru.itis.sing_english.view.recyclerview.words.WordAdapter
-import ru.itis.sing_english.viewmodel.BaseViewModelFactory
 import ru.itis.sing_english.viewmodel.VocabularyViewModel
-import java.text.FieldPosition
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
@@ -41,13 +41,7 @@ class VocabularyFragment : Fragment(),
         binding = FragmentVocabularyBinding.inflate(inflater)
         binding.svWords.setOnQueryTextListener(this)
         binding.btnQuiz.setOnClickListener {
-            activity?.supportFragmentManager?.also {
-                it.beginTransaction().apply {
-                    replace(R.id.main_container, QuizFragment.newInstance())
-                    addToBackStack(QuizFragment::class.java.name)
-                    commit()
-                }
-            }
+            findNavController().navigate(R.id.action_vocabulary_to_quiz)
         }
 
         val adapter = WordAdapter(emptyList<Word>().toMutableList(), this)
@@ -76,17 +70,18 @@ class VocabularyFragment : Fragment(),
     }
 
     private fun goToWord(query: String) {
-        activity?.supportFragmentManager?.also {
-            it.beginTransaction().apply {
-                replace(R.id.main_container, WordDetailFragment.newInstance(query))
-                addToBackStack(WordDetailFragment::class.java.name)
-                commit()
-            }
-        }
+        val bundle = Bundle()
+        bundle.putString(WordDetailFragment.WORD_PARAM, query)
+        findNavController().navigate(R.id.action_vocabulary_to_wordDetail, bundle)
     }
 
     override fun onWordDeleteListener(id: Long) {
         viewModel.deleteWord(id)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as MainActivity).showBottomNavigation()
     }
 
     companion object {

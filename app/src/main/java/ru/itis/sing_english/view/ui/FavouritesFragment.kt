@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import ru.itis.sing_english.R
@@ -51,13 +52,9 @@ class FavouritesFragment : Fragment(), CoroutineScope by MainScope(), VideoClick
     }
 
     override fun onVideoClickListener(view: View, id: String) {
-        activity?.supportFragmentManager?.also {
-            it.beginTransaction().apply {
-                replace(R.id.main_container, SongFragment.newInstance(id))
-                addToBackStack(SongFragment::class.java.name)
-                commit()
-            }
-        }
+        val bundle = Bundle()
+        bundle.putString(SongFragment.ID_PARAM, id)
+        findNavController().navigate(R.id.action_favourites_to_song, bundle)
     }
 
     override fun onLikeClickListener(view: View, video: Video) {

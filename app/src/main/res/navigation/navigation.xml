@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/navigation_main">
+
+    <keep_state_fragment
+        android:id="@+id/navigation_main"
+        android:name="ru.itis.sing_english.view.ui.container.MainPageContainerFragment"
+        android:label="@string/title_main"
+        tools:layout="@layout/fragment_mainpage"/>
+    <keep_state_fragment
+        android:id="@+id/navigation_fav"
+        android:name="ru.itis.sing_english.view.ui.container.FavouritesContainerFragment"
+        android:label="@string/title_fav"
+        tools:layout="@layout/fragment_favourites"/>
+    <keep_state_fragment
+        android:id="@+id/navigation_vocab"
+        android:name="ru.itis.sing_english.view.ui.container.VocabularyContainerFragment"
+        android:label="@string/title_vocab"
+        tools:layout="@layout/fragment_vocabulary"/>
+</navigation>

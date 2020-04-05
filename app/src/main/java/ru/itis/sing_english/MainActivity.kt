@@ -1,27 +1,25 @@
 package ru.itis.sing_english
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.navigation.findNavController
+import androidx.navigation.plusAssign
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import ru.itis.sing_english.di.Injectable
-import ru.itis.sing_english.view.ui.FavouritesFragment
-import ru.itis.sing_english.view.ui.MainPageFragment
-import ru.itis.sing_english.view.ui.VocabularyFragment
+import ru.itis.sing_english.view.ui.navigation.KeepStateNavigator
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
 class MainActivity : AppCompatActivity(),
-    BottomNavigationView.OnNavigationItemSelectedListener,
     HasAndroidInjector,
     Injectable {
 
@@ -34,46 +32,31 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        setSupportActionBar(toolbar)
-        nav_view.setOnNavigationItemSelectedListener(this)
+        val navController = findNavController(R.id.navFragment)
 
-        if (savedInstanceState == null) {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.main_container, MainPageFragment.newInstance(), MainPageFragment::class.java.simpleName)
-                .addToBackStack(MainPageFragment.newInstance().javaClass.simpleName)
-                .commit()
-        }
-        nav_view.selectedItemId = R.id.navigation_main
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navFragment)!!
+        val navigator = KeepStateNavigator(this, navHostFragment.childFragmentManager, R.id.navFragment)
+        navController.navigatorProvider += navigator
+        navController.setGraph(R.navigation.navigation)
+
+        nav_view.setupWithNavController(navController)
+
+//        val appBarConfiguration = AppBarConfiguration(
+//            topLevelDestinationIds = setOf (
+//                R.id.navigation_fav,
+//                R.id.navigation_main,
+//                R.id.navigation_vocab
+//            )
+//        )
+//        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
-    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
-        var title = ""
-        var fragment: Fragment? = null
-        when (menuItem.itemId) {
-            R.id.navigation_fav -> {
-                title = "Favourite"
-                fragment = FavouritesFragment.newInstance()
-            }
-            R.id.navigation_main -> {
-                title = "Main"
-                fragment = MainPageFragment.newInstance()
-            }
-            R.id.navigation_vocab -> {
-                title = "Vocabulary"
-                fragment = VocabularyFragment.newInstance()
-            }
-        }
-        supportActionBar?.title = title
-        supportFragmentManager.also {
-            it.beginTransaction().apply {
-                if (fragment != null) {
-                    replace(R.id.main_container, fragment)
-                }
-                addToBackStack(fragment?.javaClass?.simpleName)
-                commit()
-            }
-        }
-        return true
+
+    fun showBottomNavigation() {
+        nav_view.visibility = View.VISIBLE
+    }
+
+    fun hideBottomNavigation() {
+        nav_view.visibility = View.GONE
     }
 }

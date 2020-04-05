@@ -1,5 +1,6 @@
 package ru.itis.sing_english.view.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import kotlinx.android.synthetic.main.fragment_song.*
 import kotlinx.coroutines.*
+import ru.itis.sing_english.MainActivity
 import ru.itis.sing_english.data.model.Subtitle
 import ru.itis.sing_english.databinding.FragmentSongBinding
 import ru.itis.sing_english.di.App
@@ -77,6 +79,16 @@ class SongFragment : Fragment(), CoroutineScope by MainScope(), Injectable {
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as MainActivity).hideBottomNavigation()
+    }
+
+    override fun onDetach() {
+        (activity as MainActivity).showBottomNavigation()
+        super.onDetach()
+    }
+
     companion object {
 
         fun newInstance(param1: String) =
@@ -86,6 +98,6 @@ class SongFragment : Fragment(), CoroutineScope by MainScope(), Injectable {
                 }
             }
 
-        private const val ID_PARAM = "videoId"
+        const val ID_PARAM = "videoId"
     }
 }

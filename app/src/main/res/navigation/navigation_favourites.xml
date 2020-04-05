@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_favourites"
+    app:startDestination="@id/favourites">
+
+    <fragment
+        android:id="@+id/favourites"
+        android:name="ru.itis.sing_english.view.ui.FavouritesFragment"
+        android:label="Favourites" >
+        <action
+            android:id="@+id/action_favourites_to_song"
+            app:destination="@id/song" />
+    </fragment>
+    <fragment
+        android:id="@+id/song"
+        android:name="ru.itis.sing_english.view.ui.SongFragment"
+        android:label="Song" />
+</navigation>

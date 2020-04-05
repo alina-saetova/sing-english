@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_vocabulary"
+    app:startDestination="@id/vocabulary">
+
+    <fragment
+        android:id="@+id/vocabulary"
+        android:name="ru.itis.sing_english.view.ui.VocabularyFragment"
+        android:label="Vocabulary" >
+        <action
+            android:id="@+id/action_vocabulary_to_quiz"
+            app:destination="@id/quiz" />
+        <action
+            android:id="@+id/action_vocabulary_to_wordDetail"
+            app:destination="@id/wordDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/quiz"
+        android:name="ru.itis.sing_english.view.ui.QuizFragment"
+        android:label="Quiz" />
+    <fragment
+        android:id="@+id/wordDetail"
+        android:name="ru.itis.sing_english.view.ui.WordDetailFragment"
+        android:label="Word Detail" />
+</navigation>

@@ -1,15 +1,18 @@
 package ru.itis.sing_english.view.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.ObsoleteCoroutinesApi
+import ru.itis.sing_english.MainActivity
 
 import ru.itis.sing_english.R
 import ru.itis.sing_english.data.repository.WordRepository
@@ -29,10 +32,6 @@ class QuizFragment : Fragment(), CoroutineScope by MainScope(), Injectable {
     private lateinit var viewModel: QuizViewModel
     lateinit var binding: FragmentQuizBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,9 +44,19 @@ class QuizFragment : Fragment(), CoroutineScope by MainScope(), Injectable {
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.ibQuit.setOnClickListener {
-            activity?.supportFragmentManager?.popBackStackImmediate();
+//            findNavController().navigate(R.id.action_quizFragment_to_navigation_vocab)
         }
         return binding.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as MainActivity).hideBottomNavigation()
+    }
+
+    override fun onDetach() {
+        (activity as MainActivity).showBottomNavigation()
+        super.onDetach()
     }
 
     companion object {
