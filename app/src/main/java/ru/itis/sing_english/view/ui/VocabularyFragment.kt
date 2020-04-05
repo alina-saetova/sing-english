@@ -1,11 +1,10 @@
 package ru.itis.sing_english.view.ui
 
+import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.SearchView
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -25,7 +24,6 @@ import javax.inject.Inject
 @ObsoleteCoroutinesApi
 class VocabularyFragment : Fragment(),
     CoroutineScope by MainScope(),
-    SearchView.OnQueryTextListener,
     WordClickListener, Injectable
 {
     @Inject
@@ -33,13 +31,17 @@ class VocabularyFragment : Fragment(),
     lateinit var viewModel: VocabularyViewModel
     lateinit var binding: FragmentVocabularyBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentVocabularyBinding.inflate(inflater)
-        binding.svWords.setOnQueryTextListener(this)
         binding.btnQuiz.setOnClickListener {
             findNavController().navigate(R.id.action_vocabulary_to_quiz)
         }
@@ -60,13 +62,27 @@ class VocabularyFragment : Fragment(),
         viewModel.loadWords()
     }
 
-    override fun onQueryTextSubmit(newText: String?): Boolean {
-        newText?.let { goToWord(it) }
-        return true
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+
+        val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = menu.findItem(R.id.search)?.actionView as SearchView
+        searchView.apply {
+            setSearchableInfo(searchManager.getSearchableInfo(activity!!.componentName))
+        }
+        searchView.setOnQueryTextListener(queryListener)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onQueryTextChange(newText: String?): Boolean {
-        return true
+    private val queryListener = object: SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(newText: String?): Boolean {
+            newText?.let { goToWord(it) }
+            return true
+        }
+
+        override fun onQueryTextChange(newText: String?): Boolean {
+            return false
+        }
     }
 
     private fun goToWord(query: String) {

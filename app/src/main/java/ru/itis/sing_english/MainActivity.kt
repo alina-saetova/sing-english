@@ -1,8 +1,12 @@
 package ru.itis.sing_english
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.navigation.findNavController
 import androidx.navigation.plusAssign
 import androidx.navigation.ui.AppBarConfiguration
@@ -50,7 +54,6 @@ class MainActivity : AppCompatActivity(),
 //        )
 //        setupActionBarWithNavController(navController, appBarConfiguration)
     }
-
 
     fun showBottomNavigation() {
         nav_view.visibility = View.VISIBLE

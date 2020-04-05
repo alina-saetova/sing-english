@@ -22,29 +22,21 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sv_words"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_quiz"
             app:recycler="@{vocabViewModel.words}"
             tools:listitem="@layout/item_word" />
-
-        <SearchView
-            android:id="@+id/sv_words"
-            android:layout_width="413dp"
-            android:layout_height="56dp"
-            android:layout_marginTop="72dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btn_quiz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:text="let's quiz"
-            app:layout_constraintBottom_toTopOf="@+id/sv_words"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="20dp"/>
 
         <ProgressBar
             android:id="@+id/progressBar"
