@@ -11,4 +11,6 @@ interface VideoRepository {
     suspend fun searchVideos(text: String): List<Video>
 
     suspend fun getPopularVideos(): List<Video>
+
+    suspend fun deleteVideoFromFavourites(video: Video)
 }

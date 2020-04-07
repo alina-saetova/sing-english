@@ -83,19 +83,19 @@ class MainPageFragment : Fragment(), VideoClickListener, Injectable {
         }
     }
 
-    override fun onVideoClickListener(view: View, id: String) {
+    override fun onVideoClickListener(id: String) {
         val bundle = Bundle()
         bundle.putString(SongFragment.ID_PARAM, id)
         findNavController().navigate(R.id.action_mainPage_to_song, bundle)
     }
 
-    override fun onLikeClickListener(view: View, video: Video) {
-        viewModel.like(video)
-    }
-
-    override fun onResume() {
-        super.onResume()
-
+    override fun onLikeClickListener(video: Video, like: String) {
+        if (like == "like") {
+            viewModel.unlike(video)
+        }
+        else {
+            viewModel.like(video)
+        }
     }
 
     companion object {

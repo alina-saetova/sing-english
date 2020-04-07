@@ -22,6 +22,10 @@ class VideoRepositoryImpl @Inject constructor(
         videoDao.insert(video)
     }
 
+    override suspend fun deleteVideoFromFavourites(video: Video) = withContext(Dispatchers.IO) {
+        videoDao.delete(video)
+    }
+
     override suspend fun searchVideos(text: String): List<Video> = withContext(Dispatchers.IO) {
         val response = videoApi.videosByName(text)
         val videos = fromResponseToModel(response.videoItems)

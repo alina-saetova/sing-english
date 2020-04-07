@@ -35,7 +35,7 @@ class MainPageViewModel @Inject constructor(val repository: VideoRepository)
         load()
     }
 
-    fun load() {
+    private fun load() {
         viewModelJob = viewModelScope.launch {
             try {
                 _progress.postValue(LoadingStatus.RUNNING)
@@ -79,6 +79,12 @@ class MainPageViewModel @Inject constructor(val repository: VideoRepository)
     fun like(video: Video) {
         viewModelJob = viewModelScope.launch {
             repository.addVideoToFavourite(video)
+        }
+    }
+
+    fun unlike(video: Video) {
+        viewModelJob = viewModelScope.launch {
+            repository.deleteVideoFromFavourites(video)
         }
     }
 

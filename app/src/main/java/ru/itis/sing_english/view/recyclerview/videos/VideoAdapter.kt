@@ -2,6 +2,7 @@ package ru.itis.sing_english.view.recyclerview.videos
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.Video
 import ru.itis.sing_english.view.recyclerview.BindableAdapter
 
@@ -20,12 +21,25 @@ class VideoAdapter(
 
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
         holder.binding.video = list[position]
+        if (list[position].like) {
+            holder.binding.ibLike.tag = "like"
+        }
+        else {
+            holder.binding.ibLike.tag = "unlike"
+        }
         holder.binding.executePendingBindings()
         holder.binding.root.setOnClickListener {
-            clickListener.onVideoClickListener(holder.binding.ibLike, list[position].videoId)
+            clickListener.onVideoClickListener(list[position].videoId)
         }
         holder.binding.ibLike.setOnClickListener {
-            clickListener.onLikeClickListener(holder.binding.ibLike, list[position])
+            if (holder.binding.ibLike.tag == "like") {
+                clickListener.onLikeClickListener(list[position], "like")
+                delete(position)
+            }
+            else {
+                clickListener.onLikeClickListener(list[position], "unlike")
+                holder.binding.ibLike.setImageResource(R.drawable.ic_favourites_full)
+            }
         }
     }
 
@@ -34,5 +48,11 @@ class VideoAdapter(
         list.clear()
         list.addAll(data)
         notifyDataSetChanged()
+    }
+
+    private fun delete(position: Int) {
+        list.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, list.size)
     }
 }

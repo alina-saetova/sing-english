@@ -28,12 +28,18 @@ class FavouritesViewModel @Inject constructor(val repository: VideoRepository)
         loadFavourites()
     }
 
-    private fun loadFavourites() {
+    fun loadFavourites() {
         viewModelJob = viewModelScope.launch {
             _progress.postValue(LoadingStatus.RUNNING)
             val resp = repository.getFavouriteVideos()
             _videos.postValue(resp)
             _progress.postValue(LoadingStatus.SUCCESS)
+        }
+    }
+
+    fun unlike(video: Video) {
+        viewModelJob = viewModelScope.launch {
+            repository.deleteVideoFromFavourites(video)
         }
     }
 }

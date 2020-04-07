@@ -51,14 +51,19 @@ class FavouritesFragment : Fragment(), CoroutineScope by MainScope(), VideoClick
         return binding.root
     }
 
-    override fun onVideoClickListener(view: View, id: String) {
+    override fun onVideoClickListener(id: String) {
         val bundle = Bundle()
         bundle.putString(SongFragment.ID_PARAM, id)
         findNavController().navigate(R.id.action_favourites_to_song, bundle)
     }
 
-    override fun onLikeClickListener(view: View, video: Video) {
-//        viewModel.like(video)
+    override fun onLikeClickListener(video: Video, like: String) {
+        viewModel.unlike(video)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadFavourites()
     }
 
     companion object {
