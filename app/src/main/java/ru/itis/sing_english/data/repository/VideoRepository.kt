@@ -9,4 +9,6 @@ interface VideoRepository {
     suspend fun addVideoToFavourite(video: Video)
 
     suspend fun searchVideos(text: String): List<Video>
+
+    suspend fun getPopularVideos(): List<Video>
 }

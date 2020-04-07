@@ -31,6 +31,8 @@ class MainPageFragment : Fragment(), VideoClickListener, Injectable {
 
     private lateinit var searchView: SearchView
 
+    private lateinit var list: List<Video>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -89,6 +91,11 @@ class MainPageFragment : Fragment(), VideoClickListener, Injectable {
 
     override fun onLikeClickListener(view: View, video: Video) {
         viewModel.like(video)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
     }
 
     companion object {

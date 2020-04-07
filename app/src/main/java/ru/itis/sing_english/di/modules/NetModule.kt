@@ -42,7 +42,6 @@ class NetModule {
     @Named("ok-youtube")
     fun provideYoutubeOkHttpClient(): OkHttpClient {
         return OkHttpClient().newBuilder()
-            .addInterceptor(YoutubeDefReqInterceptor())
             .addInterceptor(YoutubeAuthInterceptor())
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()

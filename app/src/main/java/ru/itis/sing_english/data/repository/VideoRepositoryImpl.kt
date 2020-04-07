@@ -2,9 +2,8 @@ package ru.itis.sing_english.data.repository
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.itis.sing_english.data.model.SearchResponse
-import ru.itis.sing_english.data.model.Video
 import ru.itis.sing_english.data.local.dao.VideoDao
+import ru.itis.sing_english.data.model.*
 import ru.itis.sing_english.data.services.YoutubeVideoService
 import javax.inject.Inject
 
@@ -23,12 +22,26 @@ class VideoRepositoryImpl @Inject constructor(
         videoDao.insert(video)
     }
 
-    override suspend fun searchVideos(text: String): List<Video> {
-        val response = withContext(Dispatchers.IO) {
-            videoApi.videosByName(text)
+    override suspend fun searchVideos(text: String): List<Video> = withContext(Dispatchers.IO) {
+        val response = videoApi.videosByName(text)
+        val videos = fromResponseToModel(response.videoItems)
+        checkData(videos)
+    }
+
+    override suspend fun getPopularVideos(): List<Video> = withContext(Dispatchers.IO) {
+        val response = videoApi.popularVideos()
+        val videos = fromPopResponseToModel(filterByCaptions(response))
+        checkData(videos)
+    }
+
+    private fun filterByCaptions(response: PopularVideoResponse): List<PopVideoItem> {
+        val videoListCaptions = mutableListOf<PopVideoItem>()
+        for (video in response.videoItems) {
+            if (video.contentDetails.caption == "true") {
+                videoListCaptions.add(video)
+            }
         }
-        val videos = fromResponseToModel(response)
-        return checkData(videos)
+        return videoListCaptions
     }
 
     private fun checkData(list: List<Video>): List<Video> {
@@ -44,13 +57,29 @@ class VideoRepositoryImpl @Inject constructor(
         return list
     }
 
-    private fun fromResponseToModel(response: SearchResponse): List<Video> {
+    private fun fromResponseToModel(videoItems: List<VideoItem>): List<Video> {
         val list = mutableListOf<Video>()
-        for (v in response.videoItems) {
+        for (v in videoItems) {
             val title = splitTitle(v.snippet.title,
                 v.snippet.channelTitle)
             list.add(Video(0,
                 v.id.videoId,
+                v.snippet.thumbnails.high.url,
+                title.first,
+                title.second,
+                false)
+            )
+        }
+        return list
+    }
+
+    private fun fromPopResponseToModel(videoItems: List<PopVideoItem>): List<Video> {
+        val list = mutableListOf<Video>()
+        for (v in videoItems) {
+            val title = splitTitle(v.snippet.title,
+                v.snippet.channelTitle)
+            list.add(Video(0,
+                v.id,
                 v.snippet.thumbnails.high.url,
                 title.first,
                 title.second,

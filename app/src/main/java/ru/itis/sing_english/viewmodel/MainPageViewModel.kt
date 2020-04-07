@@ -12,6 +12,7 @@ import retrofit2.HttpException
 import ru.itis.sing_english.data.model.LoadingStatus
 import ru.itis.sing_english.data.model.Video
 import ru.itis.sing_english.data.repository.VideoRepository
+import java.lang.Exception
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
@@ -31,7 +32,22 @@ class MainPageViewModel @Inject constructor(val repository: VideoRepository)
         get() = _progress
 
     init {
+        load()
+    }
 
+    fun load() {
+        viewModelJob = viewModelScope.launch {
+            try {
+                _progress.postValue(LoadingStatus.RUNNING)
+                val videos = repository.getPopularVideos()
+                _videos.postValue(videos)
+                _progress.postValue(LoadingStatus.SUCCESS)
+            }
+            catch (e: Exception) {
+                _progress.postValue(LoadingStatus.FAILED)
+            }
+
+        }
     }
 
     fun search(text: String) {
