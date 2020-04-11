@@ -1,4 +1,4 @@
-package ru.itis.sing_english.view.recyclerview.songs_row
+package ru.itis.sing_english.view.recyclerview.songsrow
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +22,9 @@ class SubtitleAdapter(private var list: MutableList<Subtitle>)
     }
 
     override fun update(data: MutableList<Subtitle>?) {
-        if (data.isNullOrEmpty()) return
+        if (data.isNullOrEmpty()) {
+            return
+        }
         list.clear()
         list.addAll(data)
         notifyDataSetChanged()

@@ -8,51 +8,26 @@ import ru.itis.sing_english.view.recyclerview.BindableAdapter
 
 class VideoAdapter(
     private var list: MutableList<Video>,
-    private var clickListener: VideoClickListener
+    private val videoClickListener: (String) -> Unit,
+    private val likeClickListener: (Video, String) -> Unit
 ) : RecyclerView.Adapter<VideoViewHolder>(),
     BindableAdapter<MutableList<Video>> {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder =
-        VideoViewHolder.create(
-            parent
-        )
+        VideoViewHolder.create(parent)
 
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
-        holder.binding.video = list[position]
-        if (list[position].like) {
-            holder.binding.ibLike.tag = "like"
-        }
-        else {
-            holder.binding.ibLike.tag = "unlike"
-        }
-        holder.binding.executePendingBindings()
-        holder.binding.root.setOnClickListener {
-            clickListener.onVideoClickListener(list[position].videoId)
-        }
-        holder.binding.ibLike.setOnClickListener {
-            if (holder.binding.ibLike.tag == "like") {
-                clickListener.onLikeClickListener(list[position], "like")
-                delete(position)
-            }
-            else {
-                clickListener.onLikeClickListener(list[position], "unlike")
-                holder.binding.ibLike.setImageResource(R.drawable.ic_favourites_full)
-            }
-        }
+        holder.bind(list[position], videoClickListener, likeClickListener)
     }
 
     override fun update(data: MutableList<Video>?) {
-        if (data == null) return
+        if (data == null) {
+            return
+        }
         list.clear()
         list.addAll(data)
         notifyDataSetChanged()
-    }
-
-    private fun delete(position: Int) {
-        list.removeAt(position)
-        notifyItemRemoved(position)
-        notifyItemRangeChanged(position, list.size)
     }
 }

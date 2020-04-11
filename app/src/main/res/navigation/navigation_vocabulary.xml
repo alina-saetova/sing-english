@@ -18,7 +18,11 @@
     <fragment
         android:id="@+id/quiz"
         android:name="ru.itis.sing_english.view.ui.QuizFragment"
-        android:label="Quiz" />
+        android:label="Quiz" >
+    <action
+        android:id="@+id/action_quiz_to_vocabulary"
+        app:destination="@id/vocabulary" />
+</fragment>
     <fragment
         android:id="@+id/wordDetail"
         android:name="ru.itis.sing_english.view.ui.WordDetailFragment"

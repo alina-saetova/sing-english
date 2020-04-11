@@ -32,10 +32,10 @@ class MainPageViewModel @Inject constructor(val repository: VideoRepository)
         get() = _progress
 
     init {
-        load()
+        loadVideos()
     }
 
-    private fun load() {
+    private fun loadVideos() {
         viewModelJob = viewModelScope.launch {
             try {
                 _progress.postValue(LoadingStatus.RUNNING)

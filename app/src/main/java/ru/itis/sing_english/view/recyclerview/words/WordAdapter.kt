@@ -7,7 +7,8 @@ import ru.itis.sing_english.view.recyclerview.BindableAdapter
 
 class WordAdapter(
     private var list: MutableList<Word>,
-    private var clickListener: WordClickListener
+    private var wordClickListener: (String) -> Unit,
+    private var deleteClickListener: (Long) -> Unit
 ) : RecyclerView.Adapter<WordsViewHolder>(),
     BindableAdapter<MutableList<Word>> {
 
@@ -19,16 +20,18 @@ class WordAdapter(
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: WordsViewHolder, position: Int) {
-        holder.binding.word = list[position]
-        holder.binding.executePendingBindings()
+        holder.bind(list[position], wordClickListener)
         holder.binding.ibDelete.setOnClickListener {
-            clickListener.onWordDeleteListener(list[position].id)
+            deleteClickListener(list[position].id)
             delete(position)
         }
+        holder.binding.executePendingBindings()
     }
 
     override fun update(data: MutableList<Word>?) {
-        if (data == null) return
+        if (data == null) {
+            return
+        }
         list.clear()
         list.addAll(data)
         notifyDataSetChanged()

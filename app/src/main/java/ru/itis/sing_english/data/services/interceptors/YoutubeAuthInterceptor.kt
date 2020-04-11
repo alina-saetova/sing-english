@@ -10,7 +10,7 @@ import javax.inject.Singleton
 class YoutubeAuthInterceptor @Inject constructor() : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val url = chain.request().url()
+        val url = chain.request().url
             .newBuilder()
             .addQueryParameter("key",
                 BuildConfig.YOUTUBE_API_KEY

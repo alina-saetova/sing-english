@@ -5,6 +5,9 @@ import dagger.Provides
 import ru.itis.sing_english.data.local.dao.SubtitleDao
 import ru.itis.sing_english.data.local.dao.VideoDao
 import ru.itis.sing_english.data.local.dao.WordDao
+import ru.itis.sing_english.data.model.mapper.SubtitlesMapper
+import ru.itis.sing_english.data.model.mapper.VideosMapper
+import ru.itis.sing_english.data.model.mapper.WordsMapper
 import ru.itis.sing_english.data.services.SubtitleService
 import ru.itis.sing_english.data.services.WordService
 import ru.itis.sing_english.data.services.YoutubeVideoService
@@ -20,17 +23,17 @@ class RepositoryModule {
     @Singleton
     fun provideSubtitleRepository(api: SubtitleService,
                                   dao: SubtitleDao): SubtitlesRepositoryImpl =
-        SubtitlesRepositoryImpl(api, dao)
+        SubtitlesRepositoryImpl(api, dao, SubtitlesMapper())
 
     @Provides
     @Singleton
     fun provideWordsRepository(api: WordService,
                                dao: WordDao): WordRepositoryImpl =
-        WordRepositoryImpl(api, dao)
+        WordRepositoryImpl(api, dao, WordsMapper())
 
     @Provides
     @Singleton
     fun provideVideoRepository(api: YoutubeVideoService,
                                dao: VideoDao): VideoRepositoryImpl =
-        VideoRepositoryImpl(api, dao)
+        VideoRepositoryImpl(api, dao, VideosMapper())
 }

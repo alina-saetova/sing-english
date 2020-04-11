@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "videos")
-class Video(
+data class Video(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     @ColumnInfo(name = "video_id")

@@ -4,6 +4,7 @@ import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +25,7 @@ import javax.inject.Inject
 @ObsoleteCoroutinesApi
 class VocabularyFragment : Fragment(),
     CoroutineScope by MainScope(),
-    WordClickListener, Injectable
+    Injectable
 {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -42,11 +43,9 @@ class VocabularyFragment : Fragment(),
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentVocabularyBinding.inflate(inflater)
-        binding.btnQuiz.setOnClickListener {
-            findNavController().navigate(R.id.action_vocabulary_to_quiz)
-        }
+        binding.btnQuiz.setOnClickListener(onQuizButtonListener)
 
-        val adapter = WordAdapter(emptyList<Word>().toMutableList(), this)
+        val adapter = WordAdapter(emptyList<Word>().toMutableList(), wordClickListener, deleteClickListener)
         binding.rvWords.adapter = adapter
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -55,11 +54,6 @@ class VocabularyFragment : Fragment(),
         binding.vocabViewModel = viewModel
 
         return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.loadWords()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -76,7 +70,7 @@ class VocabularyFragment : Fragment(),
 
     private val queryListener = object: SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(newText: String?): Boolean {
-            newText?.let { goToWord(it) }
+            newText?.let { wordClickListener(it) }
             return true
         }
 
@@ -85,14 +79,27 @@ class VocabularyFragment : Fragment(),
         }
     }
 
-    private fun goToWord(query: String) {
+    private val deleteClickListener = { id: Long ->
+        viewModel.deleteWord(id)
+    }
+
+    private val wordClickListener = { query: String ->
         val bundle = Bundle()
         bundle.putString(WordDetailFragment.WORD_PARAM, query)
         findNavController().navigate(R.id.action_vocabulary_to_wordDetail, bundle)
     }
 
-    override fun onWordDeleteListener(id: Long) {
-        viewModel.deleteWord(id)
+    private val onQuizButtonListener = View.OnClickListener {
+        if (viewModel.words.value?.size ?: 0 < MIN_NUM_QUIZ) {
+            Toast.makeText(activity, R.string.quiz_warning, Toast.LENGTH_LONG).show()
+        } else {
+            findNavController().navigate(R.id.action_vocabulary_to_quiz)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadWords()
     }
 
     override fun onAttach(context: Context) {
@@ -101,14 +108,6 @@ class VocabularyFragment : Fragment(),
     }
 
     companion object {
-
-        fun newInstance(param1: String = "") =
-            VocabularyFragment().apply {
-                arguments = Bundle().apply {
-                    putString(PARAM, param1)
-                }
-            }
-
-        private const val PARAM = "param"
+        const val MIN_NUM_QUIZ = 4
     }
 }

@@ -42,4 +42,10 @@ class FavouritesViewModel @Inject constructor(val repository: VideoRepository)
             repository.deleteVideoFromFavourites(video)
         }
     }
+
+    fun like(video: Video) {
+        viewModelJob = viewModelScope.launch {
+            repository.addVideoToFavourite(video)
+        }
+    }
 }

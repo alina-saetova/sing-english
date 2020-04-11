@@ -9,8 +9,8 @@ import ru.itis.sing_english.R
 
 class ListPaddingDecoration(
     context: Context?,
-    val paddingLeft: Int,
-    val paddingRight: Int
+    val paddingLeft: Int = 0,
+    val paddingRight: Int = 0
 ) : RecyclerView.ItemDecoration() {
 
     private var mDivider: Drawable? = null

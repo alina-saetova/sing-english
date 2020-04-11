@@ -11,19 +11,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.Video
-import ru.itis.sing_english.data.repository.VideoRepository
 import ru.itis.sing_english.databinding.FragmentFavouritesBinding
-import ru.itis.sing_english.di.App
 import ru.itis.sing_english.di.Injectable
 import ru.itis.sing_english.utils.ListPaddingDecoration
 import ru.itis.sing_english.view.recyclerview.videos.VideoAdapter
-import ru.itis.sing_english.view.recyclerview.videos.VideoClickListener
-import ru.itis.sing_english.viewmodel.BaseViewModelFactory
 import ru.itis.sing_english.viewmodel.FavouritesViewModel
 import javax.inject.Inject
 
 
-class FavouritesFragment : Fragment(), CoroutineScope by MainScope(), VideoClickListener, Injectable {
+class FavouritesFragment : Fragment(), CoroutineScope by MainScope(), Injectable {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -38,9 +34,9 @@ class FavouritesFragment : Fragment(), CoroutineScope by MainScope(), VideoClick
         binding = FragmentFavouritesBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        val adapter = VideoAdapter(emptyList<Video>().toMutableList(), this)
+        val adapter = VideoAdapter(emptyList<Video>().toMutableList(), videoClickListener, likeClickListener)
         binding.rvVideos.addItemDecoration(
-            ListPaddingDecoration(context, 0, 0)
+            ListPaddingDecoration(context)
         )
         binding.rvVideos.adapter = adapter
 
@@ -51,29 +47,23 @@ class FavouritesFragment : Fragment(), CoroutineScope by MainScope(), VideoClick
         return binding.root
     }
 
-    override fun onVideoClickListener(id: String) {
+    private val videoClickListener =  { id: String ->
         val bundle = Bundle()
         bundle.putString(SongFragment.ID_PARAM, id)
         findNavController().navigate(R.id.action_favourites_to_song, bundle)
     }
 
-    override fun onLikeClickListener(video: Video, like: String) {
-        viewModel.unlike(video)
+    private val likeClickListener = { video: Video, like: String ->
+        if (like == "like") {
+            viewModel.unlike(video)
+        }
+        else {
+            viewModel.like(video)
+        }
     }
 
     override fun onResume() {
         super.onResume()
         viewModel.loadFavourites()
-    }
-
-    companion object {
-
-        private const val ARG_SUM = "sum"
-
-        fun newInstance(sum: Int = 0): FavouritesFragment = FavouritesFragment().apply {
-            arguments = Bundle().apply {
-                putInt(ARG_SUM, sum)
-            }
-        }
     }
 }

@@ -1,4 +1,4 @@
-package ru.itis.sing_english.view.recyclerview.songs_row
+package ru.itis.sing_english.view.recyclerview.songsrow
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

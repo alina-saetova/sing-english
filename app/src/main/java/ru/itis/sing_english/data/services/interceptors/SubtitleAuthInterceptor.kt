@@ -10,7 +10,7 @@ import javax.inject.Singleton
 class SubtitleAuthInterceptor @Inject constructor() : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val newUrl = chain.request().url().newBuilder()
+        val newUrl = chain.request().url.newBuilder()
             .addQueryParameter("key",
                 BuildConfig.YOUTUBE_API_KEY
             )

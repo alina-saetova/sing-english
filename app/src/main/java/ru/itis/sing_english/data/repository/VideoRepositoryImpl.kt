@@ -4,12 +4,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.itis.sing_english.data.local.dao.VideoDao
 import ru.itis.sing_english.data.model.*
+import ru.itis.sing_english.data.model.mapper.VideosMapper
 import ru.itis.sing_english.data.services.YoutubeVideoService
 import javax.inject.Inject
 
 class VideoRepositoryImpl @Inject constructor(
     private var videoApi: YoutubeVideoService,
-    private var videoDao: VideoDao
+    private var videoDao: VideoDao,
+    private var mapper: VideosMapper
 ) : VideoRepository {
 
     override suspend fun getFavouriteVideos(): List<Video> = withContext(Dispatchers.IO) {
@@ -28,14 +30,14 @@ class VideoRepositoryImpl @Inject constructor(
 
     override suspend fun searchVideos(text: String): List<Video> = withContext(Dispatchers.IO) {
         val response = videoApi.videosByName(text)
-        val videos = fromResponseToModel(response.videoItems)
-        checkData(videos)
+        val videos = mapper.fromResponseToModel(response.videoItems)
+        checkVideosForLike(videos)
     }
 
     override suspend fun getPopularVideos(): List<Video> = withContext(Dispatchers.IO) {
         val response = videoApi.popularVideos()
-        val videos = fromPopResponseToModel(filterByCaptions(response))
-        checkData(videos)
+        val videos = mapper.fromPopResponseToModel(filterByCaptions(response))
+        checkVideosForLike(videos)
     }
 
     private fun filterByCaptions(response: PopularVideoResponse): List<PopVideoItem> {
@@ -48,10 +50,10 @@ class VideoRepositoryImpl @Inject constructor(
         return videoListCaptions
     }
 
-    private fun checkData(list: List<Video>): List<Video> {
+    private fun checkVideosForLike(list: List<Video>): List<Video> {
         val favourites = videoDao.getAllVideos()
         for (fav in favourites) {
-            loop@for (video in list) {
+            loop@ for (video in list) {
                 if (fav.videoId == video.videoId) {
                     video.like = true
                     break@loop
@@ -60,47 +62,4 @@ class VideoRepositoryImpl @Inject constructor(
         }
         return list
     }
-
-    private fun fromResponseToModel(videoItems: List<VideoItem>): List<Video> {
-        val list = mutableListOf<Video>()
-        for (v in videoItems) {
-            val title = splitTitle(v.snippet.title,
-                v.snippet.channelTitle)
-            list.add(Video(0,
-                v.id.videoId,
-                v.snippet.thumbnails.high.url,
-                title.first,
-                title.second,
-                false)
-            )
-        }
-        return list
-    }
-
-    private fun fromPopResponseToModel(videoItems: List<PopVideoItem>): List<Video> {
-        val list = mutableListOf<Video>()
-        for (v in videoItems) {
-            val title = splitTitle(v.snippet.title,
-                v.snippet.channelTitle)
-            list.add(Video(0,
-                v.id,
-                v.snippet.thumbnails.high.url,
-                title.first,
-                title.second,
-                false)
-            )
-        }
-        return list
-    }
-
-    private fun splitTitle(title: String, channelTitle: String): Pair<String, String> {
-        val artist = if (channelTitle.contains("VEVO")) {
-            channelTitle.removeRange(channelTitle.length - 4, channelTitle.length)
-        } else {
-            channelTitle
-        }
-        val sTitle = title.split(" - ")
-        return Pair(artist, sTitle[sTitle.size - 1])
-    }
-
 }

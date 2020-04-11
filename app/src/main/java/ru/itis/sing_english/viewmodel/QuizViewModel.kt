@@ -1,6 +1,5 @@
 package ru.itis.sing_english.viewmodel
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -95,7 +94,7 @@ class QuizViewModel @Inject constructor(val repository: WordRepository) : ViewMo
             else {
                 userOption.postValue(userOption.value?.word?.let { QuizOption(it, State.WRONG) })
             }
-            delay(2000)
+            delay(DELAY_FOR_ANSWER)
             _clickable.postValue(true)
             userOption.postValue(userOption.value?.word?.let { QuizOption(it, State.DEFAULT) })
             if (goToNext) {
@@ -107,5 +106,9 @@ class QuizViewModel @Inject constructor(val repository: WordRepository) : ViewMo
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+
+    companion object {
+        const val DELAY_FOR_ANSWER = 1000L
     }
 }

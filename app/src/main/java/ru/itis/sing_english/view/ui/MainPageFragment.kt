@@ -16,13 +16,12 @@ import ru.itis.sing_english.databinding.FragmentMainpageBinding
 import ru.itis.sing_english.di.Injectable
 import ru.itis.sing_english.utils.ListPaddingDecoration
 import ru.itis.sing_english.view.recyclerview.videos.VideoAdapter
-import ru.itis.sing_english.view.recyclerview.videos.VideoClickListener
 import ru.itis.sing_english.viewmodel.MainPageViewModel
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
-class MainPageFragment : Fragment(), VideoClickListener, Injectable {
+class MainPageFragment : Fragment(), Injectable {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -45,9 +44,9 @@ class MainPageFragment : Fragment(), VideoClickListener, Injectable {
     ): View? {
         binding = FragmentMainpageBinding.inflate(inflater)
 
-        val adapter = VideoAdapter(emptyList<Video>().toMutableList(), this)
+        val adapter = VideoAdapter(emptyList<Video>().toMutableList(), videoClickListener, likeClickListener)
         binding.rvVideos.addItemDecoration(
-                ListPaddingDecoration(context, 0, 0))
+                ListPaddingDecoration(context))
         binding.rvVideos.adapter = adapter
 
         binding.lifecycleOwner = viewLifecycleOwner
@@ -77,35 +76,22 @@ class MainPageFragment : Fragment(), VideoClickListener, Injectable {
         }
 
         override fun onQueryTextChange(text: String?): Boolean {
-//            text?.let { viewModel.search(it) }
-//            return true
             return false
         }
     }
 
-    override fun onVideoClickListener(id: String) {
+    private val videoClickListener =  { id: String ->
         val bundle = Bundle()
         bundle.putString(SongFragment.ID_PARAM, id)
         findNavController().navigate(R.id.action_mainPage_to_song, bundle)
     }
 
-    override fun onLikeClickListener(video: Video, like: String) {
+    private val likeClickListener = { video: Video, like: String ->
         if (like == "like") {
             viewModel.unlike(video)
         }
         else {
             viewModel.like(video)
-        }
-    }
-
-    companion object {
-
-        private const val ARG_SUM = "sum"
-
-        fun newInstance(sum: Int = 0): MainPageFragment = MainPageFragment().apply {
-            arguments = Bundle().apply {
-                putInt(ARG_SUM, sum)
-            }
         }
     }
 }

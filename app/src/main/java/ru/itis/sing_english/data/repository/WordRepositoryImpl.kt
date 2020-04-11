@@ -5,6 +5,7 @@ import kotlinx.coroutines.withContext
 import ru.itis.sing_english.data.model.DictionaryResponse
 import ru.itis.sing_english.data.model.Word
 import ru.itis.sing_english.data.local.dao.WordDao
+import ru.itis.sing_english.data.model.mapper.WordsMapper
 import ru.itis.sing_english.data.services.WordService
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -12,7 +13,8 @@ import javax.inject.Singleton
 @Singleton
 class WordRepositoryImpl @Inject constructor(
     private var wordApi: WordService,
-    private var wordDao: WordDao
+    private var wordDao: WordDao,
+    private var mapper: WordsMapper
 ): WordRepository  {
 
     override suspend fun getListWords() = withContext(Dispatchers.IO) {
@@ -30,7 +32,7 @@ class WordRepositoryImpl @Inject constructor(
     }
 
     override suspend fun saveListWords(list: List<DictionaryResponse>) {
-        val listWords = fromResponseToModel(list)
+        val listWords = mapper.fromResponseToModel(list)
         withContext(Dispatchers.IO) {
             wordDao.insert(listWords)
         }
@@ -40,13 +42,5 @@ class WordRepositoryImpl @Inject constructor(
         withContext(Dispatchers.IO) {
             wordDao.deleteWord(id)
         }
-    }
-
-    private fun fromResponseToModel(responses: List<DictionaryResponse>): List<Word> {
-        val list = mutableListOf<Word>()
-        for (r in responses) {
-            list.add(Word(0, r.def[0].word, r.def[0].translating[0].transl))
-        }
-        return list
     }
 }

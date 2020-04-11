@@ -7,18 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.android.synthetic.main.word_detail_fragment.*
 import kotlinx.coroutines.*
 import ru.itis.sing_english.MainActivity
 
-import ru.itis.sing_english.R
-import ru.itis.sing_english.data.model.DictionaryResponse
-import ru.itis.sing_english.data.model.Word
-import ru.itis.sing_english.data.repository.WordRepository
 import ru.itis.sing_english.databinding.WordDetailFragmentBinding
-import ru.itis.sing_english.di.App
 import ru.itis.sing_english.di.Injectable
-import ru.itis.sing_english.viewmodel.BaseViewModelFactory
 import ru.itis.sing_english.viewmodel.WordViewModel
 import javax.inject.Inject
 
@@ -57,13 +50,6 @@ class WordDetailFragment : Fragment(), CoroutineScope by MainScope(), Injectable
     }
 
     companion object {
-
-        fun newInstance(param1: String) =
-            WordDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString(WORD_PARAM, param1)
-                }
-            }
 
         const val WORD_PARAM = "word"
     }

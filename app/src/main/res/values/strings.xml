@@ -8,8 +8,9 @@
     <string name="tv_default_artist">Artist</string>
     <string name="state_default">DEFAULT</string>
 
-
+    <string name="quiz_warning">For quiz you should have at least 4 words</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tv_popular_videos">Most popular videos</string>
+    <string name="btn_save">Save</string>
 </resources>

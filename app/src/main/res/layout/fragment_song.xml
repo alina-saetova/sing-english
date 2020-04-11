@@ -44,40 +44,40 @@
                 android:layout_weight="1"
                 android:gravity="center">
 
-                <LinearLayout
-                    android:id="@+id/ll_previous_sub"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent">
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/ll_previous_sub"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="60dp"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:gravity="center"-->
+<!--                    app:layout_constraintStart_toStartOf="parent">-->
 
-                    <TextView
-                        android:id="@+id/tv_prev_first"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@{songViewModel.previousSub.first}"
-                        android:textAlignment="textEnd" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_prev_first"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="@{songViewModel.previousSub.first}"-->
+<!--                        android:textAlignment="textEnd" />-->
 
-                    <TextView
-                        android:id="@+id/tv_prev_word"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="@{songViewModel.userAnswer}"
-                        android:textAlignment="center"
-                        android:textColor="#00796B"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_prev_word"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="0.5"-->
+<!--                        android:text="@{songViewModel.userAnswer}"-->
+<!--                        android:textAlignment="center"-->
+<!--                        android:textColor="#00796B"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <TextView
-                        android:id="@+id/tv_prev_second"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@{songViewModel.previousSub.second}"
-                        android:textAlignment="viewStart" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_prev_second"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="@{songViewModel.previousSub.second}"-->
+<!--                        android:textAlignment="viewStart" />-->
+<!--                </LinearLayout>-->
 
                 <LinearLayout
                     android:id="@+id/ll_active_sub"

@@ -1,6 +1,5 @@
 package ru.itis.sing_english.viewmodel
 
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.lifecycle.LiveData
@@ -62,18 +61,18 @@ class SongViewModel @Inject constructor(
 
     fun start() {
         _previousSub.value = SongRow("", "", "")
-        _userAnswer.value = "_____"
-        fillButtons()
-        rowsList.removeAt(0)
-        subsList.removeAt(0)
+        _userAnswer.value = MISSING_PLACE
+//        fillButtons()
+//        rowsList.removeAt(0)
+//        subsList.removeAt(0)
     }
 
     fun onPlaying(second: Float) {
 //        Log.e("onPlay", second.toString())
-        if (abs(second - subsList[0].row.start) < 0.05) {
+        if (abs(second - subsList[0].row.start) < ROW_GAP) {
             if (subsList.size == 1) return
-            _previousSub.value = rowsList[0]
-            _userAnswer.value = "_____"
+            _activeSub.value = rowsList[0]
+            _userAnswer.value = MISSING_PLACE
             fillButtons()
             rowsList.removeAt(0)
             subsList.removeAt(0)
@@ -103,10 +102,10 @@ class SongViewModel @Inject constructor(
             createRowsList()
         }
 
-        _firstOption.value = "waiting"
-        _secondOption.value = "for"
-        _thirdOption.value = "playing"
-        _fourthOption.value = "song"
+        _firstOption.value = DEFAULT_WORDS[0]
+        _secondOption.value = DEFAULT_WORDS[1]
+        _thirdOption.value = DEFAULT_WORDS[2]
+        _fourthOption.value = DEFAULT_WORDS[3]
     }
 
     private fun createRowsList() {
@@ -140,5 +139,11 @@ class SongViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+
+    companion object {
+        val DEFAULT_WORDS = arrayListOf("waiting", "for", "playing", "song")
+        const val MISSING_PLACE = "_____"
+        const val ROW_GAP = 0.06
     }
 }

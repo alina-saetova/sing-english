@@ -2,7 +2,6 @@ package ru.itis.sing_english.view.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +14,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import kotlinx.android.synthetic.main.fragment_song.*
 import kotlinx.coroutines.*
 import ru.itis.sing_english.MainActivity
-import ru.itis.sing_english.data.model.Subtitle
 import ru.itis.sing_english.databinding.FragmentSongBinding
-import ru.itis.sing_english.di.App
 import ru.itis.sing_english.di.Injectable
-import ru.itis.sing_english.view.recyclerview.songs_row.SubtitleAdapter
 import ru.itis.sing_english.viewmodel.SongViewModel
-import ru.itis.sing_english.viewmodel.BaseViewModelFactory
 import javax.inject.Inject
 
 class SongFragment : Fragment(), CoroutineScope by MainScope(), Injectable {
@@ -59,7 +54,7 @@ class SongFragment : Fragment(), CoroutineScope by MainScope(), Injectable {
 
     private val playerListener : AbstractYouTubePlayerListener = object: AbstractYouTubePlayerListener() {
         override fun onReady(youTubePlayer: YouTubePlayer) {
-            youTubePlayer.cueVideo(videoId, 0f)
+            youTubePlayer.cueVideo(videoId, START_SECOND)
         }
 
         var flag = false
@@ -90,14 +85,7 @@ class SongFragment : Fragment(), CoroutineScope by MainScope(), Injectable {
     }
 
     companion object {
-
-        fun newInstance(param1: String) =
-            SongFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ID_PARAM, param1)
-                }
-            }
-
+        const val START_SECOND = 0f
         const val ID_PARAM = "videoId"
     }
 }

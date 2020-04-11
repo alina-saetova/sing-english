@@ -15,11 +15,8 @@ import kotlinx.coroutines.ObsoleteCoroutinesApi
 import ru.itis.sing_english.MainActivity
 
 import ru.itis.sing_english.R
-import ru.itis.sing_english.data.repository.WordRepository
 import ru.itis.sing_english.databinding.FragmentQuizBinding
-import ru.itis.sing_english.di.App
 import ru.itis.sing_english.di.Injectable
-import ru.itis.sing_english.viewmodel.BaseViewModelFactory
 import ru.itis.sing_english.viewmodel.QuizViewModel
 import javax.inject.Inject
 
@@ -44,7 +41,7 @@ class QuizFragment : Fragment(), CoroutineScope by MainScope(), Injectable {
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.ibQuit.setOnClickListener {
-//            findNavController().navigate(R.id.action_quizFragment_to_navigation_vocab)
+            findNavController().navigate(R.id.action_quiz_to_vocabulary)
         }
         return binding.root
     }
@@ -57,17 +54,5 @@ class QuizFragment : Fragment(), CoroutineScope by MainScope(), Injectable {
     override fun onDetach() {
         (activity as MainActivity).showBottomNavigation()
         super.onDetach()
-    }
-
-    companion object {
-
-        fun newInstance(param1: String = "") =
-            QuizFragment().apply {
-                arguments = Bundle().apply {
-                    putString(PARAM, param1)
-                }
-            }
-
-        private const val PARAM = "param"
     }
 }
