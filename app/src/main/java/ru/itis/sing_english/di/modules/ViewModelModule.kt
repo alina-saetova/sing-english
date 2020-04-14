@@ -43,9 +43,9 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(Song5RowsViewModel::class)
-    abstract fun bindSong5RowsViewModel(
-        song5RowsViewModel: Song5RowsViewModel
+    @ViewModelKey(SongViewModel::class)
+    abstract fun bindSongViewModel(
+        songViewModel: SongViewModel
     ): ViewModel
 
     @Binds

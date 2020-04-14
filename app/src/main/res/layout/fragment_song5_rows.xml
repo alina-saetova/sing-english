@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="ru.itis.sing_english.viewmodel.Song5RowsViewModel" />
+            type="ru.itis.sing_english.viewmodel.SongViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

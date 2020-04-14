@@ -14,7 +14,7 @@ import ru.itis.sing_english.data.repository.SubtitleRepository
 import javax.inject.Inject
 import kotlin.math.abs
 
-class Song5RowsViewModel @Inject constructor(
+class SongViewModel @Inject constructor(
     val repository: SubtitleRepository
 ) : ViewModel() {
 
@@ -44,7 +44,7 @@ class Song5RowsViewModel @Inject constructor(
     val row5: LiveData<SongRow>
         get() = _row5
 
-    private var rowsLiveData = mutableListOf(_row1, _row2, _row3, _row4, _row5)
+    private var rowsLiveData = mutableListOf(_row1, _row2, _row3)
 
     //buttons' options
     private var _option1 = MutableLiveData<String>()
@@ -70,11 +70,16 @@ class Song5RowsViewModel @Inject constructor(
         _option2.value = DEFAULT_WORDS[1]
         _option3.value = DEFAULT_WORDS[2]
         _option4.value = DEFAULT_WORDS[3]
-
         rowsLiveData[2].value = DEFAULT_ROW
     }
 
-    fun loadSong(videoId: String, flag: Boolean) {
+    var numM = 0;
+    fun loadSong(videoId: String, flag: Boolean, num: Int) {
+        numM = num
+        if (num == 5) {
+            rowsLiveData.add(_row4)
+            rowsLiveData.add(_row5)
+        }
         viewModelJob = viewModelScope.launch {
             subsList = repository.getSubtitles(videoId).toMutableList()
             createRowsList(flag)
@@ -84,7 +89,14 @@ class Song5RowsViewModel @Inject constructor(
     fun start() {
         _row1.value = EMPTY_ROW
         _row2.value = EMPTY_ROW
-        for(i in 2..4) {
+
+        val range = if (numM == 3) {
+            1..2
+        } else {
+            2..4
+        }
+
+        for(i in range) {
             rowsLiveData[i].value = rowsList.removeAt(0)
         }
 
@@ -94,7 +106,12 @@ class Song5RowsViewModel @Inject constructor(
     }
 
     private fun setActiveIndex() {
-        var index = 4
+        var index = if (numM == 3) {
+            2
+        }
+        else {
+            4
+        }
         for ((i, row) in rowsLiveData.withIndex()) {
             if (row.value?.word ?: "" == MISSING_PLACE) {
                 index = i
@@ -109,27 +126,41 @@ class Song5RowsViewModel @Inject constructor(
             return
         }
         if (abs(second - subsList[0].row.start) < ROW_GAP) {
-            if (subsList.size < 3) {
-                for (i in 0..(subsList.size + 1)) {
-                    rowsLiveData[i].value = rowsLiveData[i + 1].value
-                }
+            val range: IntRange
+            if (numM == 3 ) {
+                range = 0..1
                 if (subsList.size == 1) {
-                    rowsLiveData[3].value = EMPTY_ROW
+                    rowsLiveData[0].value = rowsLiveData[1].value
+                    rowsLiveData[1].value = rowsLiveData[2].value
+                    rowsLiveData[2].value = EMPTY_ROW
+                    setActiveIndex()
+                    subsList.removeAt(0)
+                    return
                 }
-                setActiveIndex()
-                rowsLiveData[4].value = EMPTY_ROW
-                subsList.removeAt(0)
-                return
+            } else {
+                range = 0..3
+                if (subsList.size < 3) {
+                    for (i in 0..(subsList.size + 1)) {
+                        rowsLiveData[i].value = rowsLiveData[i + 1].value
+                    }
+                    if (subsList.size == 1) {
+                        rowsLiveData[3].value = EMPTY_ROW
+                    }
+                    setActiveIndex()
+                    rowsLiveData[4].value = EMPTY_ROW
+                    subsList.removeAt(0)
+                    return
+                }
             }
 
             if (rowsLiveData[0].value?.word == MISSING_PLACE) {
                 fillButtons()
             }
 
-            for (i in 0..3) {
+            for (i in range) {
                 rowsLiveData[i].value = rowsLiveData[i + 1].value
             }
-            rowsLiveData[4].value = rowsList.removeAt(0)
+            rowsLiveData[numM - 1].value = rowsList.removeAt(0)
 
             setActiveIndex()
             subsList.removeAt(0)
