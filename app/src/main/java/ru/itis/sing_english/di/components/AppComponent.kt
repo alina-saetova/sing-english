@@ -6,13 +6,8 @@ import dagger.Component
 import dagger.android.AndroidInjectionModule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
-import ru.itis.sing_english.data.local.dao.SubtitleDao
-import ru.itis.sing_english.data.local.dao.WordDao
-import ru.itis.sing_english.data.repository.*
 import ru.itis.sing_english.di.App
 import ru.itis.sing_english.di.modules.*
-import ru.itis.sing_english.view.ui.MainPageFragment
-import ru.itis.sing_english.view.ui.SongFragment
 import javax.inject.Singleton
 
 @ObsoleteCoroutinesApi

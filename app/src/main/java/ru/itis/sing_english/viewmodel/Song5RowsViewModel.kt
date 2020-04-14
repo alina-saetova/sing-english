@@ -14,7 +14,7 @@ import ru.itis.sing_english.data.repository.SubtitleRepository
 import javax.inject.Inject
 import kotlin.math.abs
 
-class SongViewModel @Inject constructor(
+class Song5RowsViewModel @Inject constructor(
     val repository: SubtitleRepository
 ) : ViewModel() {
 
@@ -183,13 +183,15 @@ class SongViewModel @Inject constructor(
                 firstPart = wordsInRow.subList(0, randomIndex).joinToString(" ")
                 secondPart = wordsInRow.subList(randomIndex + 1, wordsInRow.size).joinToString(" ")
             }
-            val secretWord = if (isMissed) {
-                MISSING_PLACE
+            var secretWord: String
+            if (isMissed) {
+                secretWord = MISSING_PLACE
+                missingWords.add(wordsInRow[randomIndex])
             }
             else {
-                wordsInRow[randomIndex]
+                secretWord = wordsInRow[randomIndex]
             }
-            missingWords.add(wordsInRow[randomIndex])
+
             val row = SongRow(firstPart, secretWord, secondPart)
             rowsList.add(row)
         }

@@ -16,6 +16,7 @@ import ru.itis.sing_english.databinding.FragmentMainpageBinding
 import ru.itis.sing_english.di.Injectable
 import ru.itis.sing_english.utils.ListPaddingDecoration
 import ru.itis.sing_english.view.recyclerview.videos.VideoAdapter
+import ru.itis.sing_english.view.ui.Song5RowsFragment.Companion.ID_PARAM
 import ru.itis.sing_english.viewmodel.MainPageViewModel
 import javax.inject.Inject
 
@@ -82,8 +83,8 @@ class MainPageFragment : Fragment(), Injectable {
 
     private val videoClickListener =  { id: String ->
         val bundle = Bundle()
-        bundle.putString(SongFragment.ID_PARAM, id)
-        findNavController().navigate(R.id.action_mainPage_to_song, bundle)
+        bundle.putString(ID_PARAM, id)
+        findNavController().navigate(R.id.action_mainPage_to_chooseLevel, bundle)
     }
 
     private val likeClickListener = { video: Video, like: String ->

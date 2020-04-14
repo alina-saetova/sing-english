@@ -49,7 +49,7 @@ class FavouritesFragment : Fragment(), CoroutineScope by MainScope(), Injectable
 
     private val videoClickListener =  { id: String ->
         val bundle = Bundle()
-        bundle.putString(SongFragment.ID_PARAM, id)
+        bundle.putString(Song5RowsFragment.ID_PARAM, id)
         findNavController().navigate(R.id.action_favourites_to_song, bundle)
     }
 

@@ -21,11 +21,17 @@ abstract class FragmentBuildersModule {
     abstract fun contributeQuizFragment(): QuizFragment
 
     @ContributesAndroidInjector
-    abstract fun contributeSongFragment(): SongFragment
+    abstract fun contributeSong5RowsFragment(): Song5RowsFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeSong3RowsFragment(): Song3RowsFragment
 
     @ContributesAndroidInjector
     abstract fun contributeMainVocabularyFragment(): VocabularyFragment
 
     @ContributesAndroidInjector
     abstract fun contributeWordDetailFragment(): WordDetailFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeChooseLevelFragment(): ChooseLevelFragment
 }

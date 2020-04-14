@@ -5,14 +5,14 @@
 
     <data>
         <variable
-            name="songViewModel"
-            type="ru.itis.sing_english.viewmodel.SongViewModel" />
+            name="viewModel"
+            type="ru.itis.sing_english.viewmodel.Song5RowsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.ui.SongFragment"
+        tools:context=".view.ui.Song5RowsFragment"
         android:orientation="vertical">
 
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
@@ -57,7 +57,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{songViewModel.row1.first}"
+                        android:text="@{viewModel.row1.first}"
                         android:textAlignment="textEnd" />
 
                     <TextView
@@ -65,7 +65,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:text="@{songViewModel.row1.word}"
+                        android:text="@{viewModel.row1.word}"
                         android:textAlignment="center"
                         android:textColor="#00796B"
                         android:textStyle="bold" />
@@ -75,7 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{songViewModel.row1.second}"
+                        android:text="@{viewModel.row1.second}"
                         android:textAlignment="viewStart" />
                 </LinearLayout>
 
@@ -92,7 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{songViewModel.row2.first}"
+                        android:text="@{viewModel.row2.first}"
                         android:textAlignment="textEnd" />
 
                     <TextView
@@ -100,7 +100,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:text="@{songViewModel.row2.word}"
+                        android:text="@{viewModel.row2.word}"
                         android:textAlignment="center"
                         android:textColor="#00796B"
                         android:textStyle="bold" />
@@ -110,7 +110,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{songViewModel.row2.second}"
+                        android:text="@{viewModel.row2.second}"
                         android:textAlignment="viewStart" />
                 </LinearLayout>
 
@@ -127,7 +127,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{songViewModel.row3.first}"
+                        android:text="@{viewModel.row3.first}"
                         android:textAlignment="textEnd" />
 
                     <TextView
@@ -135,7 +135,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:text="@{songViewModel.row3.word}"
+                        android:text="@{viewModel.row3.word}"
                         android:textAlignment="center"
                         android:textColor="#00796B"
                         android:textStyle="bold" />
@@ -145,7 +145,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{songViewModel.row3.second}"
+                        android:text="@{viewModel.row3.second}"
                         android:textAlignment="viewStart" />
                 </LinearLayout>
 
@@ -162,7 +162,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{songViewModel.row4.first}"
+                        android:text="@{viewModel.row4.first}"
                         android:textAlignment="textEnd" />
 
                     <TextView
@@ -170,7 +170,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:text="@{songViewModel.row4.word}"
+                        android:text="@{viewModel.row4.word}"
                         android:textAlignment="center"
                         android:textColor="#00796B"
                         android:textStyle="bold" />
@@ -180,7 +180,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{songViewModel.row4.second}"
+                        android:text="@{viewModel.row4.second}"
                         android:textAlignment="viewStart" />
                 </LinearLayout>
 
@@ -197,7 +197,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{songViewModel.row5.first}"
+                        android:text="@{viewModel.row5.first}"
                         android:textAlignment="textEnd" />
 
                     <TextView
@@ -205,7 +205,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:text="@{songViewModel.row5.word}"
+                        android:text="@{viewModel.row5.word}"
                         android:textAlignment="center"
                         android:textColor="#00796B"
                         android:textStyle="bold" />
@@ -215,7 +215,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{songViewModel.row5.second}"
+                        android:text="@{viewModel.row5.second}"
                         android:textAlignment="viewStart" />
                 </LinearLayout>
 
@@ -243,16 +243,16 @@
                         android:id="@+id/btn_first"
                         android:layout_width="160dp"
                         android:layout_height="60dp"
-                        android:text="@{songViewModel.option1}"
-                        android:onClick="@{ (view) -> songViewModel.answer(view) }"/>
+                        android:text="@{viewModel.option1}"
+                        android:onClick="@{ (view) -> viewModel.answer(view) }"/>
 
                     <Button
                         android:id="@+id/btn_third"
                         android:layout_width="160dp"
                         android:layout_height="60dp"
                         android:layout_marginTop="10dp"
-                        android:text="@{songViewModel.option3}"
-                        android:onClick="@{ (view) -> songViewModel.answer(view) }"/>
+                        android:text="@{viewModel.option3}"
+                        android:onClick="@{ (view) -> viewModel.answer(view) }"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -267,15 +267,15 @@
                         android:layout_width="160dp"
                         android:layout_height="60dp"
                         android:layout_marginBottom="10dp"
-                        android:text="@{songViewModel.option2}"
-                        android:onClick="@{ (view) -> songViewModel.answer(view) }"/>
+                        android:text="@{viewModel.option2}"
+                        android:onClick="@{ (view) -> viewModel.answer(view) }"/>
 
                     <Button
                         android:id="@+id/btn_fourth"
                         android:layout_width="160dp"
                         android:layout_height="60dp"
-                        android:text="@{songViewModel.option4}"
-                        android:onClick="@{ (view) -> songViewModel.answer(view) }"/>
+                        android:text="@{viewModel.option4}"
+                        android:onClick="@{ (view) -> viewModel.answer(view) }"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

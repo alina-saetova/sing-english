@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.ui.ChooseLevelFragment"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvChoose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_difficulty_level" />
+
+        <Button
+            android:id="@+id/btnEasy"
+            android:text="@string/btnTitleEasy"
+            style="@style/ButtonDifficultyStyle"/>
+
+        <Button
+            android:id="@+id/btnNormal"
+            android:text="@string/btnTitleNormal"
+            style="@style/ButtonDifficultyStyle"/>
+
+        <Button
+            android:id="@+id/btnHard"
+            android:text="@string/btnTitleHard"
+            style="@style/ButtonDifficultyStyle"/>
+
+        <Button
+            android:id="@+id/btnChallenging"
+            android:text="@string/btnTitleChallenging"
+            style="@style/ButtonDifficultyStyle"/>
+    </LinearLayout>
+</layout>

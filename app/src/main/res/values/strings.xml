@@ -13,4 +13,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tv_popular_videos">Most popular videos</string>
     <string name="btn_save">Save</string>
+    <string name="choose_difficulty_level">Choose difficulty level</string>
+    <string name="btnTitleChallenging">Challenging</string>
+    <string name="btnTitleHard">Hard</string>
+    <string name="btnTitleNormal">Normal</string>
+    <string name="btnTitleEasy">Easy</string>
 </resources>

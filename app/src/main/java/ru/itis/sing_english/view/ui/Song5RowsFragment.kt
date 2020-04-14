@@ -11,38 +11,40 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstan
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-import kotlinx.android.synthetic.main.fragment_song.*
-import kotlinx.coroutines.*
+import kotlinx.android.synthetic.main.fragment_song5_rows.*
 import ru.itis.sing_english.MainActivity
-import ru.itis.sing_english.databinding.FragmentSongBinding
+import ru.itis.sing_english.databinding.FragmentSong5RowsBinding
 import ru.itis.sing_english.di.Injectable
-import ru.itis.sing_english.viewmodel.SongViewModel
+import ru.itis.sing_english.view.ui.ChooseLevelFragment.Companion.FLAG_PARAM
+import ru.itis.sing_english.viewmodel.Song5RowsViewModel
 import javax.inject.Inject
 
-class SongFragment : Fragment(), CoroutineScope by MainScope(), Injectable {
+class Song5RowsFragment : Fragment(), Injectable {
 
     private lateinit var youTubePlayerView: YouTubePlayerView
-    lateinit var viewModel: SongViewModel
+    lateinit var viewModel: Song5RowsViewModel
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    lateinit var binding: FragmentSongBinding
+    lateinit var binding: FragmentSong5RowsBinding
     lateinit var videoId: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSongBinding.inflate(inflater)
+        binding = FragmentSong5RowsBinding.inflate(inflater)
 //        val adapter = SubtitleAdapter(emptyList<Subtitle>().toMutableList())
 //        binding.rvSubs.adapter = adapter
         binding.lifecycleOwner = viewLifecycleOwner
+        viewModel = ViewModelProvider(this, viewModelFactory).get(Song5RowsViewModel::class.java)
 
-        viewModel = ViewModelProvider(this, viewModelFactory).get(SongViewModel::class.java)
+        var flag = false
         arguments?.let {
             videoId = it.getString(ID_PARAM).toString()
+            flag = it.getBoolean(FLAG_PARAM)
         }
-        viewModel.loadSong(videoId, true)
-        binding.songViewModel = viewModel
+        viewModel.loadSong(videoId, flag)
+        binding.viewModel = viewModel
         return binding.root
     }
 
