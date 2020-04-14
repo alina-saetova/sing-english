@@ -44,110 +44,178 @@
                 android:layout_weight="1"
                 android:gravity="center">
 
-<!--                <LinearLayout-->
-<!--                    android:id="@+id/ll_previous_sub"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="60dp"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:gravity="center"-->
-<!--                    app:layout_constraintStart_toStartOf="parent">-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/tv_prev_first"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:text="@{songViewModel.previousSub.first}"-->
-<!--                        android:textAlignment="textEnd" />-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/tv_prev_word"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="0.5"-->
-<!--                        android:text="@{songViewModel.userAnswer}"-->
-<!--                        android:textAlignment="center"-->
-<!--                        android:textColor="#00796B"-->
-<!--                        android:textStyle="bold" />-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/tv_prev_second"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:text="@{songViewModel.previousSub.second}"-->
-<!--                        android:textAlignment="viewStart" />-->
-<!--                </LinearLayout>-->
-
                 <LinearLayout
-                    android:id="@+id/ll_active_sub"
+                    android:id="@+id/llRow1"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
                     android:orientation="horizontal"
                     android:gravity="center"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginBottom="40dp"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    style="@style/RowsStyle">
 
                     <TextView
-                        android:id="@+id/tv_active_first"
+                        android:id="@+id/tv_first1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{songViewModel.activeSub.first}"
+                        android:text="@{songViewModel.row1.first}"
                         android:textAlignment="textEnd" />
 
                     <TextView
-                        android:id="@+id/tv_active_word"
+                        android:id="@+id/tv_word1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:text="@{songViewModel.userAnswer}"
+                        android:text="@{songViewModel.row1.word}"
                         android:textAlignment="center"
                         android:textColor="#00796B"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_active_second"
+                        android:id="@+id/tv_second1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{songViewModel.activeSub.second}"
+                        android:text="@{songViewModel.row1.second}"
                         android:textAlignment="viewStart" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/ll_next_sub"
+                    android:id="@+id/llRow2"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
                     android:orientation="horizontal"
                     android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    style="@style/RowsStyle">
 
                     <TextView
-                        android:id="@+id/tv_next_first"
+                        android:id="@+id/tv_first2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{songViewModel.nextSub.first}"
+                        android:text="@{songViewModel.row2.first}"
                         android:textAlignment="textEnd" />
 
                     <TextView
-                        android:id="@+id/tv_next_word"
+                        android:id="@+id/tv_word2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:text="@{songViewModel.userAnswer}"
+                        android:text="@{songViewModel.row2.word}"
                         android:textAlignment="center"
                         android:textColor="#00796B"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_next_second"
+                        android:id="@+id/tv_second2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{songViewModel.nextSub.second}"
+                        android:text="@{songViewModel.row2.second}"
+                        android:textAlignment="viewStart" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llRow3"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    style="@style/RowsStyle">
+
+                    <TextView
+                        android:id="@+id/tv_first3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{songViewModel.row3.first}"
+                        android:textAlignment="textEnd" />
+
+                    <TextView
+                        android:id="@+id/tv_word3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="@{songViewModel.row3.word}"
+                        android:textAlignment="center"
+                        android:textColor="#00796B"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_second3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{songViewModel.row3.second}"
+                        android:textAlignment="viewStart" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llRow4"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    style="@style/RowsStyle">
+
+                <TextView
+                        android:id="@+id/tv_first4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{songViewModel.row4.first}"
+                        android:textAlignment="textEnd" />
+
+                    <TextView
+                        android:id="@+id/tv_word4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="@{songViewModel.row4.word}"
+                        android:textAlignment="center"
+                        android:textColor="#00796B"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_second4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{songViewModel.row4.second}"
+                        android:textAlignment="viewStart" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llRow5"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    style="@style/RowsStyle">
+
+                    <TextView
+                        android:id="@+id/tv_first5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{songViewModel.row5.first}"
+                        android:textAlignment="textEnd" />
+
+                    <TextView
+                        android:id="@+id/tv_word5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="@{songViewModel.row5.word}"
+                        android:textAlignment="center"
+                        android:textColor="#00796B"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_second5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{songViewModel.row5.second}"
                         android:textAlignment="viewStart" />
                 </LinearLayout>
 
@@ -175,7 +243,7 @@
                         android:id="@+id/btn_first"
                         android:layout_width="160dp"
                         android:layout_height="60dp"
-                        android:text="@{songViewModel.firstOption}"
+                        android:text="@{songViewModel.option1}"
                         android:onClick="@{ (view) -> songViewModel.answer(view) }"/>
 
                     <Button
@@ -183,7 +251,7 @@
                         android:layout_width="160dp"
                         android:layout_height="60dp"
                         android:layout_marginTop="10dp"
-                        android:text="@{songViewModel.thirdOption}"
+                        android:text="@{songViewModel.option3}"
                         android:onClick="@{ (view) -> songViewModel.answer(view) }"/>
                 </LinearLayout>
 
@@ -199,14 +267,14 @@
                         android:layout_width="160dp"
                         android:layout_height="60dp"
                         android:layout_marginBottom="10dp"
-                        android:text="@{songViewModel.secondOption}"
+                        android:text="@{songViewModel.option2}"
                         android:onClick="@{ (view) -> songViewModel.answer(view) }"/>
 
                     <Button
                         android:id="@+id/btn_fourth"
                         android:layout_width="160dp"
                         android:layout_height="60dp"
-                        android:text="@{songViewModel.fourthOption}"
+                        android:text="@{songViewModel.option4}"
                         android:onClick="@{ (view) -> songViewModel.answer(view) }"/>
                 </LinearLayout>
             </LinearLayout>

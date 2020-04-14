@@ -41,7 +41,7 @@ class SongFragment : Fragment(), CoroutineScope by MainScope(), Injectable {
         arguments?.let {
             videoId = it.getString(ID_PARAM).toString()
         }
-        viewModel.loadSong(videoId)
+        viewModel.loadSong(videoId, true)
         binding.songViewModel = viewModel
         return binding.root
     }
