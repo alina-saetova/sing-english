@@ -18,4 +18,5 @@
     <string name="btnTitleHard">Hard</string>
     <string name="btnTitleNormal">Normal</string>
     <string name="btnTitleEasy">Easy</string>
+    <string name="tv_statistic">Statistic</string>
 </resources>

@@ -15,7 +15,11 @@
     <fragment
         android:id="@+id/song5Rows"
         android:name="ru.itis.sing_english.view.ui.Song5RowsFragment"
-        android:label="Song5Rows" />
+        android:label="Song5Rows" >
+        <action
+            android:id="@+id/action_song5Rows_to_statistic"
+            app:destination="@id/statistic" />
+    </fragment>
     <fragment
         android:id="@+id/chooseLevel"
         android:name="ru.itis.sing_english.view.ui.ChooseLevelFragment"
@@ -30,5 +34,13 @@
     <fragment
         android:id="@+id/song3Rows"
         android:name="ru.itis.sing_english.view.ui.Song3RowsFragment"
-        android:label="Song3Rows" />
+        android:label="Song3Rows" >
+        <action
+            android:id="@+id/action_song3Rows_to_statistic"
+            app:destination="@id/statistic" />
+    </fragment>
+    <fragment
+        android:id="@+id/statistic"
+        android:name="ru.itis.sing_english.view.ui.StatisticFragment"
+        android:label="Statistic" />
 </navigation>

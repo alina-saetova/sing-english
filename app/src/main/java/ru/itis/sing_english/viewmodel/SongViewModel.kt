@@ -1,5 +1,6 @@
 package ru.itis.sing_english.viewmodel
 
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.lifecycle.LiveData
@@ -22,7 +23,8 @@ class SongViewModel @Inject constructor(
     private var subsList = mutableListOf<Subtitle>()
     private var rowsList = mutableListOf<SongRow>()
     private var missingWords = mutableListOf<String>()
-
+    var fullLyricWithAnswers = mutableListOf<SongRow>()
+    var rightAnswers = mutableListOf<String>()
     //song's rows
     private var _row1 = MutableLiveData<SongRow>()
     val row1: LiveData<SongRow>
@@ -126,6 +128,7 @@ class SongViewModel @Inject constructor(
             return
         }
         if (abs(second - subsList[0].row.start) < ROW_GAP) {
+            rowsLiveData[0].value?.let { fullLyricWithAnswers.add(it) }
             val range: IntRange
             if (numM == 3 ) {
                 range = 0..1
@@ -133,6 +136,7 @@ class SongViewModel @Inject constructor(
                     rowsLiveData[0].value = rowsLiveData[1].value
                     rowsLiveData[1].value = rowsLiveData[2].value
                     rowsLiveData[2].value = EMPTY_ROW
+                    fullLyricWithAnswers.removeAt(0)
                     setActiveIndex()
                     subsList.removeAt(0)
                     return
@@ -146,6 +150,7 @@ class SongViewModel @Inject constructor(
                     if (subsList.size == 1) {
                         rowsLiveData[3].value = EMPTY_ROW
                     }
+                    fullLyricWithAnswers.removeAt(0)
                     setActiveIndex()
                     rowsLiveData[4].value = EMPTY_ROW
                     subsList.removeAt(0)
@@ -188,7 +193,14 @@ class SongViewModel @Inject constructor(
 
     fun answer(view: View) {
         val cur = rowsLiveData[currentRowIndex].value
-        val rowCur = SongRow(cur?.first.toString(), (view as Button).text.toString(), cur?.second.toString())
+        val rowCur = cur?.wasMissed?.let {
+            SongRow(
+                cur.first,
+                (view as Button).text.toString(),
+                cur.second,
+                it
+            )
+        }
         rowsLiveData[currentRowIndex].value = rowCur
         setActiveIndex()
         fillButtons()
@@ -222,8 +234,9 @@ class SongViewModel @Inject constructor(
             else {
                 secretWord = wordsInRow[randomIndex]
             }
-
-            val row = SongRow(firstPart, secretWord, secondPart)
+            rightAnswers.add(wordsInRow[randomIndex])
+            val row = SongRow(firstPart, secretWord, secondPart, isMissed)
+            Log.e("row", row.toString())
             rowsList.add(row)
         }
     }

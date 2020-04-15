@@ -2,17 +2,20 @@ package ru.itis.sing_english.view.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import kotlinx.android.synthetic.main.fragment_song5_rows.*
 import ru.itis.sing_english.MainActivity
+import ru.itis.sing_english.R
 import ru.itis.sing_english.databinding.FragmentSong5RowsBinding
 import ru.itis.sing_english.di.Injectable
 import ru.itis.sing_english.view.ui.ChooseLevelFragment.Companion.FLAG_PARAM
@@ -43,6 +46,10 @@ class Song5RowsFragment : Fragment(), Injectable {
         }
         viewModel.loadSong(videoId, flag, 5)
         binding.viewModel = viewModel
+
+//        TODO oooooooooooooooooooooooooooooo
+//        binding.btnToStatistic.setonClick
+
         return binding.root
     }
 
@@ -66,12 +73,22 @@ class Song5RowsFragment : Fragment(), Injectable {
                 viewModel.start()
                 flag = true
             }
+            if (state == PlayerConstants.PlayerState.ENDED) {
+                goToStatistic()
+            }
             super.onStateChange(youTubePlayer, state)
         }
 
         override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {
             viewModel.onPlaying(second)
         }
+    }
+
+    private fun goToStatistic() {
+        val bundle = Bundle()
+        bundle.putParcelableArrayList(LYRIC_PARAM, ArrayList<Parcelable>(viewModel.fullLyricWithAnswers))
+        bundle.putStringArrayList(ANSWERS_PARAM, ArrayList(viewModel.rightAnswers))
+        findNavController().navigate(R.id.action_song5Rows_to_statistic, bundle)
     }
 
     override fun onAttach(context: Context) {
@@ -87,5 +104,7 @@ class Song5RowsFragment : Fragment(), Injectable {
     companion object {
         const val START_SECOND = 0f
         const val ID_PARAM = "videoId"
+        const val LYRIC_PARAM = "lyric"
+        const val ANSWERS_PARAM = "answers"
     }
 }

@@ -1,10 +1,12 @@
 package ru.itis.sing_english.view.ui
 
+import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -59,6 +61,18 @@ fun ProgressBar.progressVisibility(loadingStatus: LoadingStatus?) {
             LoadingStatus.RUNNING -> true
             LoadingStatus.SUCCESS -> false
             LoadingStatus.FAILED -> false
+        }
+    }
+}
+
+@BindingAdapter(value = ["bind:correctness", "bind:missed"])
+fun setColor(view: View, isCorrect: Boolean, wasMissed: Boolean) {
+    if (wasMissed) {
+        if (isCorrect) {
+            (view as TextView).setBackgroundResource(R.color.colorRight)
+        }
+        else {
+            (view as TextView).setBackgroundResource(R.color.colorWrong)
         }
     }
 }

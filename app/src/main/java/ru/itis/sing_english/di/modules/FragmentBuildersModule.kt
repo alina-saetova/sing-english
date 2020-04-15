@@ -34,4 +34,7 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeChooseLevelFragment(): ChooseLevelFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeStatisticFragment(): StatisticFragment
 }
