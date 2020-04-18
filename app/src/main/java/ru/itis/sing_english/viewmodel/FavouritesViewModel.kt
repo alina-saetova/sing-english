@@ -37,15 +37,17 @@ class FavouritesViewModel @Inject constructor(val repository: VideoRepository)
         }
     }
 
-    fun unlike(video: Video) {
+    fun unlike(video: Video, position: Int) {
         viewModelJob = viewModelScope.launch {
             repository.deleteVideoFromFavourites(video)
+            _videos.value?.get(position)?.like = false
         }
     }
 
-    fun like(video: Video) {
+    fun like(video: Video, position: Int) {
         viewModelJob = viewModelScope.launch {
             repository.addVideoToFavourite(video)
+            _videos.value?.get(position)?.like = true
         }
     }
 }

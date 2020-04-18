@@ -68,4 +68,11 @@ abstract class ViewModelModule {
     abstract fun bindStatisticViewModel(
         statisticViewModel: StatisticViewModel
     ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ChooseWordsViewModel::class)
+    abstract fun bindChooseWordsViewModel(
+        chooseWordsViewModel: ChooseWordsViewModel
+    ): ViewModel
 }

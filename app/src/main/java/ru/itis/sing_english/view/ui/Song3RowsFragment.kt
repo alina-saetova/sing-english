@@ -48,7 +48,7 @@ class Song3RowsFragment : Fragment(), Injectable {
         binding.viewModel = viewModel
 
 
-//        TODO oooooooooooooooooooooooooooooo
+//        TODO
 //        binding.btnToStatistic.setonClick
 
         return binding.root

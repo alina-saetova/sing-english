@@ -9,11 +9,8 @@
         android:name="ru.itis.sing_english.view.ui.FavouritesFragment"
         android:label="Favourites" >
         <action
-            android:id="@+id/action_favourites_to_song"
-            app:destination="@id/song" />
+            android:id="@+id/action_favourites_to_graph_song"
+            app:destination="@id/graph_song" />
     </fragment>
-    <fragment
-        android:id="@+id/song"
-        android:name="ru.itis.sing_english.view.ui.Song5RowsFragment"
-        android:label="Song" />
+    <include app:graph="@navigation/navigation_song" />
 </navigation>

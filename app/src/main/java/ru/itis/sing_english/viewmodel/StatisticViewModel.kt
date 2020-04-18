@@ -12,9 +12,22 @@ class StatisticViewModel @Inject constructor() : ViewModel() {
     val statistic: LiveData<List<SongRow>>
         get() = _statistic
 
+    private var _numOfCorrectAnswers = MutableLiveData<Int>()
+    val numOfCorrectAnswers: LiveData<Int>
+        get() = _numOfCorrectAnswers
+
     fun loadStatistic(lyric: List<SongRow>, answers: List<String>) {
+        _numOfCorrectAnswers.value = 0
         for (i in lyric.indices) {
-            lyric[i].isCorrect = answers[i] == lyric[i].word
+            if (answers[i] == lyric[i].word) {
+                lyric[i].isCorrect = true
+                _numOfCorrectAnswers.value?.let { a ->
+                    _numOfCorrectAnswers.value = a + 1
+                }
+            }
+            else {
+                lyric[i].isCorrect = false
+            }
         }
         _statistic.value = lyric
     }

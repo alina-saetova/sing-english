@@ -44,9 +44,9 @@ class VocabularyViewModel @Inject constructor(
         }
     }
 
-    fun deleteWord(id: Long) {
+    fun deleteWord(word: Word) {
         viewModelJob = viewModelScope.launch {
-            repository.deleteWord(id)
+            repository.deleteWord(word)
         }
     }
 

@@ -1,5 +1,6 @@
 package ru.itis.sing_english.data.repository
 
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.itis.sing_english.data.model.DictionaryResponse
@@ -28,19 +29,30 @@ class WordRepositoryImpl @Inject constructor(
     }
 
     override suspend fun saveWord(response: DictionaryResponse) {
-        saveListWords(listOf(response))
+        saveResponseList(listOf(response))
     }
 
-    override suspend fun saveListWords(list: List<DictionaryResponse>) {
+    override suspend fun saveWord(text: String) {
+        val word = wordApi.word(text)
+        saveWord(word)
+    }
+
+    override suspend fun saveResponseList(list: List<DictionaryResponse>) {
         val listWords = mapper.fromResponseToModel(list)
         withContext(Dispatchers.IO) {
             wordDao.insert(listWords)
         }
     }
 
-    override suspend fun deleteWord(id: Long) {
+    override suspend fun deleteWord(word: Word) {
         withContext(Dispatchers.IO) {
-            wordDao.deleteWord(id)
+            wordDao.deleteWord(word)
+        }
+    }
+
+    override suspend fun deleteWord(word: String) {
+        withContext(Dispatchers.IO) {
+            wordDao.deleteWord(word)
         }
     }
 }

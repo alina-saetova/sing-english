@@ -9,38 +9,11 @@
         android:name="ru.itis.sing_english.view.ui.MainPageFragment"
         android:label="Main Page" >
         <action
-            android:id="@+id/action_mainPage_to_chooseLevel"
-            app:destination="@id/chooseLevel" />
+            android:id="@+id/action_mainPage_to_song_graph"
+            app:destination="@id/graph_song"
+            app:popUpTo="@navigation/navigation_main_page"/>
     </fragment>
-    <fragment
-        android:id="@+id/song5Rows"
-        android:name="ru.itis.sing_english.view.ui.Song5RowsFragment"
-        android:label="Song5Rows" >
-        <action
-            android:id="@+id/action_song5Rows_to_statistic"
-            app:destination="@id/statistic" />
-    </fragment>
-    <fragment
-        android:id="@+id/chooseLevel"
-        android:name="ru.itis.sing_english.view.ui.ChooseLevelFragment"
-        android:label="ChooseLevel" >
-        <action
-            android:id="@+id/action_chooseLevel_to_song5Rows"
-            app:destination="@id/song5Rows" />
-        <action
-            android:id="@+id/action_chooseLevel_to_song3Rows"
-            app:destination="@id/song3Rows" />
-    </fragment>
-    <fragment
-        android:id="@+id/song3Rows"
-        android:name="ru.itis.sing_english.view.ui.Song3RowsFragment"
-        android:label="Song3Rows" >
-        <action
-            android:id="@+id/action_song3Rows_to_statistic"
-            app:destination="@id/statistic" />
-    </fragment>
-    <fragment
-        android:id="@+id/statistic"
-        android:name="ru.itis.sing_english.view.ui.StatisticFragment"
-        android:label="Statistic" />
+
+    <include app:graph="@navigation/navigation_song" />
+
 </navigation>

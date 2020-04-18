@@ -32,6 +32,11 @@
                     android:text="@string/tv_statistic"
                     android:textSize="20sp"/>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{`Correct answers: ` + viewModel.numOfCorrectAnswers + ` out of ` + viewModel.statistic.size()}"/>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvLyric"
                     android:layout_width="match_parent"
@@ -45,9 +50,10 @@
                     app:recycler="@{viewModel.statistic}"/>
 
                 <Button
+                    android:id="@+id/btnContinue"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:text="Continue"/>
+                    android:text="@string/btn_continue" />
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

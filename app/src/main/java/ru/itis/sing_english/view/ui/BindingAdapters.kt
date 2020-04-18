@@ -7,6 +7,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -74,5 +75,15 @@ fun setColor(view: View, isCorrect: Boolean, wasMissed: Boolean) {
         else {
             (view as TextView).setBackgroundResource(R.color.colorWrong)
         }
+    }
+}
+
+@BindingAdapter("word")
+fun onWordClick(view: TextView, flag: Boolean) {
+    if (flag) {
+        view.setTextColor(view.resources.getColor(R.color.colorRight))
+    }
+    else {
+        view.setTextColor(view.resources.getColor(R.color.colorAccent))
     }
 }

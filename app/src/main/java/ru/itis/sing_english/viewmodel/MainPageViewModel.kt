@@ -76,15 +76,17 @@ class MainPageViewModel @Inject constructor(val repository: VideoRepository)
         broadcast.offer(text)
     }
 
-    fun like(video: Video) {
+    fun like(video: Video, position: Int) {
         viewModelJob = viewModelScope.launch {
             repository.addVideoToFavourite(video)
+            _videos.value?.get(position)?.like = true
         }
     }
 
-    fun unlike(video: Video) {
+    fun unlike(video: Video, position: Int) {
         viewModelJob = viewModelScope.launch {
             repository.deleteVideoFromFavourites(video)
+            _videos.value?.get(position)?.like = false
         }
     }
 

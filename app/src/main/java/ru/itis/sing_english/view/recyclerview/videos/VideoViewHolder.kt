@@ -12,27 +12,21 @@ class VideoViewHolder (val binding: ItemVideoBinding)
     : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(video: Video,
+             position: Int,
              videoClickListener: (String) -> Unit,
-             likeClickListener: (Video, String) -> Unit
+             likeClickListener: (Video, String, Int) -> Unit
     ) {
         binding.video = video
-        if (video.like) {
-            binding.ibLike.tag = LIKE_PRESSED
-        }
-        else {
-            binding.ibLike.tag = LIKE_NOT_PRESSED
-        }
-        binding.executePendingBindings()
         binding.root.setOnClickListener {
             videoClickListener(video.videoId)
         }
         binding.ibLike.setOnClickListener {
-            if (binding.ibLike.tag == LIKE_PRESSED) {
-                likeClickListener(video, LIKE_PRESSED)
+            if (video.like) {
+                likeClickListener(video, LIKE_PRESSED, position)
                 binding.ibLike.setImageResource(R.drawable.ic_favourites_empty)
             }
             else {
-                likeClickListener(video, LIKE_NOT_PRESSED)
+                likeClickListener(video, LIKE_NOT_PRESSED, position)
                 binding.ibLike.setImageResource(R.drawable.ic_favourites_full)
             }
         }

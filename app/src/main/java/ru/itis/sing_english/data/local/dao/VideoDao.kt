@@ -12,8 +12,8 @@ interface VideoDao {
     @Insert
     fun insert(video: Video)
 
-    @Delete
-    fun delete(video: Video)
+    @Query("DELETE FROM videos WHERE video_id = :videoId")
+    fun delete(videoId: String)
 
     @Query("SELECT * from videos")
     fun getAllVideos() : List<Video>

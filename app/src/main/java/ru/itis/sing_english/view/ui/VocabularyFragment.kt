@@ -9,24 +9,20 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.fragment_vocabulary.*
 import kotlinx.coroutines.*
 import ru.itis.sing_english.MainActivity
 import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.Word
 import ru.itis.sing_english.databinding.FragmentVocabularyBinding
 import ru.itis.sing_english.di.Injectable
-import ru.itis.sing_english.view.recyclerview.words.WordClickListener
 import ru.itis.sing_english.view.recyclerview.words.WordAdapter
 import ru.itis.sing_english.viewmodel.VocabularyViewModel
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
-class VocabularyFragment : Fragment(),
-    CoroutineScope by MainScope(),
-    Injectable
-{
+class VocabularyFragment : Fragment(), Injectable {
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var viewModel: VocabularyViewModel
@@ -79,8 +75,8 @@ class VocabularyFragment : Fragment(),
         }
     }
 
-    private val deleteClickListener = { id: Long ->
-        viewModel.deleteWord(id)
+    private val deleteClickListener = { word: Word ->
+        viewModel.deleteWord(word)
     }
 
     private val wordClickListener = { query: String ->

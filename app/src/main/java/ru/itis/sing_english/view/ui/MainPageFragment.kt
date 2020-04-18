@@ -84,15 +84,15 @@ class MainPageFragment : Fragment(), Injectable {
     private val videoClickListener =  { id: String ->
         val bundle = Bundle()
         bundle.putString(ID_PARAM, id)
-        findNavController().navigate(R.id.action_mainPage_to_chooseLevel, bundle)
+        findNavController().navigate(R.id.action_mainPage_to_song_graph, bundle)
     }
 
-    private val likeClickListener = { video: Video, like: String ->
+    private val likeClickListener = { video: Video, like: String, position: Int ->
         if (like == "like") {
-            viewModel.unlike(video)
+            viewModel.unlike(video, position)
         }
         else {
-            viewModel.like(video)
+            viewModel.like(video, position)
         }
     }
 }

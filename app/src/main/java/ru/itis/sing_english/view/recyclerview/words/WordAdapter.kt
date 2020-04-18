@@ -8,7 +8,7 @@ import ru.itis.sing_english.view.recyclerview.BindableAdapter
 class WordAdapter(
     private var list: MutableList<Word>,
     private var wordClickListener: (String) -> Unit,
-    private var deleteClickListener: (Long) -> Unit
+    private var deleteClickListener: (Word) -> Unit
 ) : RecyclerView.Adapter<WordsViewHolder>(),
     BindableAdapter<MutableList<Word>> {
 
@@ -22,7 +22,7 @@ class WordAdapter(
     override fun onBindViewHolder(holder: WordsViewHolder, position: Int) {
         holder.bind(list[position], wordClickListener)
         holder.binding.ibDelete.setOnClickListener {
-            deleteClickListener(list[position].id)
+            deleteClickListener(list[position])
             delete(position)
         }
         holder.binding.executePendingBindings()

@@ -15,11 +15,12 @@ import ru.itis.sing_english.databinding.FragmentFavouritesBinding
 import ru.itis.sing_english.di.Injectable
 import ru.itis.sing_english.utils.ListPaddingDecoration
 import ru.itis.sing_english.view.recyclerview.videos.VideoAdapter
+import ru.itis.sing_english.view.ui.Song5RowsFragment.Companion.ID_PARAM
 import ru.itis.sing_english.viewmodel.FavouritesViewModel
 import javax.inject.Inject
 
 
-class FavouritesFragment : Fragment(), CoroutineScope by MainScope(), Injectable {
+class FavouritesFragment : Fragment(), Injectable {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -49,16 +50,16 @@ class FavouritesFragment : Fragment(), CoroutineScope by MainScope(), Injectable
 
     private val videoClickListener =  { id: String ->
         val bundle = Bundle()
-        bundle.putString(Song5RowsFragment.ID_PARAM, id)
-        findNavController().navigate(R.id.action_favourites_to_song, bundle)
+        bundle.putString(ID_PARAM, id)
+        findNavController().navigate(R.id.action_favourites_to_graph_song, bundle)
     }
 
-    private val likeClickListener = { video: Video, like: String ->
+    private val likeClickListener = { video: Video, like: String, position: Int ->
         if (like == "like") {
-            viewModel.unlike(video)
+            viewModel.unlike(video, position)
         }
         else {
-            viewModel.like(video)
+            viewModel.like(video, position)
         }
     }
 

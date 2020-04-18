@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/graph_song"
+    app:startDestination="@id/chooseLevel">
+
+    <fragment
+        android:id="@+id/chooseLevel"
+        android:name="ru.itis.sing_english.view.ui.ChooseLevelFragment"
+        android:label="ChooseLevel" >
+        <action
+            android:id="@+id/action_chooseLevel_to_song5Rows"
+            app:destination="@id/song5Rows" />
+        <action
+            android:id="@+id/action_chooseLevel_to_song3Rows"
+            app:destination="@id/song3Rows" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/song3Rows"
+        android:name="ru.itis.sing_english.view.ui.Song3RowsFragment"
+        android:label="Song3Rows" >
+        <action
+            android:id="@+id/action_song3Rows_to_statistic"
+            app:destination="@id/statistic" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/song5Rows"
+        android:name="ru.itis.sing_english.view.ui.Song5RowsFragment"
+        android:label="Song5Rows" >
+        <action
+            android:id="@+id/action_song5Rows_to_statistic"
+            app:destination="@id/statistic" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/statistic"
+        android:name="ru.itis.sing_english.view.ui.StatisticFragment"
+        android:label="Statistic" >
+        <action
+            android:id="@+id/action_statistic_to_chooseWords"
+            app:destination="@id/chooseWords" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/chooseWords"
+        android:name="ru.itis.sing_english.view.ui.ChooseWordsFragment"
+        android:label="ChooseWords">
+        <action
+            android:id="@+id/action_chooseWords_to_main"
+            app:destination="@id/navigation_main_page"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/navigation_main_page"/>
+    </fragment>
+</navigation>

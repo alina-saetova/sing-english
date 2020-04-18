@@ -25,7 +25,7 @@ class VideoRepositoryImpl @Inject constructor(
     }
 
     override suspend fun deleteVideoFromFavourites(video: Video) = withContext(Dispatchers.IO) {
-        videoDao.delete(video)
+        videoDao.delete(video.videoId)
     }
 
     override suspend fun searchVideos(text: String): List<Video> = withContext(Dispatchers.IO) {

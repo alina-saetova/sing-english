@@ -47,7 +47,7 @@ class Song5RowsFragment : Fragment(), Injectable {
         viewModel.loadSong(videoId, flag, 5)
         binding.viewModel = viewModel
 
-//        TODO oooooooooooooooooooooooooooooo
+//        TODO
 //        binding.btnToStatistic.setonClick
 
         return binding.root

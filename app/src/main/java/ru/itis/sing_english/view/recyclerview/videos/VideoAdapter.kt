@@ -9,7 +9,7 @@ import ru.itis.sing_english.view.recyclerview.BindableAdapter
 class VideoAdapter(
     private var list: MutableList<Video>,
     private val videoClickListener: (String) -> Unit,
-    private val likeClickListener: (Video, String) -> Unit
+    private val likeClickListener: (Video, String, Int) -> Unit
 ) : RecyclerView.Adapter<VideoViewHolder>(),
     BindableAdapter<MutableList<Video>> {
 
@@ -19,7 +19,7 @@ class VideoAdapter(
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
-        holder.bind(list[position], videoClickListener, likeClickListener)
+        holder.bind(list[position], position, videoClickListener, likeClickListener)
     }
 
     override fun update(data: MutableList<Video>?) {
