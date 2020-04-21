@@ -1,17 +1,16 @@
 package ru.itis.sing_english.data.repository
 
-import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.itis.sing_english.data.local.dao.WordDao
 import ru.itis.sing_english.data.model.DictionaryResponse
 import ru.itis.sing_english.data.model.Word
-import ru.itis.sing_english.data.local.dao.WordDao
 import ru.itis.sing_english.data.model.mapper.WordsMapper
 import ru.itis.sing_english.data.services.WordService
+import ru.itis.sing_english.di.scope.ApplicationScope
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@ApplicationScope
 class WordRepositoryImpl @Inject constructor(
     private var wordApi: WordService,
     private var wordDao: WordDao,

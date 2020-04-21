@@ -1,7 +1,7 @@
 package ru.itis.sing_english.data.model
 
-import androidx.room.PrimaryKey
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "words")
 data class Word(

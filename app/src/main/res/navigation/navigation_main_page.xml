@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/mainPage"
-        android:name="ru.itis.sing_english.view.ui.MainPageFragment"
+        android:name="ru.itis.sing_english.presentation.view.ui.MainPageFragment"
         android:label="Main Page" >
         <action
             android:id="@+id/action_mainPage_to_song_graph"

@@ -1,16 +1,15 @@
 package ru.itis.sing_english.data.repository
 
-import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.itis.sing_english.data.model.Subtitle
 import ru.itis.sing_english.data.local.dao.SubtitleDao
+import ru.itis.sing_english.data.model.Subtitle
 import ru.itis.sing_english.data.model.mapper.SubtitlesMapper
 import ru.itis.sing_english.data.services.SubtitleService
+import ru.itis.sing_english.di.scope.ApplicationScope
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@ApplicationScope
 class SubtitlesRepositoryImpl @Inject constructor(
     private var subtitlesApi: SubtitleService,
     private var subtitleDao: SubtitleDao,

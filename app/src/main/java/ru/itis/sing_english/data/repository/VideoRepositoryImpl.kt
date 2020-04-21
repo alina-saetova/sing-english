@@ -3,11 +3,15 @@ package ru.itis.sing_english.data.repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.itis.sing_english.data.local.dao.VideoDao
-import ru.itis.sing_english.data.model.*
+import ru.itis.sing_english.data.model.PopVideoItem
+import ru.itis.sing_english.data.model.PopularVideoResponse
+import ru.itis.sing_english.data.model.Video
 import ru.itis.sing_english.data.model.mapper.VideosMapper
 import ru.itis.sing_english.data.services.YoutubeVideoService
+import ru.itis.sing_english.di.scope.ApplicationScope
 import javax.inject.Inject
 
+@ApplicationScope
 class VideoRepositoryImpl @Inject constructor(
     private var videoApi: YoutubeVideoService,
     private var videoDao: VideoDao,

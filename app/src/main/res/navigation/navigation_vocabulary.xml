@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/vocabulary"
-        android:name="ru.itis.sing_english.view.ui.VocabularyFragment"
+        android:name="ru.itis.sing_english.presentation.view.ui.VocabularyFragment"
         android:label="Vocabulary" >
         <action
             android:id="@+id/action_vocabulary_to_quiz"
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/quiz"
-        android:name="ru.itis.sing_english.view.ui.QuizFragment"
+        android:name="ru.itis.sing_english.presentation.view.ui.QuizFragment"
         android:label="Quiz" >
     <action
         android:id="@+id/action_quiz_to_vocabulary"
@@ -25,6 +25,6 @@
 </fragment>
     <fragment
         android:id="@+id/wordDetail"
-        android:name="ru.itis.sing_english.view.ui.WordDetailFragment"
+        android:name="ru.itis.sing_english.presentation.view.ui.WordDetailFragment"
         android:label="Word Detail" />
 </navigation>

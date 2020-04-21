@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vocabViewModel"
-            type="ru.itis.sing_english.viewmodel.VocabularyViewModel" />
+            type="ru.itis.sing_english.presentation.viewmodel.VocabularyViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/favourites"
-        android:name="ru.itis.sing_english.view.ui.FavouritesFragment"
+        android:name="ru.itis.sing_english.presentation.view.ui.FavouritesFragment"
         android:label="Favourites" >
         <action
             android:id="@+id/action_favourites_to_graph_song"

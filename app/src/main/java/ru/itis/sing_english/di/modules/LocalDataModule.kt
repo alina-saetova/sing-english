@@ -1,7 +1,6 @@
 package ru.itis.sing_english.di.modules
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
@@ -9,13 +8,16 @@ import ru.itis.sing_english.data.local.AppDatabase
 import ru.itis.sing_english.data.local.dao.SubtitleDao
 import ru.itis.sing_english.data.local.dao.VideoDao
 import ru.itis.sing_english.data.local.dao.WordDao
-import javax.inject.Singleton
+import ru.itis.sing_english.data.model.mapper.SubtitlesMapper
+import ru.itis.sing_english.data.model.mapper.VideosMapper
+import ru.itis.sing_english.data.model.mapper.WordsMapper
+import ru.itis.sing_english.di.scope.ApplicationScope
 
 @Module
 class LocalDataModule {
 
     @Provides
-    @Singleton
+    @ApplicationScope
     fun provideDb(app: Application): AppDatabase {
         return Room.databaseBuilder(
                 app,
@@ -24,14 +26,26 @@ class LocalDataModule {
     }
 
     @Provides
-    @Singleton
+    @ApplicationScope
     fun provideSubtitleDao(db: AppDatabase): SubtitleDao = db.subtitleDao()
 
     @Provides
-    @Singleton
+    @ApplicationScope
     fun provideWordsDao(db: AppDatabase): WordDao = db.wordDao()
 
     @Provides
-    @Singleton
+    @ApplicationScope
     fun provideVideoDao(db: AppDatabase): VideoDao = db.videoDao()
+
+    @Provides
+    @ApplicationScope
+    fun provideVideosMapper(): VideosMapper = VideosMapper()
+
+    @Provides
+    @ApplicationScope
+    fun provideSubtitlesMapper(): SubtitlesMapper = SubtitlesMapper()
+
+    @Provides
+    @ApplicationScope
+    fun provideWordsMapper(): WordsMapper = WordsMapper()
 }

@@ -1,39 +1,22 @@
 package ru.itis.sing_english.di.modules
 
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
-import ru.itis.sing_english.data.local.dao.SubtitleDao
-import ru.itis.sing_english.data.local.dao.VideoDao
-import ru.itis.sing_english.data.local.dao.WordDao
-import ru.itis.sing_english.data.model.mapper.SubtitlesMapper
-import ru.itis.sing_english.data.model.mapper.VideosMapper
-import ru.itis.sing_english.data.model.mapper.WordsMapper
-import ru.itis.sing_english.data.services.SubtitleService
-import ru.itis.sing_english.data.services.WordService
-import ru.itis.sing_english.data.services.YoutubeVideoService
-import ru.itis.sing_english.data.repository.SubtitlesRepositoryImpl
-import ru.itis.sing_english.data.repository.VideoRepositoryImpl
-import ru.itis.sing_english.data.repository.WordRepositoryImpl
-import javax.inject.Singleton
+import ru.itis.sing_english.data.repository.*
+import ru.itis.sing_english.di.scope.ApplicationScope
 
-@Module(includes = [NetModule::class, LocalDataModule::class])
-class RepositoryModule {
+@Module
+interface RepositoryModule {
 
-    @Provides
-    @Singleton
-    fun provideSubtitleRepository(api: SubtitleService,
-                                  dao: SubtitleDao): SubtitlesRepositoryImpl =
-        SubtitlesRepositoryImpl(api, dao, SubtitlesMapper())
+    @Binds
+    @ApplicationScope
+    fun bindVideoRepository(videoRepositoryImpl: VideoRepositoryImpl): VideoRepository
 
-    @Provides
-    @Singleton
-    fun provideWordsRepository(api: WordService,
-                               dao: WordDao): WordRepositoryImpl =
-        WordRepositoryImpl(api, dao, WordsMapper())
+    @Binds
+    @ApplicationScope
+    fun bindWordRepository(wordRepositoryImpl: WordRepositoryImpl): WordRepository
 
-    @Provides
-    @Singleton
-    fun provideVideoRepository(api: YoutubeVideoService,
-                               dao: VideoDao): VideoRepositoryImpl =
-        VideoRepositoryImpl(api, dao, VideosMapper())
+    @Binds
+    @ApplicationScope
+    fun bindSubtitleRepository(subtitlesRepositoryImpl: SubtitlesRepositoryImpl): SubtitleRepository
 }

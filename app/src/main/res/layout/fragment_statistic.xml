@@ -6,13 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="ru.itis.sing_english.viewmodel.StatisticViewModel" />
+            type="ru.itis.sing_english.presentation.viewmodel.StatisticViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.ui.StatisticFragment">
+        tools:context=".presentation.view.ui.StatisticFragment">
 
 
         <androidx.core.widget.NestedScrollView

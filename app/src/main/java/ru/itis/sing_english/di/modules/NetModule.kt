@@ -1,6 +1,5 @@
 package ru.itis.sing_english.di.modules
 
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -14,31 +13,14 @@ import ru.itis.sing_english.data.services.YoutubeVideoService
 import ru.itis.sing_english.data.services.interceptors.SubtitleAuthInterceptor
 import ru.itis.sing_english.data.services.interceptors.YandexDefReqInterceptor
 import ru.itis.sing_english.data.services.interceptors.YoutubeAuthInterceptor
-import ru.itis.sing_english.data.services.interceptors.YoutubeDefReqInterceptor
-import ru.itis.sing_english.data.repository.*
+import ru.itis.sing_english.di.scope.ApplicationScope
 import javax.inject.Named
-import javax.inject.Singleton
-
-@Module(includes = [NetModule::class])
-abstract class RemoteSourceModule {
-    @Binds
-    @Singleton
-    abstract fun bindVideoRepository(videoRepositoryImpl: VideoRepositoryImpl): VideoRepository
-
-    @Binds
-    @Singleton
-    abstract fun bindWordRepository(wordRepositoryImpl: WordRepositoryImpl): WordRepository
-
-    @Binds
-    @Singleton
-    abstract fun bindSubtitleRepository(subtitlesRepositoryImpl: SubtitlesRepositoryImpl): SubtitleRepository
-}
 
 @Module
 class NetModule {
 
     @Provides
-    @Singleton
+    @ApplicationScope
     @Named("ok-youtube")
     fun provideYoutubeOkHttpClient(): OkHttpClient {
         return OkHttpClient().newBuilder()
@@ -48,7 +30,7 @@ class NetModule {
     }
 
     @Provides
-    @Singleton
+    @ApplicationScope
     @Named("youtube-retrofit")
     fun provideYoutubeRetrofit(@Named("ok-youtube") client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
@@ -59,13 +41,13 @@ class NetModule {
     }
 
     @Provides
-    @Singleton
+    @ApplicationScope
     fun provideYoutubeService( @Named("youtube-retrofit")retrofit: Retrofit): YoutubeVideoService {
         return retrofit.create(YoutubeVideoService::class.java)
     }
 
     @Provides
-    @Singleton
+    @ApplicationScope
     @Named("ok-subtitle")
     fun provideSubtitleOkHttpClient(): OkHttpClient {
         return OkHttpClient().newBuilder()
@@ -75,7 +57,7 @@ class NetModule {
     }
 
     @Provides
-    @Singleton
+    @ApplicationScope
     @Named("subtitle-retrofit")
     fun provideSubtitleRetrofit(@Named("ok-subtitle") client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
@@ -86,13 +68,13 @@ class NetModule {
     }
 
     @Provides
-    @Singleton
+    @ApplicationScope
     fun provideSubtitleService(@Named("subtitle-retrofit")retrofit: Retrofit): SubtitleService {
         return retrofit.create(SubtitleService::class.java)
     }
 
     @Provides
-    @Singleton
+    @ApplicationScope
     @Named("ok-yandex")
     fun provideYandexOkHttpClient(): OkHttpClient {
         return OkHttpClient().newBuilder()
@@ -102,7 +84,7 @@ class NetModule {
     }
 
     @Provides
-    @Singleton
+    @ApplicationScope
     @Named("yandex-retrofit")
     fun provideYandexRetrofit(@Named("ok-yandex") client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
@@ -113,7 +95,7 @@ class NetModule {
     }
 
     @Provides
-    @Singleton
+    @ApplicationScope
     fun provideYandexService(@Named("yandex-retrofit")retrofit: Retrofit): WordService {
         return retrofit.create(WordService::class.java)
     }

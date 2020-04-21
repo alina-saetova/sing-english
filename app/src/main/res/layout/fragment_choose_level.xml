@@ -5,7 +5,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.ui.ChooseLevelFragment"
+        tools:context=".presentation.view.ui.ChooseLevelFragment"
         android:orientation="vertical"
         android:gravity="center">
 

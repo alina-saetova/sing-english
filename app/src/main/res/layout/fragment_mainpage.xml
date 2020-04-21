@@ -6,7 +6,7 @@
     <data>
         <variable
             name="mainPageViewModel"
-            type="ru.itis.sing_english.viewmodel.MainPageViewModel" />
+            type="ru.itis.sing_english.presentation.viewmodel.MainPageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

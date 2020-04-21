@@ -3,26 +3,36 @@ package ru.itis.sing_english.di.components
 import android.app.Application
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjectionModule
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.ObsoleteCoroutinesApi
 import ru.itis.sing_english.di.App
 import ru.itis.sing_english.di.modules.*
-import javax.inject.Singleton
+import ru.itis.sing_english.di.scope.ApplicationScope
+import ru.itis.sing_english.presentation.view.ui.MainActivity
 
-@ObsoleteCoroutinesApi
-@ExperimentalCoroutinesApi
-@Singleton
+@ApplicationScope
 @Component(modules = [
+    AppModule::class,
     NetModule::class,
     LocalDataModule::class,
-    RepositoryModule::class,
-    RemoteSourceModule::class,
-    AndroidInjectionModule::class,
-    MainActivityModule::class,
-    ViewModelModule::class
+    InteractorModule::class,
+    RepositoryModule::class
 ])
 interface AppComponent {
+
+    fun chooseWordsComponentFactory(): ChooseWordsComponent.Factory
+
+    fun favouritesComponentFactory(): FavouritesComponent.Factory
+
+    fun mainPageComponentFactory(): MainPageComponent.Factory
+
+    fun quizComponentFactory(): QuizComponent.Factory
+
+    fun songComponentFactory(): SongComponent.Factory
+
+    fun statisticComponentFactory(): StatisticComponent.Factory
+
+    fun vocabularyComponentFactory(): VocabularyComponent.Factory
+
+    fun wordDetailComponentFactory(): WordDetailComponent.Factory
 
     @Component.Builder
     interface Builder {
@@ -32,5 +42,7 @@ interface AppComponent {
         fun build(): AppComponent
     }
 
-    fun inject(application: App)
+    fun inject(app: App)
+
+    fun inject(mainActivity: MainActivity)
 }
