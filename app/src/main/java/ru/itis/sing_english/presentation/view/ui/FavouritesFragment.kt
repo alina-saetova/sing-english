@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.Video
@@ -21,8 +20,7 @@ import javax.inject.Inject
 class FavouritesFragment : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var viewModel: FavouritesViewModel
+    lateinit var viewModel: FavouritesViewModel
     lateinit var binding: FragmentFavouritesBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,9 +41,6 @@ class FavouritesFragment : Fragment() {
             ListPaddingDecoration(context)
         )
         binding.rvVideos.adapter = adapter
-
-        viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(FavouritesViewModel::class.java)
         binding.favViewModel = viewModel
 
         return binding.root

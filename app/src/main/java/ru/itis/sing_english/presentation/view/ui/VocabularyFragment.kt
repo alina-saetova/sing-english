@@ -7,10 +7,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.ObsoleteCoroutinesApi
 import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.Word
 import ru.itis.sing_english.databinding.FragmentVocabularyBinding
@@ -19,12 +16,9 @@ import ru.itis.sing_english.presentation.view.recyclerview.words.WordAdapter
 import ru.itis.sing_english.presentation.viewmodel.VocabularyViewModel
 import javax.inject.Inject
 
-@ExperimentalCoroutinesApi
-@ObsoleteCoroutinesApi
 class VocabularyFragment : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var viewModel: VocabularyViewModel
     lateinit var binding: FragmentVocabularyBinding
 
@@ -45,9 +39,6 @@ class VocabularyFragment : Fragment() {
         val adapter = WordAdapter(emptyList<Word>().toMutableList(), wordClickListener, deleteClickListener)
         binding.rvWords.adapter = adapter
         binding.lifecycleOwner = viewLifecycleOwner
-
-        viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(VocabularyViewModel::class.java)
         binding.vocabViewModel = viewModel
 
         return binding.root

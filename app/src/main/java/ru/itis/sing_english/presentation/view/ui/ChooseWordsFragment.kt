@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import ru.itis.sing_english.R
@@ -20,7 +20,6 @@ import javax.inject.Inject
 class ChooseWordsFragment : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var viewModel: ChooseWordsViewModel
     lateinit var binding: FragmentChooseWordsBinding
     private var words = mutableListOf<WordGrid>()
@@ -28,6 +27,9 @@ class ChooseWordsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         AppInjector.plusChooseWordsComponent().inject(this)
         super.onCreate(savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+//            findNavController().navigate(R.id.action)
+        }
         var answers = mutableListOf<String>()
         arguments?.let {
             answers = it.getStringArrayList(ANSWERS_PARAM) as MutableList<String>
@@ -49,12 +51,10 @@ class ChooseWordsFragment : Fragment() {
         binding.rvWords.adapter = adapter
         binding.rvWords.layoutManager = manager
 
-        binding.btnContinue.setOnClickListener{
+        binding.btnContinue.setOnClickListener {
             findNavController().navigate(R.id.action_chooseWords_to_main)
         }
 
-        viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(ChooseWordsViewModel::class.java)
         binding.viewModel = viewModel
         viewModel.loadWords(words)
         return binding.root

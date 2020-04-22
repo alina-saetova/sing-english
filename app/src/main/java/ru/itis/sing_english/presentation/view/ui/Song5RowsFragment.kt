@@ -6,8 +6,8 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -23,16 +23,18 @@ import javax.inject.Inject
 
 class Song5RowsFragment : Fragment() {
 
-    private lateinit var youTubePlayerView: YouTubePlayerView
-    lateinit var viewModel: SongViewModel
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModel: SongViewModel
     lateinit var binding: FragmentSong5RowsBinding
+    private lateinit var youTubePlayerView: YouTubePlayerView
     lateinit var videoId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppInjector.plusSongComponent().inject(this)
         super.onCreate(savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().navigate(R.id.action_back_fromSong5Rows_to_main)
+        }
     }
 
     override fun onCreateView(
@@ -41,7 +43,6 @@ class Song5RowsFragment : Fragment() {
     ): View? {
         binding = FragmentSong5RowsBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
-        viewModel = ViewModelProvider(this, viewModelFactory).get(SongViewModel::class.java)
 
         var flag = false
         arguments?.let {

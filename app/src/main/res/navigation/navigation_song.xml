@@ -23,6 +23,11 @@
         <action
             android:id="@+id/action_song3Rows_to_statistic"
             app:destination="@id/statistic" />
+        <action
+            android:id="@+id/action_back_fromSong3Rows_to_main"
+            app:destination="@id/navigation_main_page"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/navigation_main_page"/>
     </fragment>
 
     <fragment
@@ -32,6 +37,11 @@
         <action
             android:id="@+id/action_song5Rows_to_statistic"
             app:destination="@id/statistic" />
+        <action
+            android:id="@+id/action_back_fromSong5Rows_to_main"
+            app:destination="@id/navigation_main_page"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/navigation_main_page"/>
     </fragment>
 
     <fragment

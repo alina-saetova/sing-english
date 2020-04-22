@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.ObsoleteCoroutinesApi
 import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.Video
 import ru.itis.sing_english.databinding.FragmentMainpageBinding
@@ -20,12 +17,9 @@ import ru.itis.sing_english.presentation.viewmodel.MainPageViewModel
 import ru.itis.sing_english.utils.ListPaddingDecoration
 import javax.inject.Inject
 
-@ExperimentalCoroutinesApi
-@ObsoleteCoroutinesApi
 class MainPageFragment : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var viewModel: MainPageViewModel
     lateinit var binding: FragmentMainpageBinding
 
@@ -46,14 +40,14 @@ class MainPageFragment : Fragment() {
     ): View? {
         binding = FragmentMainpageBinding.inflate(inflater)
 
-        val adapter = VideoAdapter(emptyList<Video>().toMutableList(), videoClickListener, likeClickListener)
+        val adapter =
+            VideoAdapter(emptyList<Video>().toMutableList(), videoClickListener, likeClickListener)
         binding.rvVideos.addItemDecoration(
-                ListPaddingDecoration(context))
+            ListPaddingDecoration(context)
+        )
         binding.rvVideos.adapter = adapter
 
         binding.lifecycleOwner = viewLifecycleOwner
-        viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(MainPageViewModel::class.java)
         binding.mainPageViewModel = viewModel
 
         return binding.root
@@ -71,7 +65,7 @@ class MainPageFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    private val queryListener = object: SearchView.OnQueryTextListener {
+    private val queryListener = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(text: String?): Boolean {
             text?.let { viewModel.search(it) }
             return true
@@ -82,7 +76,7 @@ class MainPageFragment : Fragment() {
         }
     }
 
-    private val videoClickListener =  { id: String ->
+    private val videoClickListener = { id: String ->
         val bundle = Bundle()
         bundle.putString(ID_PARAM, id)
         findNavController().navigate(R.id.action_mainPage_to_song_graph, bundle)
@@ -91,8 +85,7 @@ class MainPageFragment : Fragment() {
     private val likeClickListener = { video: Video, like: String, position: Int ->
         if (like == "like") {
             viewModel.unlike(video, position)
-        }
-        else {
+        } else {
             viewModel.like(video, position)
         }
     }

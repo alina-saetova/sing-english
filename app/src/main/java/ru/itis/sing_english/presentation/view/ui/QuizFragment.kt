@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
@@ -21,8 +20,7 @@ import javax.inject.Inject
 class QuizFragment : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var viewModel: QuizViewModel
+    lateinit var viewModel: QuizViewModel
     lateinit var binding: FragmentQuizBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,9 +33,6 @@ class QuizFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentQuizBinding.inflate(inflater)
-
-        viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(QuizViewModel::class.java)
         binding.quizViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 

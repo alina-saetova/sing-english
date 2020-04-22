@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.SongRow
@@ -20,7 +20,6 @@ import javax.inject.Inject
 class StatisticFragment : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var viewModel: StatisticViewModel
     lateinit var binding: FragmentStatisticBinding
     private lateinit var lyric: List<SongRow>
@@ -29,6 +28,9 @@ class StatisticFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         AppInjector.plusStatisticComponent().inject(this)
         super.onCreate(savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+//            findNavController().navigate(R.id.action)
+        }
         arguments?.let {
             lyric = it.getParcelableArrayList<SongRow>(LYRIC_PARAM) as List<SongRow>
             answers = it.getStringArrayList(ANSWERS_PARAM) as List<String>
@@ -41,8 +43,6 @@ class StatisticFragment : Fragment() {
     ): View? {
         binding = FragmentStatisticBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
-
-        viewModel = ViewModelProvider(this, viewModelFactory).get(StatisticViewModel::class.java)
         binding.viewModel = viewModel
 
         val adapter = SongRowAdapter(emptyList<SongRow>().toMutableList())
