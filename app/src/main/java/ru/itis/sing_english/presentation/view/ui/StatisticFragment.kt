@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.SongRow
 import ru.itis.sing_english.databinding.FragmentStatisticBinding
@@ -29,7 +30,7 @@ class StatisticFragment : Fragment() {
         AppInjector.plusStatisticComponent().inject(this)
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-//            findNavController().navigate(R.id.action)
+            showWarningDialog()
         }
         arguments?.let {
             lyric = it.getParcelableArrayList<SongRow>(LYRIC_PARAM) as List<SongRow>
@@ -55,6 +56,19 @@ class StatisticFragment : Fragment() {
             findNavController().navigate(R.id.action_statistic_to_chooseWords, bundle)
         }
         return binding.root
+    }
+
+    private fun showWarningDialog() {
+        MaterialAlertDialogBuilder(context)
+            .setTitle(resources.getString(R.string.dialogTitle))
+            .setMessage(resources.getString(R.string.dialogTextStat))
+            .setNegativeButton(resources.getString(R.string.dialogNegative)) { _, _ ->
+                findNavController().navigate(R.id.action_back_fromStatistic_to_main)
+            }
+            .setPositiveButton(resources.getString(R.string.dialogPositive)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     override fun onDestroy() {

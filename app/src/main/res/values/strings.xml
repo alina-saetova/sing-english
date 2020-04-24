@@ -20,4 +20,10 @@
     <string name="btnTitleEasy">Easy</string>
     <string name="tv_statistic">Statistic</string>
     <string name="btn_continue">Continue</string>
+
+    <string name="dialogTitle">Confirm navigation</string>
+    <string name="dialogText">Are you sure you want to leave?</string>
+    <string name="dialogNegative">Quit</string>
+    <string name="dialogPositive">Continue</string>
+    <string name="dialogTextStat">Are you sure you want to leave? Your progress won\'t be stored</string>
 </resources>

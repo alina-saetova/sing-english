@@ -51,6 +51,11 @@
         <action
             android:id="@+id/action_statistic_to_chooseWords"
             app:destination="@id/chooseWords" />
+        <action
+            android:id="@+id/action_back_fromStatistic_to_main"
+            app:destination="@id/navigation_main_page"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/navigation_main_page"/>
     </fragment>
 
     <fragment

@@ -8,6 +8,7 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.WordGrid
 import ru.itis.sing_english.databinding.FragmentChooseWordsBinding
@@ -28,7 +29,7 @@ class ChooseWordsFragment : Fragment() {
         AppInjector.plusChooseWordsComponent().inject(this)
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-//            findNavController().navigate(R.id.action)
+            showWarningDialog()
         }
         var answers = mutableListOf<String>()
         arguments?.let {
@@ -62,6 +63,19 @@ class ChooseWordsFragment : Fragment() {
 
     private val wordClickListener = { word: String, position: Int ->
         viewModel.saveWord(word, position)
+    }
+
+    private fun showWarningDialog() {
+        MaterialAlertDialogBuilder(context)
+            .setTitle(resources.getString(R.string.dialogTitle))
+            .setMessage(resources.getString(R.string.dialogTextStat))
+            .setNegativeButton(resources.getString(R.string.dialogNegative)) { _, _ ->
+                findNavController().navigate(R.id.action_chooseWords_to_main)
+            }
+            .setPositiveButton(resources.getString(R.string.dialogPositive)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     override fun onDestroy() {

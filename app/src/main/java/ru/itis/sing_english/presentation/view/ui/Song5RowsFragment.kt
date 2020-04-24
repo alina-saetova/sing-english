@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -33,7 +34,7 @@ class Song5RowsFragment : Fragment() {
         AppInjector.plusSongComponent().inject(this)
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            findNavController().navigate(R.id.action_back_fromSong5Rows_to_main)
+            showWarningDialog()
         }
     }
 
@@ -51,9 +52,6 @@ class Song5RowsFragment : Fragment() {
         }
         viewModel.loadSong(videoId, flag, 5)
         binding.viewModel = viewModel
-
-//        TODO
-//        binding.btnToStatistic.setonClick
 
         return binding.root
     }
@@ -94,6 +92,19 @@ class Song5RowsFragment : Fragment() {
         bundle.putParcelableArrayList(LYRIC_PARAM, ArrayList<Parcelable>(viewModel.fullLyricWithAnswers))
         bundle.putStringArrayList(ANSWERS_PARAM, ArrayList(viewModel.rightAnswers))
         findNavController().navigate(R.id.action_song5Rows_to_statistic, bundle)
+    }
+
+    private fun showWarningDialog() {
+        MaterialAlertDialogBuilder(context)
+            .setTitle(resources.getString(R.string.dialogTitle))
+            .setMessage(resources.getString(R.string.dialogText))
+            .setNegativeButton(resources.getString(R.string.dialogNegative)) { _, _ ->
+                findNavController().navigate(R.id.action_back_fromSong5Rows_to_main)
+            }
+            .setPositiveButton(resources.getString(R.string.dialogPositive)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     override fun onAttach(context: Context) {
