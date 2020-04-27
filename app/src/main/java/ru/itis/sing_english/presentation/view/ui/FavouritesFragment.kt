@@ -36,6 +36,7 @@ class FavouritesFragment : Fragment() {
         binding = FragmentFavouritesBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
 
+        (activity as MainActivity).supportActionBar?.title = FAV_TITLE
         val adapter = VideoAdapter(emptyList<Video>().toMutableList(), videoClickListener, likeClickListener)
         binding.rvVideos.addItemDecoration(
             ListPaddingDecoration(context)
@@ -69,5 +70,10 @@ class FavouritesFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         AppInjector.clearFavouritesComponent()
+    }
+
+    companion object {
+
+        const val FAV_TITLE = "Избранное"
     }
 }

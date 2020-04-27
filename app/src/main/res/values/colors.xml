@@ -2,11 +2,17 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#FFB645</color>
+    <color name="colorTextWhite">#ecdfe4</color>
 
     <color name="colorRight">#33954B</color>
     <color name="colorWrong">#DD5461</color>
     <color name="colorDefault">#AA8E57</color>
+
+    <color name="colorTheme">#000000</color>
+
+    <color name="colorWordBackground">#222121</color>
+    <color name="colorWordTranslation">#A77A37</color>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

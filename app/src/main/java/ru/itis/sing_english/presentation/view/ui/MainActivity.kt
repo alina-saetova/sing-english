@@ -1,6 +1,7 @@
 package ru.itis.sing_english.presentation.view.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -28,15 +29,6 @@ class MainActivity : AppCompatActivity() {
         navController.setGraph(R.navigation.navigation)
 
         nav_view.setupWithNavController(navController)
-
-//        val appBarConfiguration = AppBarConfiguration(
-//            topLevelDestinationIds = setOf (
-//                R.id.navigation_fav,
-//                R.id.navigation_main,
-//                R.id.navigation_vocab
-//            )
-//        )
-//        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     fun showBottomNavigation() {

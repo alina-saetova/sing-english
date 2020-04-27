@@ -17,8 +17,6 @@
             android:id="@+id/rv_words"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,16 +26,17 @@
             app:recycler="@{vocabViewModel.words}"
             tools:listitem="@layout/item_word" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_quiz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="let's quiz"
+            android:text="@string/repeat"
+            style="@style/ButtonStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="12dp"/>
 
         <ProgressBar
             android:id="@+id/progressBar"

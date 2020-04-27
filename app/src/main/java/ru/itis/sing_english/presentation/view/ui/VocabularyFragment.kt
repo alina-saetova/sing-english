@@ -34,6 +34,8 @@ class VocabularyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentVocabularyBinding.inflate(inflater)
+        (activity as MainActivity).supportActionBar?.title = VOCAB_TITLE
+
         binding.btnQuiz.setOnClickListener(onQuizButtonListener)
 
         val adapter = WordAdapter(emptyList<Word>().toMutableList(), wordClickListener, deleteClickListener)
@@ -102,5 +104,6 @@ class VocabularyFragment : Fragment() {
 
     companion object {
         const val MIN_NUM_QUIZ = 4
+        const val VOCAB_TITLE = "Сохраненные слова"
     }
 }

@@ -39,6 +39,7 @@ class MainPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMainpageBinding.inflate(inflater)
+        (activity as MainActivity).supportActionBar?.title = MAIN_TITLE
 
         val adapter =
             VideoAdapter(emptyList<Video>().toMutableList(), videoClickListener, likeClickListener)
@@ -93,5 +94,8 @@ class MainPageFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         AppInjector.clearMainPageComponent()
+    }
+    companion object {
+        const val MAIN_TITLE = "SingEnglish!"
     }
 }

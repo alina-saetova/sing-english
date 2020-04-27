@@ -26,4 +26,5 @@
     <string name="dialogNegative">Quit</string>
     <string name="dialogPositive">Continue</string>
     <string name="dialogTextStat">Are you sure you want to leave? Your progress won\'t be stored</string>
+    <string name="repeat">Повторить</string>
 </resources>

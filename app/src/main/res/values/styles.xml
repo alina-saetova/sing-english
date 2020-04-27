@@ -1,11 +1,13 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/colorTheme</item>
+        <item name="actionBarTheme">@style/MyActionbar</item>
     </style>
 
     <style name="RowsStyle">
@@ -18,5 +20,14 @@
         <item name="android:layout_marginTop">20dp</item>
     </style>
 
+    <style name="ButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">@color/colorAccent</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="MyActionbar" parent="@style/ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="android:background">@color/colorTheme</item>
+    </style>
 
 </resources>
