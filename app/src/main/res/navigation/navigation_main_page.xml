@@ -10,8 +10,7 @@
         android:label="Main Page" >
         <action
             android:id="@+id/action_mainPage_to_song_graph"
-            app:destination="@id/graph_song"
-            app:popUpTo="@navigation/navigation_main_page"/>
+            app:destination="@id/graph_song"/>
     </fragment>
 
     <include app:graph="@navigation/navigation_song" />

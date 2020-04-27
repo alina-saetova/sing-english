@@ -21,8 +21,14 @@ class ChooseWordsViewModel @Inject constructor(
     val words: LiveData<MutableList<WordGrid>>
         get() = _words
 
-    fun loadWords(list: List<WordGrid>) {
-        _words.value = list.toMutableList()
+    fun loadWords(list: MutableList<WordGrid>) {
+        val i = list.iterator()
+        while (i.hasNext()) {
+            if (!i.next().text.matches("[a-zA-Z]+".toRegex())) {
+                i.remove()
+            }
+        }
+        _words.value = list
     }
 
     fun saveWord(word: String, position: Int) {

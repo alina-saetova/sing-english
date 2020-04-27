@@ -14,6 +14,9 @@ class SubtitleAuthInterceptor @Inject constructor() : Interceptor {
             .addQueryParameter("key",
                 BuildConfig.YOUTUBE_API_KEY
             )
+            .addQueryParameter("lang",
+                "en"
+            )
             .build()
 
         val newRequest = chain.request()

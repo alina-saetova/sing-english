@@ -75,7 +75,7 @@ class SongViewModel @Inject constructor(
         rowsLiveData[2].value = DEFAULT_ROW
     }
 
-    var numM = 0;
+    var numM = 0
     fun loadSong(videoId: String, flag: Boolean, num: Int) {
         numM = num
         if (num == 5) {
@@ -102,7 +102,6 @@ class SongViewModel @Inject constructor(
             rowsLiveData[i].value = rowsList.removeAt(0)
         }
 
-        setActiveIndex()
         fillButtons()
         subsList.removeAt(0)
     }
@@ -158,8 +157,9 @@ class SongViewModel @Inject constructor(
                 }
             }
 
-            if (rowsLiveData[0].value?.word == MISSING_PLACE) {
+            if (rowsLiveData[0].value?.word == MISSING_PLACE || isNeedToFillButtons) {
                 fillButtons()
+                isNeedToFillButtons = false
             }
 
             for (i in range) {
@@ -174,6 +174,7 @@ class SongViewModel @Inject constructor(
 
     private var wordsIndex = 0
     private fun fillButtons() {
+        setActiveIndex()
         if (wordsIndex >= missingWords.size) {
             return
         }
@@ -191,6 +192,7 @@ class SongViewModel @Inject constructor(
         wordsIndex++
     }
 
+    private var isNeedToFillButtons = false
     fun answer(view: View) {
         val cur = rowsLiveData[currentRowIndex].value
         val rowCur = cur?.wasMissed?.let {
@@ -202,8 +204,12 @@ class SongViewModel @Inject constructor(
             )
         }
         rowsLiveData[currentRowIndex].value = rowCur
-        setActiveIndex()
-        fillButtons()
+        if (currentRowIndex != 4 || _row5.value?.word == MISSING_PLACE) {
+            fillButtons()
+        }
+        else {
+            isNeedToFillButtons = true
+        }
     }
 
     private fun createRowsList(flag: Boolean) {

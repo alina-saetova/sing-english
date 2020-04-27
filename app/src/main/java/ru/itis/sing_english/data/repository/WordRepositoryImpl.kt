@@ -33,9 +33,14 @@ class WordRepositoryImpl @Inject constructor(
 
     override suspend fun saveWord(text: String) {
         val word = wordApi.word(text)
-        saveWord(word)
+        if (isCorrectResponse(word)) {
+            saveWord(word)
+        }
     }
 
+    private fun isCorrectResponse(word: DictionaryResponse): Boolean {
+        return word.def.isNotEmpty()
+    }
     override suspend fun saveResponseList(list: List<DictionaryResponse>) {
         val listWords = mapper.fromResponseToModel(list)
         withContext(Dispatchers.IO) {
