@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/colorTheme</item>
         <item name="actionBarTheme">@style/MyActionbar</item>
+        <item name="fontFamily">@font/montserrat_medium</item>
     </style>
 
     <style name="RowsStyle">

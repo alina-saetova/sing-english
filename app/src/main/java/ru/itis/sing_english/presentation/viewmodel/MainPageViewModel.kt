@@ -44,7 +44,6 @@ class MainPageViewModel @Inject constructor(
             catch (e: Exception) {
                 _progress.postValue(LoadingStatus.FAILED)
             }
-
         }
     }
 

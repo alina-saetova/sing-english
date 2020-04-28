@@ -11,8 +11,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.itis.sing_english.R
-import ru.itis.sing_english.data.model.LoadingStatus
-import ru.itis.sing_english.data.model.State
+import ru.itis.sing_english.data.model.*
 import ru.itis.sing_english.presentation.view.recyclerview.BindableAdapter
 
 @BindingAdapter("recycler")
@@ -41,7 +40,6 @@ fun setImage(view: ImageButton, like: Boolean) {
 
 @BindingAdapter("btnColor")
 fun changeColor(view: View, state: State?) {
-    Log.e("btnColor", state.toString())
     if (state == null) {
         view.setBackgroundResource(R.color.colorDefault)
         return
@@ -83,5 +81,123 @@ fun onWordClick(view: TextView, flag: Boolean) {
     }
     else {
         view.setTextColor(view.resources.getColor(R.color.colorAccent))
+    }
+}
+
+@BindingAdapter("wordDetailTransl")
+fun setWordDetailTransl(view: TextView, list: List<Tr>?) {
+    if (list == null) {
+        view.visibility = View.GONE
+        return
+    }
+    else {
+        view.visibility = View.VISIBLE
+    }
+    val newList = mutableListOf<String>()
+    for (tr in list) {
+        newList.add(tr.transl)
+    }
+    view.text = newList.joinToString(", ")
+}
+
+@BindingAdapter("wordDetailTitle")
+fun setWordDetailTitle(view: TextView, str: String?) {
+    if (str == null) {
+        view.visibility = View.GONE
+    }
+    else {
+        view.visibility = View.VISIBLE
+        view.text = str
+    }
+}
+
+@BindingAdapter("wordDetailSynonimsTitle")
+fun setWordDetailSynonimsTitle(view: TextView, list: List<Mean>?) {
+    if (list == null) {
+        view.visibility = View.GONE
+    }
+    else {
+        view.visibility = View.VISIBLE
+        view.text = "synonims"
+    }
+}
+
+@BindingAdapter("wordDetailSynonimsLayout")
+fun setWordDetailSynonimsLayout(view: View, list: List<Mean>?) {
+    if (list == null) {
+        view.visibility = View.GONE
+    }
+    else {
+        view.visibility = View.VISIBLE
+    }
+}
+
+@BindingAdapter("wordDetailSynonimsText")
+fun setWordDetailSynonimsText(view: TextView, list: List<Mean>?) {
+    if (list == null) {
+        view.visibility = View.GONE
+        return
+    }
+    else {
+        view.visibility = View.VISIBLE
+    }
+    val newList = mutableListOf<String>()
+    for (mean in list) {
+        newList.add(mean.synonym)
+    }
+    view.text = newList.joinToString(", ")
+}
+
+@BindingAdapter("wordDetailExamples")
+fun setWordDetailExample(view: TextView, list: List<Ex>?) {
+    if (list == null) {
+        view.visibility = View.GONE
+    }
+    else {
+        view.visibility = View.VISIBLE
+        view.text = "examples"
+    }
+}
+
+@BindingAdapter("wordDetailExamplesLayout")
+fun setWordDetailExample(view: View, list: List<Ex>?) {
+    if (list == null) {
+        view.visibility = View.GONE
+    }
+    else {
+        view.visibility = View.VISIBLE
+    }
+}
+
+@BindingAdapter("wordDetailExamplesTransl")
+fun setWordDetailExampleTransl(view: TextView, list: List<Tr>?) {
+    if (list == null) {
+        view.visibility = View.GONE
+    }
+    else {
+        view.visibility = View.VISIBLE
+        view.text = list[0].transl
+    }
+}
+
+@BindingAdapter("wordDetailExamplesText")
+fun setWordDetailExampleText(view: TextView, list: List<Ex>?) {
+    if (list == null) {
+        view.visibility = View.GONE
+    }
+    else {
+        view.visibility = View.VISIBLE
+        view.text = list[0].example
+    }
+}
+
+@BindingAdapter("loading")
+fun onLoad(view: View, loadingStatus: LoadingStatus?) {
+    loadingStatus?.let {
+        when(it) {
+            LoadingStatus.RUNNING -> view.visibility = View.INVISIBLE
+            LoadingStatus.SUCCESS -> view.visibility = View.VISIBLE
+            LoadingStatus.FAILED -> view.visibility = View.GONE
+        }
     }
 }

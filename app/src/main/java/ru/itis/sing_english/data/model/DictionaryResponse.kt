@@ -25,6 +25,6 @@ data class Mean (
 )
 
 data class Ex (
-    @SerializedName("ex") val example : String,
+    @SerializedName("text") val example : String,
     @SerializedName("tr") val tr : List<Tr>
 )

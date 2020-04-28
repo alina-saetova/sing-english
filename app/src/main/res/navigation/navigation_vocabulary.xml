@@ -26,5 +26,9 @@
     <fragment
         android:id="@+id/wordDetail"
         android:name="ru.itis.sing_english.presentation.view.ui.WordDetailFragment"
-        android:label="Word Detail" />
+        android:label="Word Detail" >
+        <action
+            android:id="@+id/action_wordDetail_to_vocabulary"
+            app:destination="@id/vocabulary" />
+    </fragment>
 </navigation>

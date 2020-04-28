@@ -9,34 +9,221 @@
             type="ru.itis.sing_english.presentation.viewmodel.WordViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.view.ui.WordDetailFragment">
+        android:fillViewport="true"
+        android:overScrollMode="never">
 
-        <TextView
-            android:id="@+id/tv_word"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="140dp"
-            android:layout_marginEnd="80dp"
-            android:text="@{wordViewModel.word.def.get(0).word}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
-            android:text="@string/btn_save"
-            android:onClick="@{() -> wordViewModel.saveWord()}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_word" />
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:indeterminate="true"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:setupVisibility="@{wordViewModel.progress}" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:id="@+id/wordLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                loading="@{wordViewModel.progress}"
+                tools:context=".presentation.view.ui.WordDetailFragment"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="light"
+                        android:text="@{wordViewModel.word.def[0].word}"
+                        android:textSize="24sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="[lait]"
+                        android:text="@{wordViewModel.word.def[0].transcription}"
+                        android:textSize="20sp"
+                        android:layout_marginStart="20dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/translation_block"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        wordDetailTitle="@{wordViewModel.word.def[0].pos}"
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="свет, фонарь, сияние, огонек, еще что-то"
+                        wordDetailTransl="@{wordViewModel.word.def[0].translating}"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        wordDetailTitle="@{wordViewModel.word.def[1].pos}"
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="светлый, легкий"
+                        wordDetailTransl="@{wordViewModel.word.def[1].translating}"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        wordDetailTitle="@{wordViewModel.word.def[2].pos}"
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="освещать"
+                        wordDetailTransl="@{wordViewModel.word.def[2].translating}"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_margin="10dp"
+                    wordDetailSynonimsTitle="@{wordViewModel.word.def[0].translating[0].mean}"/>
+
+                <LinearLayout
+                    android:id="@+id/synonims_block"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    wordDetailSynonimsLayout="@{wordViewModel.word.def[0].translating[0].mean}">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="ligthing"
+                        wordDetailSynonimsText="@{wordViewModel.word.def[0].translating[0].mean}"
+                        android:textSize="20sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="ligthing"
+                        wordDetailSynonimsText="@{wordViewModel.word.def[1].translating[0].mean}"
+                        android:textSize="20sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="ligthing"
+                        wordDetailSynonimsText="@{wordViewModel.word.def[2].translating[0].mean}"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_margin="10dp"
+                    tools:text="examples"
+                    wordDetailExamples="@{wordViewModel.word.def[0].translating[0].examples}"/>
+
+                <LinearLayout
+                    android:id="@+id/examples_block"
+                    wordDetailExamplesLayout="@{wordViewModel.word.def[0].translating[0].examples}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="light"
+                        wordDetailExamplesText="@{wordViewModel.word.def[0].translating[0].examples}"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="свет"
+                        wordDetailExamplesTransl="@{wordViewModel.word.def[0].translating[0].examples[0].tr}"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="light"
+                        wordDetailExamplesText="@{wordViewModel.word.def[1].translating[0].examples}"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="свет"
+                        wordDetailExamplesTransl="@{wordViewModel.word.def[1].translating[0].examples[0].tr}"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="light"
+                        wordDetailExamplesText="@{wordViewModel.word.def[2].translating[0].examples}"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="свет"
+                        wordDetailExamplesTransl="@{wordViewModel.word.def[2].translating[0].examples[0].tr}"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="20sp"/>
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/save"
+                    style="@style/ButtonStyle"
+                    android:onClick="@{() -> wordViewModel.saveWord()}"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"/>
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
 </layout>
