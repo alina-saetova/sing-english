@@ -3,8 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorTheme</item>
+        <item name="colorPrimaryDark">@color/colorTheme</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/colorTheme</item>
         <item name="actionBarTheme">@style/MyActionbar</item>
@@ -23,7 +23,8 @@
 
     <style name="ButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="strokeColor">@color/colorAccent</item>
-        <item name="cornerRadius">16dp</item>
+        <item name="cornerRadius">24dp</item>
+        <item name="android:height">60dp</item>
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 

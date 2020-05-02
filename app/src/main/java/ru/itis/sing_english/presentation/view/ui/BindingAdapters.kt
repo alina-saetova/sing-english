@@ -1,15 +1,18 @@
 package ru.itis.sing_english.presentation.view.ui
 
+import android.content.res.ColorStateList
 import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.button.MaterialButton
 import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.*
 import ru.itis.sing_english.presentation.view.recyclerview.BindableAdapter
@@ -39,15 +42,30 @@ fun setImage(view: ImageButton, like: Boolean) {
 }
 
 @BindingAdapter("btnColor")
-fun changeColor(view: View, state: State?) {
+fun changeColor(view: MaterialButton, state: State?) {
+    val color = ColorStateList.valueOf(view.context.getColor(R.color.colorAccent))
     if (state == null) {
-        view.setBackgroundResource(R.color.colorDefault)
+        view.strokeColor = color
+        view.setTextColor(color)
         return
     }
     when (state) {
-        State.DEFAULT -> view.setBackgroundResource(R.color.colorDefault)
-        State.RIGHT -> view.setBackgroundResource(R.color.colorRight)
-        State.WRONG -> view.setBackgroundResource(R.color.colorWrong)
+        State.DEFAULT -> {
+            view.strokeColor = color
+            view.setTextColor(color)
+        }
+        State.RIGHT -> {
+            ColorStateList.valueOf(view.context.getColor(R.color.colorRight)).also {
+                view.strokeColor = it
+                view.setTextColor(it)
+            }
+        }
+        State.WRONG -> {
+            ColorStateList.valueOf(view.context.getColor(R.color.colorWrong)).also {
+                view.strokeColor = it
+                view.setTextColor(it)
+            }
+        }
     }
 }
 

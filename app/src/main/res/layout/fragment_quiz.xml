@@ -4,94 +4,80 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="quizViewModel"
             type="ru.itis.sing_english.presentation.viewmodel.QuizViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".presentation.view.ui.QuizFragment">
-
-        <Button
-            android:id="@+id/btn_first"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:text="@{quizViewModel.firstOption.word.translation}"
-            android:onClick="@{ (view) -> quizViewModel.answer(view) }"
-            btnColor="@{quizViewModel.firstOption.state}"
-            android:clickable="@{quizViewModel.clickable}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_word" />
-
-        <Button
-            android:id="@+id/btn_second"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="@{quizViewModel.secondOption.word.translation}"
-            android:onClick="@{ (view) -> quizViewModel.answer(view) }"
-            btnColor="@{quizViewModel.secondOption.state}"
-            android:clickable="@{quizViewModel.clickable}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_first" />
-
-        <Button
-            android:id="@+id/btn_third"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:text="@{quizViewModel.thirdOption.word.translation}"
-            android:onClick="@{ (view) -> quizViewModel.answer(view) }"
-            btnColor="@{quizViewModel.thirdOption.state}"
-            android:clickable="@{quizViewModel.clickable}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_second" />
-
-        <Button
-            android:id="@+id/btn_fourth"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:text="@{quizViewModel.fourthOption.word.translation}"
-            android:onClick="@{ (view) -> quizViewModel.answer(view) }"
-            btnColor="@{quizViewModel.fourthOption.state}"
-            android:clickable="@{quizViewModel.clickable}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_third" />
 
         <TextView
             android:id="@+id/tv_word"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_gravity="center"
+            tools:text="protect"
+            android:textSize="20sp"
+            android:layout_marginTop="60dp"
             android:text="@{quizViewModel.currentWord.word.text}"
             android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/ib_quit"
-            android:layout_width="wrap_content"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_first"
+            style="@style/ButtonStyle"
+            btnColor="@{quizViewModel.firstOption.state}"
+            tools:text="защищать"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@null"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.958"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_cancel"/>
+            android:layout_gravity="center"
+            android:layout_marginTop="36dp"
+            android:clickable="@{quizViewModel.clickable}"
+            android:onClick="@{ (view) -> quizViewModel.answer(view) }"
+            android:text="@{quizViewModel.firstOption.word.translation}"
+            app:layout_constraintTop_toBottomOf="@+id/tv_word" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_second"
+            style="@style/ButtonStyle"
+            btnColor="@{quizViewModel.secondOption.state}"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:clickable="@{quizViewModel.clickable}"
+            android:onClick="@{ (view) -> quizViewModel.answer(view) }"
+            android:text="@{quizViewModel.secondOption.word.translation}"
+            app:layout_constraintTop_toBottomOf="@+id/btn_first" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_third"
+            style="@style/ButtonStyle"
+            btnColor="@{quizViewModel.thirdOption.state}"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="36dp"
+            android:clickable="@{quizViewModel.clickable}"
+            android:onClick="@{ (view) -> quizViewModel.answer(view) }"
+            android:text="@{quizViewModel.thirdOption.word.translation}" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_fourth"
+            style="@style/ButtonStyle"
+            btnColor="@{quizViewModel.fourthOption.state}"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="28dp"
+            android:clickable="@{quizViewModel.clickable}"
+            android:onClick="@{ (view) -> quizViewModel.answer(view) }"
+            android:text="@{quizViewModel.fourthOption.word.translation}" />
+
+    </LinearLayout>
 </layout>
