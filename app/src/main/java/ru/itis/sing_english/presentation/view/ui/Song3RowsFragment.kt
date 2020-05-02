@@ -18,6 +18,8 @@ import kotlinx.android.synthetic.main.fragment_song3_rows.*
 import ru.itis.sing_english.R
 import ru.itis.sing_english.databinding.FragmentSong3RowsBinding
 import ru.itis.sing_english.di.AppInjector
+import ru.itis.sing_english.presentation.view.ui.FavouritesFragment.Companion.FROM
+import ru.itis.sing_english.presentation.view.ui.FavouritesFragment.Companion.FROM_FAV
 import ru.itis.sing_english.presentation.viewmodel.SongViewModel
 import javax.inject.Inject
 
@@ -28,10 +30,17 @@ class Song3RowsFragment : Fragment() {
     lateinit var binding: FragmentSong3RowsBinding
     private lateinit var youTubePlayerView: YouTubePlayerView
     lateinit var videoId: String
+    lateinit var from: String
+    var flag = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppInjector.plusSongComponent().inject(this)
         super.onCreate(savedInstanceState)
+        arguments?.let {
+            videoId = it.getString(ID_PARAM).toString()
+            from = it.getString(FROM).toString()
+            flag = it.getBoolean(ChooseLevelFragment.FLAG_PARAM)
+        }
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             showWarningDialog()
         }
@@ -43,11 +52,7 @@ class Song3RowsFragment : Fragment() {
     ): View? {
         binding = FragmentSong3RowsBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
-        var flag = false
-        arguments?.let {
-            videoId = it.getString(ID_PARAM).toString()
-            flag = it.getBoolean(ChooseLevelFragment.FLAG_PARAM)
-        }
+
         viewModel.loadSong(videoId, flag, 3)
         binding.viewModel = viewModel
 
@@ -97,11 +102,16 @@ class Song3RowsFragment : Fragment() {
     }
 
     private fun showWarningDialog() {
+        val actionId = if (from == FROM_FAV) {
+            R.id.action_back_fromSong3Rows_to_favourites
+        } else {
+            R.id.action_back_fromSong3Rows_to_main
+        }
         MaterialAlertDialogBuilder(context)
             .setTitle(resources.getString(R.string.dialogTitle))
             .setMessage(resources.getString(R.string.dialogText))
             .setNegativeButton(resources.getString(R.string.dialogNegative)) { _, _ ->
-                findNavController().navigate(R.id.action_back_fromSong3Rows_to_main)
+                findNavController().navigate(actionId)
             }
             .setPositiveButton(resources.getString(R.string.dialogPositive)) { dialog, _ ->
                 dialog.dismiss()

@@ -1,5 +1,6 @@
 package ru.itis.sing_english.presentation.view.recyclerview.wordsgrid
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -19,10 +20,10 @@ class WordGridViewHolder (val binding: ItemWordGridBinding)
         binding.word = word
         binding.root.setOnClickListener {
             if (word.flag) {
-                binding.tvWord.setTextColor(itemView.resources.getColor(R.color.colorAccent))
+                binding.tvWord.setTextColor(ColorStateList.valueOf(itemView.context.getColor(R.color.colorTextWhite)))
             }
             else {
-                binding.tvWord.setTextColor(itemView.resources.getColor(R.color.colorPrimary))
+                binding.tvWord.setTextColor(ColorStateList.valueOf(itemView.context.getColor(R.color.colorAccent)))
             }
             wordClickListener(word.text, position)
         }

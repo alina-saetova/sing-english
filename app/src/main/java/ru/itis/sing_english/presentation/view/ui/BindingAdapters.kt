@@ -81,13 +81,13 @@ fun ProgressBar.progressVisibility(loadingStatus: LoadingStatus?) {
 }
 
 @BindingAdapter(value = ["bind:correctness", "bind:missed"])
-fun setColor(view: View, isCorrect: Boolean, wasMissed: Boolean) {
+fun setColor(view: TextView, isCorrect: Boolean, wasMissed: Boolean) {
     if (wasMissed) {
         if (isCorrect) {
-            (view as TextView).setBackgroundResource(R.color.colorRight)
+            view.setTextColor(ColorStateList.valueOf(view.context.getColor(R.color.colorRight)))
         }
         else {
-            (view as TextView).setBackgroundResource(R.color.colorWrong)
+            view.setTextColor(ColorStateList.valueOf(view.context.getColor(R.color.colorWrong)))
         }
     }
 }
@@ -95,10 +95,10 @@ fun setColor(view: View, isCorrect: Boolean, wasMissed: Boolean) {
 @BindingAdapter("word")
 fun onWordClick(view: TextView, flag: Boolean) {
     if (flag) {
-        view.setTextColor(view.resources.getColor(R.color.colorRight))
+        view.setTextColor(ColorStateList.valueOf(view.context.getColor(R.color.colorAccent)))
     }
     else {
-        view.setTextColor(view.resources.getColor(R.color.colorAccent))
+        view.setTextColor(ColorStateList.valueOf(view.context.getColor(R.color.colorTextWhite)))
     }
 }
 

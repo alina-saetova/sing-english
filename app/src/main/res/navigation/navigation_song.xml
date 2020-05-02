@@ -28,6 +28,11 @@
             app:destination="@id/navigation_main_page"
             app:popUpToInclusive="true"
             app:popUpTo="@id/navigation_main_page"/>
+        <action
+            android:id="@+id/action_back_fromSong3Rows_to_favourites"
+            app:destination="@id/navigation_favourites"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/navigation_favourites"/>
     </fragment>
 
     <fragment
@@ -42,6 +47,11 @@
             app:destination="@id/navigation_main_page"
             app:popUpToInclusive="true"
             app:popUpTo="@id/navigation_main_page"/>
+        <action
+            android:id="@+id/action_back_fromSong5Rows_to_favourites"
+            app:destination="@id/navigation_favourites"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/navigation_favourites"/>
     </fragment>
 
     <fragment
@@ -56,6 +66,11 @@
             app:destination="@id/navigation_main_page"
             app:popUpToInclusive="true"
             app:popUpTo="@id/navigation_main_page"/>
+        <action
+            android:id="@+id/action_back_fromStatistic_to_favourites"
+            app:destination="@id/navigation_favourites"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/navigation_favourites"/>
     </fragment>
 
     <fragment
@@ -63,9 +78,14 @@
         android:name="ru.itis.sing_english.presentation.view.ui.ChooseWordsFragment"
         android:label="ChooseWords">
         <action
-            android:id="@+id/action_chooseWords_to_main"
+            android:id="@+id/action_back_from_chooseWords_to_main"
             app:destination="@id/navigation_main_page"
             app:popUpToInclusive="true"
             app:popUpTo="@id/navigation_main_page"/>
+        <action
+            android:id="@+id/action_back_from_chooseWords_to_favourites"
+            app:destination="@id/navigation_favourites"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/navigation_favourites"/>
     </fragment>
 </navigation>

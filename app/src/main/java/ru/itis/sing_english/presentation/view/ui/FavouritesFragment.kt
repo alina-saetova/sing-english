@@ -50,6 +50,7 @@ class FavouritesFragment : Fragment() {
     private val videoClickListener =  { id: String ->
         val bundle = Bundle()
         bundle.putString(ID_PARAM, id)
+        bundle.putString(FROM, FROM_FAV)
         findNavController().navigate(R.id.action_favourites_to_graph_song, bundle)
     }
 
@@ -75,5 +76,7 @@ class FavouritesFragment : Fragment() {
     companion object {
 
         const val FAV_TITLE = "Избранное"
+        const val FROM = "from"
+        const val FROM_FAV = "from_fav"
     }
 }

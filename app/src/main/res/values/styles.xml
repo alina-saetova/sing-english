@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorTheme</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorTheme</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/colorTheme</item>
@@ -15,7 +15,7 @@
         <item name="android:layout_height">45dp</item>
     </style>
 
-    <style name="ButtonDifficultyStyle">
+    <style name="ButtonDifficultyStyle" parent="ButtonStyle">
         <item name="android:layout_height">60dp</item>
         <item name="android:layout_width">200dp</item>
         <item name="android:layout_marginTop">20dp</item>

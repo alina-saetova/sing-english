@@ -13,6 +13,12 @@
     <color name="colorWordBackground">#222121</color>
     <color name="colorWordTranslation">#A77A37</color>
 
+    <color name="colorDiffEasy">#70B86E</color>
+    <color name="colorDiffMedium">#F1CC47</color>
+    <color name="colorDiffHard">#F49301</color>
+    <color name="colorDiffUltrahard">#FF6C6C</color>
+    <color name="colorSongRow">#B3FFB645</color>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 </resources>

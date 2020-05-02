@@ -241,8 +241,8 @@ class SongViewModel @Inject constructor(
                 secretWord = wordsInRow[randomIndex]
             }
             rightAnswers.add(wordsInRow[randomIndex])
+            Log.e("answers", rightAnswers.toString())
             val row = SongRow(firstPart, secretWord, secondPart, isMissed)
-            Log.e("row", row.toString())
             rowsList.add(row)
         }
     }

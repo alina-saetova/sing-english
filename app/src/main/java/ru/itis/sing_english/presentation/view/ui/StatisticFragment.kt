@@ -13,6 +13,8 @@ import ru.itis.sing_english.data.model.SongRow
 import ru.itis.sing_english.databinding.FragmentStatisticBinding
 import ru.itis.sing_english.di.AppInjector
 import ru.itis.sing_english.presentation.view.recyclerview.songsrow.SongRowAdapter
+import ru.itis.sing_english.presentation.view.ui.FavouritesFragment.Companion.FROM
+import ru.itis.sing_english.presentation.view.ui.FavouritesFragment.Companion.FROM_FAV
 import ru.itis.sing_english.presentation.view.ui.Song5RowsFragment.Companion.ANSWERS_PARAM
 import ru.itis.sing_english.presentation.view.ui.Song5RowsFragment.Companion.LYRIC_PARAM
 import ru.itis.sing_english.presentation.viewmodel.StatisticViewModel
@@ -25,16 +27,18 @@ class StatisticFragment : Fragment() {
     lateinit var binding: FragmentStatisticBinding
     private lateinit var lyric: List<SongRow>
     private lateinit var answers: List<String>
+    private lateinit var from: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppInjector.plusStatisticComponent().inject(this)
         super.onCreate(savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
-            showWarningDialog()
-        }
         arguments?.let {
             lyric = it.getParcelableArrayList<SongRow>(LYRIC_PARAM) as List<SongRow>
             answers = it.getStringArrayList(ANSWERS_PARAM) as List<String>
+            from = it.getString(FROM).toString()
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            showWarningDialog()
         }
     }
 
@@ -52,6 +56,7 @@ class StatisticFragment : Fragment() {
 
         binding.btnContinue.setOnClickListener {
             val bundle = Bundle()
+            bundle.putString(FROM, from)
             bundle.putStringArrayList(ANSWERS_PARAM, ArrayList(answers))
             findNavController().navigate(R.id.action_statistic_to_chooseWords, bundle)
         }
@@ -59,11 +64,16 @@ class StatisticFragment : Fragment() {
     }
 
     private fun showWarningDialog() {
+        val actionId = if (from == FROM_FAV) {
+            R.id.action_back_fromStatistic_to_favourites
+        } else {
+            R.id.action_back_fromStatistic_to_main
+        }
         MaterialAlertDialogBuilder(context)
             .setTitle(resources.getString(R.string.dialogTitle))
             .setMessage(resources.getString(R.string.dialogTextStat))
             .setNegativeButton(resources.getString(R.string.dialogNegative)) { _, _ ->
-                findNavController().navigate(R.id.action_back_fromStatistic_to_main)
+                findNavController().navigate(actionId)
             }
             .setPositiveButton(resources.getString(R.string.dialogPositive)) { dialog, _ ->
                 dialog.dismiss()

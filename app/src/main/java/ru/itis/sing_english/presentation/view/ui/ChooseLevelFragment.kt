@@ -10,12 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.itis.sing_english.R
 import ru.itis.sing_english.databinding.FragmentChooseLevelBinding
+import ru.itis.sing_english.presentation.view.ui.FavouritesFragment.Companion.FROM
 import ru.itis.sing_english.presentation.view.ui.Song5RowsFragment.Companion.ID_PARAM
 
 class ChooseLevelFragment : Fragment() {
 
     lateinit var binding: FragmentChooseLevelBinding
     lateinit var videoId: String
+    lateinit var from: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +28,7 @@ class ChooseLevelFragment : Fragment() {
 
         arguments?.let {
             videoId = it.getString(ID_PARAM).toString()
+            from = it.getString(FROM).toString()
         }
 
         setClickListeners()
@@ -62,6 +65,7 @@ class ChooseLevelFragment : Fragment() {
         }
         val bundle = Bundle()
         bundle.putString(ID_PARAM, videoId)
+        bundle.putString(FROM, from)
         bundle.putBoolean(FLAG_PARAM, flag)
         findNavController().navigate(action, bundle)
     }

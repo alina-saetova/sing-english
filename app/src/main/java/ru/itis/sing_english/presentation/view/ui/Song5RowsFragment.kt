@@ -19,6 +19,8 @@ import ru.itis.sing_english.R
 import ru.itis.sing_english.databinding.FragmentSong5RowsBinding
 import ru.itis.sing_english.di.AppInjector
 import ru.itis.sing_english.presentation.view.ui.ChooseLevelFragment.Companion.FLAG_PARAM
+import ru.itis.sing_english.presentation.view.ui.FavouritesFragment.Companion.FROM
+import ru.itis.sing_english.presentation.view.ui.FavouritesFragment.Companion.FROM_FAV
 import ru.itis.sing_english.presentation.viewmodel.SongViewModel
 import javax.inject.Inject
 
@@ -29,10 +31,17 @@ class Song5RowsFragment : Fragment() {
     lateinit var binding: FragmentSong5RowsBinding
     private lateinit var youTubePlayerView: YouTubePlayerView
     lateinit var videoId: String
+    lateinit var from: String
+    var flag = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppInjector.plusSongComponent().inject(this)
         super.onCreate(savedInstanceState)
+        arguments?.let {
+            videoId = it.getString(ID_PARAM).toString()
+            from = it.getString(FROM).toString()
+            flag = it.getBoolean(FLAG_PARAM)
+        }
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             showWarningDialog()
         }
@@ -45,11 +54,6 @@ class Song5RowsFragment : Fragment() {
         binding = FragmentSong5RowsBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        var flag = false
-        arguments?.let {
-            videoId = it.getString(ID_PARAM).toString()
-            flag = it.getBoolean(FLAG_PARAM)
-        }
         viewModel.loadSong(videoId, flag, 5)
         binding.viewModel = viewModel
 
@@ -89,17 +93,23 @@ class Song5RowsFragment : Fragment() {
 
     private fun goToStatistic() {
         val bundle = Bundle()
+        bundle.putString(FROM, from)
         bundle.putParcelableArrayList(LYRIC_PARAM, ArrayList<Parcelable>(viewModel.fullLyricWithAnswers))
         bundle.putStringArrayList(ANSWERS_PARAM, ArrayList(viewModel.rightAnswers))
         findNavController().navigate(R.id.action_song5Rows_to_statistic, bundle)
     }
 
     private fun showWarningDialog() {
+        val actionId = if (from == FROM_FAV) {
+            R.id.action_back_fromSong5Rows_to_favourites
+        } else {
+            R.id.action_back_fromSong5Rows_to_main
+        }
         MaterialAlertDialogBuilder(context)
             .setTitle(resources.getString(R.string.dialogTitle))
             .setMessage(resources.getString(R.string.dialogText))
             .setNegativeButton(resources.getString(R.string.dialogNegative)) { _, _ ->
-                findNavController().navigate(R.id.action_back_fromSong5Rows_to_main)
+                findNavController().navigate(actionId)
             }
             .setPositiveButton(resources.getString(R.string.dialogPositive)) { dialog, _ ->
                 dialog.dismiss()

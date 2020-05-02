@@ -169,18 +169,20 @@
                     android:layout_weight="1"
                     android:gravity="center">
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_first"
                         android:layout_width="160dp"
                         android:layout_height="60dp"
+                        style="@style/ButtonStyle"
                         android:text="@{viewModel.option1}"
                         android:onClick="@{ (view) -> viewModel.answer(view) }"/>
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_third"
                         android:layout_width="160dp"
                         android:layout_height="60dp"
                         android:layout_marginTop="10dp"
+                        style="@style/ButtonStyle"
                         android:text="@{viewModel.option3}"
                         android:onClick="@{ (view) -> viewModel.answer(view) }"/>
                 </LinearLayout>
@@ -192,18 +194,20 @@
                     android:layout_weight="1"
                     android:gravity="center">
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_second"
                         android:layout_width="160dp"
                         android:layout_height="60dp"
+                        style="@style/ButtonStyle"
                         android:layout_marginBottom="10dp"
                         android:text="@{viewModel.option2}"
                         android:onClick="@{ (view) -> viewModel.answer(view) }"/>
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_fourth"
                         android:layout_width="160dp"
                         android:layout_height="60dp"
+                        style="@style/ButtonStyle"
                         android:text="@{viewModel.option4}"
                         android:onClick="@{ (view) -> viewModel.answer(view) }"/>
                 </LinearLayout>

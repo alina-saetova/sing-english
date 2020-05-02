@@ -80,6 +80,7 @@ class MainPageFragment : Fragment() {
     private val videoClickListener = { id: String ->
         val bundle = Bundle()
         bundle.putString(ID_PARAM, id)
+        bundle.putString(FROM, FROM_MAIN)
         findNavController().navigate(R.id.action_mainPage_to_song_graph, bundle)
     }
 
@@ -97,5 +98,7 @@ class MainPageFragment : Fragment() {
     }
     companion object {
         const val MAIN_TITLE = "SingEnglish!"
+        const val FROM_MAIN = "main"
+        const val FROM = "from"
     }
 }

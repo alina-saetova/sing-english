@@ -22,9 +22,14 @@ class ChooseWordsViewModel @Inject constructor(
         get() = _words
 
     fun loadWords(list: MutableList<WordGrid>) {
-        val i = list.iterator()
+        val i = list.listIterator()
         while (i.hasNext()) {
-            if (!i.next().text.matches("[a-zA-Z]+".toRegex())) {
+            var word = i.next()
+            if (word.text.contains(",")) {
+                word = WordGrid(word.text.substring(0, word.text.length - 1), word.flag)
+                i.set(word)
+            }
+            if (!word.text.matches("[a-zA-Z]+".toRegex())) {
                 i.remove()
             }
         }
