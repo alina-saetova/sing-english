@@ -38,6 +38,12 @@ class VideoRepositoryImpl @Inject constructor(
         checkVideosForLike(videos)
     }
 
+    override suspend fun getVideosByTopic(topic: String): List<Video> = withContext(Dispatchers.IO) {
+        val response = videoApi.videosByTopic(topic)
+        val videos = mapper.fromResponseToModel(response.videoItems)
+        checkVideosForLike(videos)
+    }
+
     override suspend fun getPopularVideos(): List<Video> = withContext(Dispatchers.IO) {
         val response = videoApi.popularVideos()
         val videos = mapper.fromPopResponseToModel(filterByCaptions(response))

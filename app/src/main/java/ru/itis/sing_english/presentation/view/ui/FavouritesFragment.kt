@@ -10,10 +10,10 @@ import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.Video
 import ru.itis.sing_english.databinding.FragmentFavouritesBinding
 import ru.itis.sing_english.di.AppInjector
-import ru.itis.sing_english.presentation.view.recyclerview.videos.VideoAdapter
+import ru.itis.sing_english.presentation.view.recyclerview.videos.VideoBigAdapter
+import ru.itis.sing_english.presentation.view.recyclerview.videos.VideoSmallAdapter
 import ru.itis.sing_english.presentation.view.ui.Song5RowsFragment.Companion.ID_PARAM
 import ru.itis.sing_english.presentation.viewmodel.FavouritesViewModel
-import ru.itis.sing_english.utils.ListPaddingDecoration
 import javax.inject.Inject
 
 
@@ -37,10 +37,7 @@ class FavouritesFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         (activity as MainActivity).supportActionBar?.title = FAV_TITLE
-        val adapter = VideoAdapter(emptyList<Video>().toMutableList(), videoClickListener, likeClickListener)
-        binding.rvVideos.addItemDecoration(
-            ListPaddingDecoration(context)
-        )
+        val adapter = VideoBigAdapter(emptyList<Video>().toMutableList(), "",videoClickListener, likeClickListener)
         binding.rvVideos.adapter = adapter
         binding.favViewModel = viewModel
 
@@ -54,7 +51,7 @@ class FavouritesFragment : Fragment() {
         findNavController().navigate(R.id.action_favourites_to_graph_song, bundle)
     }
 
-    private val likeClickListener = { video: Video, like: String, position: Int ->
+    private val likeClickListener = { video: Video, like: String, position: Int, _: String ->
         if (like == "like") {
             viewModel.unlike(video, position)
         }

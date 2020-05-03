@@ -4,7 +4,9 @@ import ru.itis.sing_english.data.model.Video
 
 interface MainPageInteractor {
 
-    suspend fun getVideos(): List<Video>
+    suspend fun getPopularVideos(): List<Video>
+
+    suspend fun getVideosByTopic(topic: String): List<Video>
 
     suspend fun searchVideos(text: String): List<Video>
 

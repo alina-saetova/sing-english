@@ -18,6 +18,16 @@ interface YoutubeVideoService {
         @Query("topicId") topicId: String = "/m/04rlf"
     ): SearchResponse
 
+    @GET("search")
+    suspend fun videosByTopic(
+        @Query("topicId") topicId: String,
+        @Query("part") part: String = "snippet",
+        @Query("order") order: String = "relevance",
+        @Query("type") type: String = "video",
+        @Query("maxResults") maxResults: String = "3",
+        @Query("videoCaption") videoCaption: String = "closedCaption"
+    ): SearchResponse
+
     @GET("videos")
     suspend fun popularVideos(
         @Query("part") part: String = "snippet,contentDetails",

@@ -26,6 +26,7 @@ fun <T> setSubsRecyclerViewProperties(recyclerView: RecyclerView, data: T) {
 
 @BindingAdapter("image")
 fun loadImage(view: ImageView, url: String) {
+    Log.e("IMAGE", url)
     Glide.with(view)
         .load(url)
         .into(view)

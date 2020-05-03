@@ -11,17 +11,19 @@
     </data>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:paddingStart="30dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="30dp">
 
         <ImageView
             android:id="@+id/iv_cover"
-            android:layout_width="168dp"
-            android:layout_height="126dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             app:image="@{video.imgUrl}"
-            tools:srcCompat="@drawable/placeholder" />
+            tools:srcCompat="@drawable/placeholder"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,24 +33,27 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="5">
+                android:layout_weight="5"
+                android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    tools:text="lalallala"
-                    android:text="@{video.title}" />
+                    android:text="@{video.title}"
+                    android:textSize="18sp"
+                    tools:text="lalallala" />
 
                 <TextView
                     android:id="@+id/tv_artist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    tools:text="lana del rey"
+                    android:text="@{video.channelTitle}"
                     android:textColor="@color/colorAccent"
-                    android:text="@{video.channelTitle}"/>
+                    android:textSize="18sp"
+                    tools:text="lana del rey" />
 
             </LinearLayout>
 
@@ -59,8 +64,10 @@
                 android:layout_marginTop="20dp"
                 android:background="@null"
                 app:btnlike="@{video.like}"
+                android:layout_gravity="bottom"
                 tools:srcCompat="@drawable/ic_favourites_full" />
 
         </LinearLayout>
+
     </LinearLayout>
 </layout>

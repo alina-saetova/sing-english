@@ -10,8 +10,12 @@ class MainPageInteractorImpl @Inject constructor(
     val repository: VideoRepository
 ) : MainPageInteractor {
 
-    override suspend fun getVideos(): List<Video> {
+    override suspend fun getPopularVideos(): List<Video> {
         return repository.getPopularVideos()
+    }
+
+    override suspend fun getVideosByTopic(topic: String): List<Video> {
+        return repository.getVideosByTopic(topic)
     }
 
     override suspend fun searchVideos(text: String): List<Video> {
