@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="mainPageViewModel"
             type="ru.itis.sing_english.presentation.viewmodel.MainPageViewModel" />
@@ -56,46 +57,66 @@
                     android:id="@+id/tv_popular_videos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
                     android:textSize="20sp"
-                    android:text="@string/tv_popular_videos"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.045"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:text="@string/tv_popular_videos" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvAllVideos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:overScrollMode="never"
-                    android:layout_marginTop="20dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:recycler="@{mainPageViewModel.randomVideos}"
                     tools:listitem="@layout/item_video" />
+
+                <TextView
+                    android:id="@+id/tv_pop_videos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:textSize="20sp"
+                    android:text="@string/tv_title_pop" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvPopVideos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:overScrollMode="never"
-                    android:layout_marginTop="20dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:recycler="@{mainPageViewModel.popVideos}"
                     tools:listitem="@layout/item_video" />
+                <TextView
+                    android:id="@+id/tv_hiphop_videos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:textSize="20sp"
+                    android:text="@string/tv_title_hip_hop" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvHipHopideos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:overScrollMode="never"
-                    android:layout_marginTop="20dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:recycler="@{mainPageViewModel.hipHopVideos}"
                     tools:listitem="@layout/item_video" />
+
+                <TextView
+                    android:id="@+id/tv_rock_videos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:textSize="20sp"
+                    android:text="@string/tv_title_rock" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvRockVideos"
@@ -108,7 +129,6 @@
                     app:recycler="@{mainPageViewModel.rockVideos}"
                     tools:listitem="@layout/item_video" />
             </LinearLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

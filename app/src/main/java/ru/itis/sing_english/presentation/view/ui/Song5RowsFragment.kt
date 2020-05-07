@@ -54,7 +54,7 @@ class Song5RowsFragment : Fragment() {
         binding = FragmentSong5RowsBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        viewModel.loadSong(videoId, flag, 5)
+        viewModel.loadSong(videoId, flag, ROWS_NUM)
         binding.viewModel = viewModel
 
         return binding.root
@@ -119,11 +119,17 @@ class Song5RowsFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (activity as MainActivity).hideBottomNavigation()
+        (activity as MainActivity).apply {
+            supportActionBar?.hide()
+            hideBottomNavigation()
+        }
     }
 
     override fun onDetach() {
-        (activity as MainActivity).showBottomNavigation()
+        (activity as MainActivity).apply {
+            supportActionBar?.show()
+            showBottomNavigation()
+        }
         super.onDetach()
     }
 
@@ -134,6 +140,7 @@ class Song5RowsFragment : Fragment() {
 
     companion object {
         const val START_SECOND = 0f
+        const val ROWS_NUM = 5
         const val ID_PARAM = "videoId"
         const val LYRIC_PARAM = "lyric"
         const val ANSWERS_PARAM = "answers"

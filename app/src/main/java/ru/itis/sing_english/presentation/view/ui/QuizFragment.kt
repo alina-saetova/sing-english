@@ -65,6 +65,6 @@ class QuizFragment : Fragment() {
 
     companion object {
 
-        const val QUIZ_TITLE = "Повторение"
+        const val QUIZ_TITLE = "Quiz"
     }
 }

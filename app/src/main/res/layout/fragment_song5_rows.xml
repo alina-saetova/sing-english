@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="ru.itis.sing_english.presentation.viewmodel.SongViewModel" />
@@ -24,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:showFullScreenButton="false"
-            app:showSeekBar="false"/>
+            app:showSeekBar="false" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,8 +35,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/youtube_player_view"
-            app:layout_constraintVertical_bias="0.332">
+            app:layout_constraintTop_toBottomOf="@+id/youtube_player_view">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -53,30 +53,12 @@
                     style="@style/RowsStyle">
 
                     <TextView
-                        android:id="@+id/tv_first1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@{viewModel.row1.first}"
-                        android:textAlignment="textEnd" />
-
-                    <TextView
-                        android:id="@+id/tv_word1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="@{viewModel.row1.word}"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorAccent"
-                        android:textStyle="bold" />
-
-                    <TextView
                         android:id="@+id/tv_second1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{viewModel.row1.second}"
-                        android:textAlignment="viewStart" />
+                        android:text="@{viewModel.row1.text}"
+                        android:textAlignment="center" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -88,30 +70,12 @@
                     style="@style/RowsStyle">
 
                     <TextView
-                        android:id="@+id/tv_first2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@{viewModel.row2.first}"
-                        android:textAlignment="textEnd" />
-
-                    <TextView
-                        android:id="@+id/tv_word2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="@{viewModel.row2.word}"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorAccent"
-                        android:textStyle="bold" />
-
-                    <TextView
                         android:id="@+id/tv_second2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{viewModel.row2.second}"
-                        android:textAlignment="viewStart" />
+                        android:text="@{viewModel.row2.text}"
+                        android:textAlignment="center" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -124,32 +88,13 @@
                     android:background="@color/colorSongRow">
 
                     <TextView
-                        android:id="@+id/tv_first3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="@color/colorTheme"
-                        android:text="@{viewModel.row3.first}"
-                        android:textAlignment="textEnd" />
-
-                    <TextView
-                        android:id="@+id/tv_word3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="@{viewModel.row3.word}"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorTheme"
-                        android:textStyle="bold" />
-
-                    <TextView
                         android:id="@+id/tv_second3"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textColor="@color/colorTheme"
-                        android:text="@{viewModel.row3.second}"
-                        android:textAlignment="viewStart" />
+                        android:text="@{viewModel.row3.text}"
+                        android:textAlignment="center" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -160,31 +105,13 @@
                     app:layout_constraintStart_toStartOf="parent"
                     style="@style/RowsStyle">
 
-                <TextView
-                        android:id="@+id/tv_first4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@{viewModel.row4.first}"
-                        android:textAlignment="textEnd" />
-
-                    <TextView
-                        android:id="@+id/tv_word4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="@{viewModel.row4.word}"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorAccent"
-                        android:textStyle="bold" />
-
                     <TextView
                         android:id="@+id/tv_second4"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{viewModel.row4.second}"
-                        android:textAlignment="viewStart" />
+                        android:text="@{viewModel.row4.text}"
+                        android:textAlignment="center" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -196,30 +123,12 @@
                     style="@style/RowsStyle">
 
                     <TextView
-                        android:id="@+id/tv_first5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@{viewModel.row5.first}"
-                        android:textAlignment="textEnd" />
-
-                    <TextView
-                        android:id="@+id/tv_word5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="@{viewModel.row5.word}"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorAccent"
-                        android:textStyle="bold" />
-
-                    <TextView
                         android:id="@+id/tv_second5"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{viewModel.row5.second}"
-                        android:textAlignment="viewStart" />
+                        android:text="@{viewModel.row5.text}"
+                        android:textAlignment="center" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -248,7 +157,7 @@
                         android:layout_height="60dp"
                         style="@style/ButtonStyle"
                         android:text="@{viewModel.option1}"
-                        android:onClick="@{ (view) -> viewModel.answer(view) }"/>
+                        android:onClick="@{ (view) -> viewModel.answer(view) }" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_third"
@@ -257,7 +166,7 @@
                         android:layout_marginTop="10dp"
                         style="@style/ButtonStyle"
                         android:text="@{viewModel.option3}"
-                        android:onClick="@{ (view) -> viewModel.answer(view) }"/>
+                        android:onClick="@{ (view) -> viewModel.answer(view) }" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -274,7 +183,7 @@
                         android:layout_marginBottom="10dp"
                         style="@style/ButtonStyle"
                         android:text="@{viewModel.option2}"
-                        android:onClick="@{ (view) -> viewModel.answer(view) }"/>
+                        android:onClick="@{ (view) -> viewModel.answer(view) }" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_fourth"
@@ -282,11 +191,9 @@
                         android:layout_height="60dp"
                         style="@style/ButtonStyle"
                         android:text="@{viewModel.option4}"
-                        android:onClick="@{ (view) -> viewModel.answer(view) }"/>
+                        android:onClick="@{ (view) -> viewModel.answer(view) }" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

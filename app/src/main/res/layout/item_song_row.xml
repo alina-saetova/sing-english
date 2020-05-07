@@ -3,46 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="songRow"
-            type="ru.itis.sing_english.data.model.SongRow"/>
+            type="ru.itis.sing_english.data.model.SongRow" />
     </data>
 
-        <LinearLayout
-            android:id="@+id/row"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_height="45dp">
+    <LinearLayout
+        android:id="@+id/row"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent">
 
-            <TextView
-                android:id="@+id/tv_first"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@{songRow.first}"
-                android:textAlignment="textEnd" />
-
-            <TextView
-                android:id="@+id/tv_word"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="@{songRow.word}"
-                app:correctness="@{songRow.isCorrect}"
-                app:missed="@{songRow.wasMissed}"
-                android:fontFamily="@font/montserrat_bold"
-                android:textStyle="bold"
-                android:textAlignment="center" />
-
-            <TextView
-                android:id="@+id/tv_second"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@{songRow.second}"
-                android:textAlignment="textStart" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_row"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            app:correctness="@{songRow.isCorrect}"
+            app:index="@{songRow.indexOfAnswer}"
+            app:missed="@{songRow.wasMissed}"
+            app:row="@{songRow.text}" />
+    </LinearLayout>
 </layout>

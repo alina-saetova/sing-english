@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="ru.itis.sing_english.presentation.viewmodel.SongViewModel" />
@@ -12,8 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.view.ui.Song5RowsFragment"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".presentation.view.ui.Song5RowsFragment">
 
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
             android:id="@+id/youtube_player_view"
@@ -24,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:showFullScreenButton="false"
-            app:showSeekBar="false"/>
+            app:showSeekBar="false" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,181 +40,123 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/llRow1"
+                    style="@style/RowsStyle"
                     android:layout_width="match_parent"
-                    android:orientation="horizontal"
                     android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"
-                    style="@style/RowsStyle">
-
-                    <TextView
-                        android:id="@+id/tv_first1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@{viewModel.row1.first}"
-                        android:textAlignment="textEnd" />
-
-                    <TextView
-                        android:id="@+id/tv_word1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="@{viewModel.row1.word}"
-                        android:textAlignment="center"
-                        android:textColor="#00796B"
-                        android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
                         android:id="@+id/tv_second1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{viewModel.row1.second}"
-                        android:textAlignment="viewStart" />
+                        android:text="@{viewModel.row1.text}"
+                        android:textAlignment="center" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/llRow2"
+                    style="@style/RowsStyle"
                     android:layout_width="match_parent"
-                    android:orientation="horizontal"
                     android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"
-                    style="@style/RowsStyle">
-
-                    <TextView
-                        android:id="@+id/tv_first2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@{viewModel.row2.first}"
-                        android:textAlignment="textEnd" />
-
-                    <TextView
-                        android:id="@+id/tv_word2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="@{viewModel.row2.word}"
-                        android:textAlignment="center"
-                        android:textColor="#00796B"
-                        android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
                         android:id="@+id/tv_second2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{viewModel.row2.second}"
-                        android:textAlignment="viewStart" />
+                        android:text="@{viewModel.row2.text}"
+                        android:textAlignment="center" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/llRow3"
+                    style="@style/RowsStyle"
                     android:layout_width="match_parent"
-                    android:orientation="horizontal"
                     android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"
-                    style="@style/RowsStyle">
-
-                    <TextView
-                        android:id="@+id/tv_first3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@{viewModel.row3.first}"
-                        android:textAlignment="textEnd" />
-
-                    <TextView
-                        android:id="@+id/tv_word3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="@{viewModel.row3.word}"
-                        android:textAlignment="center"
-                        android:textColor="#00796B"
-                        android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
                         android:id="@+id/tv_second3"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{viewModel.row3.second}"
-                        android:textAlignment="viewStart" />
+                        android:text="@{viewModel.row3.text}"
+                        android:textAlignment="center" />
                 </LinearLayout>
-
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
+                android:baselineAligned="false"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_weight="0"
-                android:baselineAligned="false">
+                app:layout_constraintStart_toStartOf="parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:layout_weight="1"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_first"
+                        style="@style/ButtonStyle"
                         android:layout_width="160dp"
                         android:layout_height="60dp"
-                        style="@style/ButtonStyle"
-                        android:text="@{viewModel.option1}"
-                        android:onClick="@{ (view) -> viewModel.answer(view) }"/>
+                        android:onClick="@{ (view) -> viewModel.answer(view) }"
+                        android:text="@{viewModel.option1}" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_third"
+                        style="@style/ButtonStyle"
                         android:layout_width="160dp"
                         android:layout_height="60dp"
                         android:layout_marginTop="10dp"
-                        style="@style/ButtonStyle"
-                        android:text="@{viewModel.option3}"
-                        android:onClick="@{ (view) -> viewModel.answer(view) }"/>
+                        android:onClick="@{ (view) -> viewModel.answer(view) }"
+                        android:text="@{viewModel.option3}" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:layout_weight="1"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_second"
+                        style="@style/ButtonStyle"
                         android:layout_width="160dp"
                         android:layout_height="60dp"
-                        style="@style/ButtonStyle"
                         android:layout_marginBottom="10dp"
-                        android:text="@{viewModel.option2}"
-                        android:onClick="@{ (view) -> viewModel.answer(view) }"/>
+                        android:onClick="@{ (view) -> viewModel.answer(view) }"
+                        android:text="@{viewModel.option2}" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_fourth"
+                        style="@style/ButtonStyle"
                         android:layout_width="160dp"
                         android:layout_height="60dp"
-                        style="@style/ButtonStyle"
-                        android:text="@{viewModel.option4}"
-                        android:onClick="@{ (view) -> viewModel.answer(view) }"/>
+                        android:onClick="@{ (view) -> viewModel.answer(view) }"
+                        android:text="@{viewModel.option4}" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

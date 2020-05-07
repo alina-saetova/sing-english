@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="wordViewModel"
             type="ru.itis.sing_english.presentation.viewmodel.WordViewModel" />
@@ -52,7 +53,7 @@
                         android:layout_height="wrap_content"
                         tools:text="light"
                         android:text="@{wordViewModel.word.def[0].word}"
-                        android:textSize="24sp"/>
+                        android:textSize="24sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -60,7 +61,7 @@
                         tools:text="[lait]"
                         android:text="@{wordViewModel.word.def[0].transcription}"
                         android:textSize="20sp"
-                        android:layout_marginStart="20dp"/>
+                        android:layout_marginStart="20dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -75,7 +76,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         wordDetailTitle="@{wordViewModel.word.def[0].pos}"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -83,13 +84,13 @@
                         tools:text="свет, фонарь, сияние, огонек, еще что-то"
                         wordDetailTransl="@{wordViewModel.word.def[0].translating}"
                         android:textColor="@color/colorAccent"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         wordDetailTitle="@{wordViewModel.word.def[1].pos}"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -97,13 +98,13 @@
                         tools:text="светлый, легкий"
                         wordDetailTransl="@{wordViewModel.word.def[1].translating}"
                         android:textColor="@color/colorAccent"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         wordDetailTitle="@{wordViewModel.word.def[2].pos}"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -111,7 +112,7 @@
                         tools:text="освещать"
                         wordDetailTransl="@{wordViewModel.word.def[2].translating}"
                         android:textColor="@color/colorAccent"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <TextView
@@ -119,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:layout_margin="10dp"
-                    wordDetailSynonimsTitle="@{wordViewModel.word.def[0].translating[0].mean}"/>
+                    wordDetailSynonimsTitle="@{wordViewModel.word.def[0].translating[0].mean}" />
 
                 <LinearLayout
                     android:id="@+id/synonims_block"
@@ -134,19 +135,21 @@
                         android:layout_height="wrap_content"
                         tools:text="ligthing"
                         wordDetailSynonimsText="@{wordViewModel.word.def[0].translating[0].mean}"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="ligthing"
                         wordDetailSynonimsText="@{wordViewModel.word.def[1].translating[0].mean}"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="ligthing"
                         wordDetailSynonimsText="@{wordViewModel.word.def[2].translating[0].mean}"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <TextView
@@ -155,7 +158,7 @@
                     android:textSize="16sp"
                     android:layout_margin="10dp"
                     tools:text="examples"
-                    wordDetailExamples="@{wordViewModel.word.def[0].translating[0].examples}"/>
+                    wordDetailExamples="@{wordViewModel.word.def[0].translating[0].examples}" />
 
                 <LinearLayout
                     android:id="@+id/examples_block"
@@ -170,7 +173,7 @@
                         android:layout_height="wrap_content"
                         tools:text="light"
                         wordDetailExamplesText="@{wordViewModel.word.def[0].translating[0].examples}"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -178,14 +181,14 @@
                         tools:text="свет"
                         wordDetailExamplesTransl="@{wordViewModel.word.def[0].translating[0].examples[0].tr}"
                         android:textColor="@color/colorAccent"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="light"
                         wordDetailExamplesText="@{wordViewModel.word.def[1].translating[0].examples}"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -193,14 +196,14 @@
                         tools:text="свет"
                         wordDetailExamplesTransl="@{wordViewModel.word.def[1].translating[0].examples[0].tr}"
                         android:textColor="@color/colorAccent"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="light"
                         wordDetailExamplesText="@{wordViewModel.word.def[2].translating[0].examples}"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -208,7 +211,7 @@
                         tools:text="свет"
                         wordDetailExamplesTransl="@{wordViewModel.word.def[2].translating[0].examples[0].tr}"
                         android:textColor="@color/colorAccent"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                 </LinearLayout>
 
@@ -219,7 +222,7 @@
                     style="@style/ButtonStyle"
                     android:onClick="@{() -> wordViewModel.saveWord()}"
                     android:layout_gravity="center"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="10dp" />
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

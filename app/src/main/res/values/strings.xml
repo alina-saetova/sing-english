@@ -23,7 +23,10 @@
     <string name="dialogNegative">Quit</string>
     <string name="dialogPositive">Continue</string>
     <string name="dialogTextStat">Are you sure you want to leave? Your progress won\'t be stored</string>
-    <string name="repeat">Повторить</string>
-    <string name="save">сохранить</string>
+    <string name="repeat">Repeat</string>
+    <string name="save">save</string>
     <string name="chooseWords">Choose words to save them to vocabulary</string>
+    <string name="tv_title_pop">Pop</string>
+    <string name="tv_title_hip_hop">Hip hop</string>
+    <string name="tv_title_rock">Rock</string>
 </resources>

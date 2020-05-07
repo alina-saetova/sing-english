@@ -112,7 +112,7 @@ class WordDetailFragment : Fragment() {
         }
     }
     companion object {
-        const val WORD_DETAIL_TITLE = "Подробнее"
+        const val WORD_DETAIL_TITLE = "Detail"
         const val WORD_PARAM = "word"
     }
 }

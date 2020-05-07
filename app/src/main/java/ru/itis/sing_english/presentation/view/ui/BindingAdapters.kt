@@ -1,6 +1,11 @@
 package ru.itis.sing_english.presentation.view.ui
 
 import android.content.res.ColorStateList
+import android.graphics.Typeface.BOLD
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.util.Log
 import android.view.View
 import android.widget.ImageButton
@@ -26,7 +31,6 @@ fun <T> setSubsRecyclerViewProperties(recyclerView: RecyclerView, data: T) {
 
 @BindingAdapter("image")
 fun loadImage(view: ImageView, url: String) {
-    Log.e("IMAGE", url)
     Glide.with(view)
         .load(url)
         .into(view)
@@ -81,16 +85,48 @@ fun ProgressBar.progressVisibility(loadingStatus: LoadingStatus?) {
     }
 }
 
-@BindingAdapter(value = ["bind:correctness", "bind:missed"])
-fun setColor(view: TextView, isCorrect: Boolean, wasMissed: Boolean) {
+@BindingAdapter(value = ["bind:correctness", "bind:missed", "bind:index", "bind:row"])
+fun setColorByCorrectness(view: TextView, isCorrect: Boolean, wasMissed: Boolean, ind: Int, rowText: String) {
+    val rowsWords =  rowText.split(" ")
+    val startIndex = rowsWords.subList(0, ind).joinToString(" ").length
+    val endIndex = rowText.length - rowsWords.subList(ind + 1, rowsWords.size).joinToString(" ").length
+    val spannable = SpannableString(rowText)
+    var colorWord = 0
     if (wasMissed) {
-        if (isCorrect) {
-            view.setTextColor(ColorStateList.valueOf(view.context.getColor(R.color.colorRight)))
-        }
-        else {
-            view.setTextColor(ColorStateList.valueOf(view.context.getColor(R.color.colorWrong)))
+        colorWord = if (isCorrect) {
+            view.context.getColor(R.color.colorRight)
+        } else {
+            view.context.getColor(R.color.colorWrong)
         }
     }
+    spannable.setSpan(
+        ForegroundColorSpan(colorWord),
+        startIndex, endIndex,
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+    spannable.setSpan(
+        StyleSpan(BOLD),
+        startIndex, endIndex,
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+    view.text = spannable
+}
+
+@BindingAdapter(value = ["bind:numCorrect", "bind:numAll"])
+fun setColorByCorrectness(view: TextView, numOfCorrect: Int, totalNum: Int) {
+    val spannable = SpannableString("Correct answers: $numOfCorrect out of $totalNum")
+    val endIndex = numOfCorrect.toString().length + 17
+    spannable.setSpan(
+        ForegroundColorSpan(view.context.getColor(R.color.colorRight)),
+        16, endIndex,
+        Spannable.SPAN_INCLUSIVE_INCLUSIVE
+    )
+    spannable.setSpan(
+        StyleSpan(BOLD),
+        16, endIndex,
+        Spannable.SPAN_INCLUSIVE_INCLUSIVE
+    )
+    view.text = spannable
 }
 
 @BindingAdapter("word")

@@ -104,6 +104,6 @@ class VocabularyFragment : Fragment() {
 
     companion object {
         const val MIN_NUM_QUIZ = 4
-        const val VOCAB_TITLE = "Сохраненные слова"
+        const val VOCAB_TITLE = "Vocabulary"
     }
 }

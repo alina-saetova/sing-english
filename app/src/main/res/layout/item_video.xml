@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="video"
             type="ru.itis.sing_english.data.model.Video" />
@@ -33,12 +35,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_weight="5">
+
                 <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     tools:text="lalallala"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:paddingEnd="10dp"
                     android:text="@{video.title}" />
 
                 <TextView
@@ -47,8 +53,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     tools:text="lana del rey"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:paddingEnd="10dp"
                     android:textColor="@color/colorAccent"
-                    android:text="@{video.channelTitle}"/>
+                    android:text="@{video.channelTitle}" />
 
             </LinearLayout>
 
@@ -60,7 +69,6 @@
                 android:background="@null"
                 app:btnlike="@{video.like}"
                 tools:srcCompat="@drawable/ic_favourites_full" />
-
         </LinearLayout>
     </LinearLayout>
 </layout>

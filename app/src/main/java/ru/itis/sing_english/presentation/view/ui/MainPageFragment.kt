@@ -65,7 +65,6 @@ class MainPageFragment : Fragment() {
 
     private val queryListener = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(text: String?): Boolean {
-            viewModel.cleanVideos()
             text?.let { viewModel.search(it) }
             return true
         }
@@ -83,6 +82,7 @@ class MainPageFragment : Fragment() {
         }
 
         override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+            viewModel.cleanVideos()
             binding.recyclerViews.visibility = View.VISIBLE
             binding.rvVideos.visibility = View.GONE
             return true

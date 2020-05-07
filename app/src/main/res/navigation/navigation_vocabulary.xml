@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/vocabulary"
         android:name="ru.itis.sing_english.presentation.view.ui.VocabularyFragment"
-        android:label="Vocabulary" >
+        android:label="Vocabulary">
         <action
             android:id="@+id/action_vocabulary_to_quiz"
             app:destination="@id/quiz" />
@@ -18,15 +18,15 @@
     <fragment
         android:id="@+id/quiz"
         android:name="ru.itis.sing_english.presentation.view.ui.QuizFragment"
-        android:label="Quiz" >
-    <action
-        android:id="@+id/action_quiz_to_vocabulary"
-        app:destination="@id/vocabulary" />
-</fragment>
+        android:label="Quiz">
+        <action
+            android:id="@+id/action_quiz_to_vocabulary"
+            app:destination="@id/vocabulary" />
+    </fragment>
     <fragment
         android:id="@+id/wordDetail"
         android:name="ru.itis.sing_english.presentation.view.ui.WordDetailFragment"
-        android:label="Word Detail" >
+        android:label="Word Detail">
         <action
             android:id="@+id/action_wordDetail_to_vocabulary"
             app:destination="@id/vocabulary" />

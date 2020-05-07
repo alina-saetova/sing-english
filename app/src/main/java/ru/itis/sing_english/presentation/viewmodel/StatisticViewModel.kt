@@ -19,13 +19,12 @@ class StatisticViewModel @Inject constructor() : ViewModel() {
     fun loadStatistic(lyric: List<SongRow>, answers: List<String>) {
         _numOfCorrectAnswers.value = 0
         for (i in lyric.indices) {
-            if (answers[i] == lyric[i].word) {
+            if (answers[i] == lyric[i].text.split(" ")[lyric[i].indexOfAnswer]) {
                 lyric[i].isCorrect = true
                 _numOfCorrectAnswers.value?.let { a ->
                     _numOfCorrectAnswers.value = a + 1
                 }
-            }
-            else {
+            } else {
                 lyric[i].isCorrect = false
             }
         }

@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="video"
             type="ru.itis.sing_english.data.model.Video" />
     </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingStart="30dp"
@@ -20,10 +22,11 @@
 
         <ImageView
             android:id="@+id/iv_cover"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_width="280dp"
+            android:layout_height="210dp"
             app:image="@{video.imgUrl}"
-            tools:srcCompat="@drawable/placeholder"/>
+            android:layout_gravity="center"
+            tools:srcCompat="@drawable/placeholder" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,6 +46,9 @@
                     android:layout_marginTop="8dp"
                     android:text="@{video.title}"
                     android:textSize="18sp"
+                    android:paddingEnd="10dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     tools:text="lalallala" />
 
                 <TextView
@@ -53,7 +59,10 @@
                     android:text="@{video.channelTitle}"
                     android:textColor="@color/colorAccent"
                     android:textSize="18sp"
-                    tools:text="lana del rey" />
+                    tools:text="lana del rey"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:paddingEnd="10dp"/>
 
             </LinearLayout>
 

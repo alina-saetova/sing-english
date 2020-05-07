@@ -5,9 +5,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class SongRow(
-    var first: String,
-    var word: String,
-    var second: String,
+    var text: String,
+    var indexOfAnswer: Int = 0,
     var wasMissed: Boolean = false,
     var isCorrect: Boolean = false
 ): Parcelable

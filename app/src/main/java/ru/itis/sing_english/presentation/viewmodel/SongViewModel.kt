@@ -1,6 +1,5 @@
 package ru.itis.sing_english.presentation.viewmodel
 
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.lifecycle.LiveData
@@ -25,6 +24,7 @@ class SongViewModel @Inject constructor(
     private var missingWords = mutableListOf<String>()
     var fullLyricWithAnswers = mutableListOf<SongRow>()
     var rightAnswers = mutableListOf<String>()
+
     //song's rows
     private var _row1 = MutableLiveData<SongRow>()
     val row1: LiveData<SongRow>
@@ -98,7 +98,7 @@ class SongViewModel @Inject constructor(
             2..4
         }
 
-        for(i in range) {
+        for (i in range) {
             rowsLiveData[i].value = rowsList.removeAt(0)
         }
 
@@ -109,12 +109,11 @@ class SongViewModel @Inject constructor(
     private fun setActiveIndex() {
         var index = if (numM == 3) {
             2
-        }
-        else {
+        } else {
             4
         }
         for ((i, row) in rowsLiveData.withIndex()) {
-            if (row.value?.word ?: "" == MISSING_PLACE) {
+            if ((row.value?.text ?: "").contains(MISSING_PLACE)) {
                 index = i
                 break
             }
@@ -129,7 +128,7 @@ class SongViewModel @Inject constructor(
         if (abs(second - subsList[0].row.start) < ROW_GAP) {
             rowsLiveData[0].value?.let { fullLyricWithAnswers.add(it) }
             val range: IntRange
-            if (numM == 3 ) {
+            if (numM == 3) {
                 range = 0..1
                 if (subsList.size == 1) {
                     rowsLiveData[0].value = rowsLiveData[1].value
@@ -157,7 +156,9 @@ class SongViewModel @Inject constructor(
                 }
             }
 
-            if (rowsLiveData[0].value?.word == MISSING_PLACE || isNeedToFillButtons) {
+            if ((rowsLiveData[0].value?.text ?: "").contains(MISSING_PLACE)
+                || isNeedToFillButtons
+            ) {
                 fillButtons()
                 isNeedToFillButtons = false
             }
@@ -174,10 +175,10 @@ class SongViewModel @Inject constructor(
 
     private var wordsIndex = 0
     private fun fillButtons() {
-        setActiveIndex()
         if (wordsIndex >= missingWords.size) {
             return
         }
+        setActiveIndex()
         val indexOfRightAnswer = RANGE_BUTTON.random()
         val listOptions = mutableListOf(_option1, _option2, _option3, _option4)
         listOptions[indexOfRightAnswer].postValue(missingWords[wordsIndex])
@@ -195,19 +196,21 @@ class SongViewModel @Inject constructor(
     private var isNeedToFillButtons = false
     fun answer(view: View) {
         val cur = rowsLiveData[currentRowIndex].value
+        val wordsInRow = cur?.text?.split(ROW_SEPARATOR)?.toMutableList()
+        wordsInRow?.removeAt(cur.indexOfAnswer)
+        wordsInRow?.add(cur.indexOfAnswer, (view as Button).text.toString())
+        val newRowText = wordsInRow?.joinToString(ROW_SEPARATOR).toString()
         val rowCur = cur?.wasMissed?.let {
             SongRow(
-                cur.first,
-                (view as Button).text.toString(),
-                cur.second,
+                newRowText,
+                cur.indexOfAnswer,
                 it
             )
         }
         rowsLiveData[currentRowIndex].value = rowCur
-        if (currentRowIndex != 4 || _row5.value?.word == MISSING_PLACE) {
+        if (currentRowIndex != 4 || (_row5.value?.text ?: "").contains(MISSING_PLACE)) {
             fillButtons()
-        }
-        else {
+        } else {
             isNeedToFillButtons = true
         }
     }
@@ -219,30 +222,29 @@ class SongViewModel @Inject constructor(
                 isMissed = !isMissed
             }
             val oldRow = sub.row.text
-            val wordsInRow = oldRow.split(" ")
-            var randomIndex = 0
-            var firstPart = ""
-            var secondPart = ""
-            if (wordsInRow.size == 2) {
-                firstPart = wordsInRow[0]
-                randomIndex = 1
-            }
-            else if (wordsInRow.size > 2) {
-                randomIndex = (1 until wordsInRow.size - 1).random()
-                firstPart = wordsInRow.subList(0, randomIndex).joinToString(" ")
-                secondPart = wordsInRow.subList(randomIndex + 1, wordsInRow.size).joinToString(" ")
-            }
+            val wordsInRow = oldRow.split(ROW_SEPARATOR)
+            val randomIndex = wordsInRow.indices.random()
             var secretWord: String
             if (isMissed) {
                 secretWord = MISSING_PLACE
                 missingWords.add(wordsInRow[randomIndex])
-            }
-            else {
+            } else {
                 secretWord = wordsInRow[randomIndex]
             }
+            var firstPart = wordsInRow.subList(0, randomIndex).joinToString(ROW_SEPARATOR)
+            var secondPart =
+                wordsInRow.subList(randomIndex + 1, wordsInRow.size).joinToString(ROW_SEPARATOR)
+            if (firstPart.isNotEmpty()) {
+                firstPart = firstPart.plus(ROW_SEPARATOR)
+            }
+            if (secondPart.isNotEmpty()) {
+                secondPart = ROW_SEPARATOR.plus(secondPart)
+            }
+            val textRow = firstPart
+                .plus(secretWord)
+                .plus(secondPart)
             rightAnswers.add(wordsInRow[randomIndex])
-            Log.e("answers", rightAnswers.toString())
-            val row = SongRow(firstPart, secretWord, secondPart, isMissed)
+            val row = SongRow(textRow, randomIndex, isMissed)
             rowsList.add(row)
         }
     }
@@ -254,10 +256,11 @@ class SongViewModel @Inject constructor(
 
     companion object {
         val DEFAULT_WORDS = arrayListOf("waiting", "for", "playing", "song")
-        val DEFAULT_ROW = SongRow("PRESS",  "PLAY",  "BUTTON")
-        val EMPTY_ROW = SongRow("", "", "")
+        val DEFAULT_ROW = SongRow("PRESS PLAY BUTTON")
+        val EMPTY_ROW = SongRow("")
         val RANGE_BUTTON = (0..3)
+        const val ROW_SEPARATOR = " "
         const val MISSING_PLACE = "___"
-        const val ROW_GAP = 0.06
+        const val ROW_GAP = 0.08
     }
 }

@@ -9,15 +9,15 @@
         android:id="@+id/navigation_main"
         android:name="ru.itis.sing_english.presentation.view.ui.container.MainPageContainerFragment"
         android:label="@string/title_main"
-        tools:layout="@layout/fragment_mainpage"/>
+        tools:layout="@layout/fragment_mainpage" />
     <keep_state_fragment
         android:id="@+id/navigation_fav"
         android:name="ru.itis.sing_english.presentation.view.ui.container.FavouritesContainerFragment"
         android:label="@string/title_fav"
-        tools:layout="@layout/fragment_favourites"/>
+        tools:layout="@layout/fragment_favourites" />
     <keep_state_fragment
         android:id="@+id/navigation_vocab"
         android:name="ru.itis.sing_english.presentation.view.ui.container.VocabularyContainerFragment"
         android:label="@string/title_vocab"
-        tools:layout="@layout/fragment_vocabulary"/>
+        tools:layout="@layout/fragment_vocabulary" />
 </navigation>

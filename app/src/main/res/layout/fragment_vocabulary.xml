@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="vocabViewModel"
             type="ru.itis.sing_english.presentation.viewmodel.VocabularyViewModel" />
@@ -36,7 +37,7 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="12dp"/>
+            android:layout_marginTop="12dp" />
 
         <ProgressBar
             android:id="@+id/progressBar"

@@ -72,7 +72,7 @@ class FavouritesFragment : Fragment() {
 
     companion object {
 
-        const val FAV_TITLE = "Избранное"
+        const val FAV_TITLE = "Favourites"
         const val FROM = "from"
         const val FROM_FAV = "from_fav"
     }

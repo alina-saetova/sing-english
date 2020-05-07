@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="ru.itis.sing_english.presentation.viewmodel.StatisticViewModel" />
@@ -30,13 +31,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/tv_statistic"
-                    android:textSize="20sp"/>
+                    android:layout_marginTop="20dp"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorAccent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:text="@{`Correct answers: ` + viewModel.numOfCorrectAnswers + ` out of ` + viewModel.statistic.size()}"/>
+                    android:layout_marginTop="10dp"
+                    android:textSize="20sp"
+                    app:numCorrect="@{viewModel.numOfCorrectAnswers}"
+                    app:numAll="@{viewModel.statistic.size()}" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvLyric"
@@ -46,7 +51,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintHorizontal_bias="0.577"
                     tools:listitem="@layout/item_song_row"
-                    app:recycler="@{viewModel.statistic}"/>
+                    app:recycler="@{viewModel.statistic}" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnContinue"

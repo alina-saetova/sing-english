@@ -90,7 +90,6 @@ class MainPageViewModel @Inject constructor(
                         _searchVideos.postValue(videos)
                         _progress.postValue(LoadingStatus.SUCCESS)
                     } catch (e: HttpException) {
-                        Log.e("EXC_HANDLER", "$e")
                         _progress.postValue(LoadingStatus.FAILED)
                     }
                 }
