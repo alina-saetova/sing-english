@@ -9,6 +9,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.itis.sing_english.R
+import ru.itis.sing_english.data.model.QuestionState
 import ru.itis.sing_english.data.model.QuizOption
 import ru.itis.sing_english.data.model.State
 import ru.itis.sing_english.domain.interactors.QuizInteractor
@@ -46,7 +47,22 @@ class QuizViewModel @Inject constructor(
     val clickable: LiveData<Boolean>
         get() = _clickable
 
+    private var _stateQuestion = MutableLiveData<QuestionState>()
+    val stateQuestion: LiveData<QuestionState>
+        get() = _stateQuestion
+
+    private var _stateManualAnswer = MutableLiveData<State>()
+    val stateManualAnswer: LiveData<State>
+        get() = _stateManualAnswer
+
+    private var _textInput = MutableLiveData<String>()
+    val textInput: LiveData<String>
+        get() = _textInput
+
     init {
+        _textInput.value = ""
+        _stateQuestion.value = QuestionState.NEXT_QUESTION
+        _stateManualAnswer.value = State.DEFAULT
         _clickable.value = true
         loadListWords()
     }
@@ -81,7 +97,42 @@ class QuizViewModel @Inject constructor(
         wordsList.shuffle()
     }
 
-    fun answer(view: View) {
+    fun chooseWay(view: View) {
+        when (view.id) {
+            R.id.btnManual -> _stateQuestion.value = QuestionState.MANUAL
+            R.id.btnMultiple -> _stateQuestion.value = QuestionState.MULTIPLE
+        }
+    }
+
+    fun answerManual(answer: String) {
+        viewModelJob = viewModelScope.launch {
+            if (_currentWord.value?.isEnglish == true) {
+                if (_currentWord.value?.word?.translation == answer) {
+                    _stateManualAnswer.value = State.RIGHT
+                    delay(DELAY_FOR_ANSWER)
+                    _stateQuestion.value = QuestionState.NEXT_QUESTION
+                    _textInput.value = ""
+                    _stateManualAnswer.value = State.DEFAULT
+                    loadNext()
+                } else {
+                    _stateManualAnswer.value = State.WRONG
+                }
+            } else {
+                if (_currentWord.value?.word?.text == answer) {
+                    _stateManualAnswer.value = State.RIGHT
+                    delay(DELAY_FOR_ANSWER)
+                    _stateQuestion.value = QuestionState.NEXT_QUESTION
+                    _textInput.value = ""
+                    _stateManualAnswer.value = State.DEFAULT
+                    loadNext()
+                } else {
+                    _stateManualAnswer.value = State.WRONG
+                }
+            }
+        }
+    }
+
+    fun answerBtn(view: View) {
         _clickable.value = false
         var userOption = _currentWord
         when (view.id) {
@@ -94,17 +145,43 @@ class QuizViewModel @Inject constructor(
         viewModelScope.launch {
             if (userOption.value?.word?.text == _currentWord.value?.word?.text) {
                 goToNext = true
-                userOption.postValue(userOption.value?.let { QuizOption(it.word, it.isEnglish, State.RIGHT) })
-            }
-            else {
-                userOption.postValue(userOption.value?.let { QuizOption(it.word, it.isEnglish, State.WRONG) })
+                userOption.postValue(userOption.value?.let {
+                    QuizOption(
+                        it.word,
+                        it.isEnglish,
+                        State.RIGHT
+                    )
+                })
+            } else {
+                userOption.postValue(userOption.value?.let {
+                    QuizOption(
+                        it.word,
+                        it.isEnglish,
+                        State.WRONG
+                    )
+                })
             }
             delay(DELAY_FOR_ANSWER)
             _clickable.postValue(true)
-            userOption.postValue(userOption.value?.let { QuizOption(it.word, it.isEnglish, State.DEFAULT) })
+            userOption.postValue(userOption.value?.let {
+                QuizOption(
+                    it.word,
+                    it.isEnglish,
+                    State.DEFAULT
+                )
+            })
             if (goToNext) {
+                _stateQuestion.value = QuestionState.NEXT_QUESTION
                 loadNext()
             }
+        }
+    }
+
+    fun showAnswer() {
+        if (_currentWord.value?.isEnglish == true) {
+            _textInput.value = _currentWord.value?.word?.translation
+        } else {
+            _textInput.value = _currentWord.value?.word?.text
         }
     }
 

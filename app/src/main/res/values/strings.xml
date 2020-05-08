@@ -29,4 +29,6 @@
     <string name="tv_title_pop">Pop</string>
     <string name="tv_title_hip_hop">Hip hop</string>
     <string name="tv_title_rock">Rock</string>
+    <string name="btn_title_check">check</string>
+    <string name="til_hint_answer">answer</string>
 </resources>

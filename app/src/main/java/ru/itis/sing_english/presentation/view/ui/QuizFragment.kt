@@ -33,7 +33,6 @@ class QuizFragment : Fragment() {
 
         binding.quizViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-
         return binding.root
     }
 

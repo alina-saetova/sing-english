@@ -6,13 +6,8 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
-import android.util.Log
 import android.view.View
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
-import androidx.core.content.ContextCompat
+import android.widget.*
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -40,8 +35,7 @@ fun loadImage(view: ImageView, url: String) {
 fun setImage(view: ImageButton, like: Boolean) {
     if (like) {
         view.setImageResource(R.drawable.ic_favourites_full)
-    }
-    else {
+    } else {
         view.setImageResource(R.drawable.ic_favourites_empty)
     }
 }
@@ -77,7 +71,7 @@ fun changeColor(view: MaterialButton, state: State?) {
 @BindingAdapter(value = ["setupVisibility"])
 fun ProgressBar.progressVisibility(loadingStatus: LoadingStatus?) {
     loadingStatus?.let {
-        isVisible = when(it) {
+        isVisible = when (it) {
             LoadingStatus.RUNNING -> true
             LoadingStatus.SUCCESS -> false
             LoadingStatus.FAILED -> false
@@ -86,10 +80,17 @@ fun ProgressBar.progressVisibility(loadingStatus: LoadingStatus?) {
 }
 
 @BindingAdapter(value = ["bind:correctness", "bind:missed", "bind:index", "bind:row"])
-fun setColorByCorrectness(view: TextView, isCorrect: Boolean, wasMissed: Boolean, ind: Int, rowText: String) {
-    val rowsWords =  rowText.split(" ")
+fun setColorByCorrectness(
+    view: TextView,
+    isCorrect: Boolean,
+    wasMissed: Boolean,
+    ind: Int,
+    rowText: String
+) {
+    val rowsWords = rowText.split(" ")
     val startIndex = rowsWords.subList(0, ind).joinToString(" ").length
-    val endIndex = rowText.length - rowsWords.subList(ind + 1, rowsWords.size).joinToString(" ").length
+    val endIndex =
+        rowText.length - rowsWords.subList(ind + 1, rowsWords.size).joinToString(" ").length
     val spannable = SpannableString(rowText)
     var colorWord = 0
     if (wasMissed) {
@@ -133,8 +134,7 @@ fun setColorByCorrectness(view: TextView, numOfCorrect: Int, totalNum: Int) {
 fun onWordClick(view: TextView, flag: Boolean) {
     if (flag) {
         view.setTextColor(ColorStateList.valueOf(view.context.getColor(R.color.colorAccent)))
-    }
-    else {
+    } else {
         view.setTextColor(ColorStateList.valueOf(view.context.getColor(R.color.colorTextWhite)))
     }
 }
@@ -144,8 +144,7 @@ fun setWordDetailTransl(view: TextView, list: List<Tr>?) {
     if (list == null) {
         view.visibility = View.GONE
         return
-    }
-    else {
+    } else {
         view.visibility = View.VISIBLE
     }
     val newList = mutableListOf<String>()
@@ -159,8 +158,7 @@ fun setWordDetailTransl(view: TextView, list: List<Tr>?) {
 fun setWordDetailTitle(view: TextView, str: String?) {
     if (str == null) {
         view.visibility = View.GONE
-    }
-    else {
+    } else {
         view.visibility = View.VISIBLE
         view.text = str
     }
@@ -170,8 +168,7 @@ fun setWordDetailTitle(view: TextView, str: String?) {
 fun setWordDetailSynonimsTitle(view: TextView, list: List<Mean>?) {
     if (list == null) {
         view.visibility = View.GONE
-    }
-    else {
+    } else {
         view.visibility = View.VISIBLE
         view.text = "synonims"
     }
@@ -181,8 +178,7 @@ fun setWordDetailSynonimsTitle(view: TextView, list: List<Mean>?) {
 fun setWordDetailSynonimsLayout(view: View, list: List<Mean>?) {
     if (list == null) {
         view.visibility = View.GONE
-    }
-    else {
+    } else {
         view.visibility = View.VISIBLE
     }
 }
@@ -192,8 +188,7 @@ fun setWordDetailSynonimsText(view: TextView, list: List<Mean>?) {
     if (list == null) {
         view.visibility = View.GONE
         return
-    }
-    else {
+    } else {
         view.visibility = View.VISIBLE
     }
     val newList = mutableListOf<String>()
@@ -207,8 +202,7 @@ fun setWordDetailSynonimsText(view: TextView, list: List<Mean>?) {
 fun setWordDetailExample(view: TextView, list: List<Ex>?) {
     if (list == null) {
         view.visibility = View.GONE
-    }
-    else {
+    } else {
         view.visibility = View.VISIBLE
         view.text = "examples"
     }
@@ -218,8 +212,7 @@ fun setWordDetailExample(view: TextView, list: List<Ex>?) {
 fun setWordDetailExample(view: View, list: List<Ex>?) {
     if (list == null) {
         view.visibility = View.GONE
-    }
-    else {
+    } else {
         view.visibility = View.VISIBLE
     }
 }
@@ -228,8 +221,7 @@ fun setWordDetailExample(view: View, list: List<Ex>?) {
 fun setWordDetailExampleTransl(view: TextView, list: List<Tr>?) {
     if (list == null) {
         view.visibility = View.GONE
-    }
-    else {
+    } else {
         view.visibility = View.VISIBLE
         view.text = list[0].transl
     }
@@ -239,8 +231,7 @@ fun setWordDetailExampleTransl(view: TextView, list: List<Tr>?) {
 fun setWordDetailExampleText(view: TextView, list: List<Ex>?) {
     if (list == null) {
         view.visibility = View.GONE
-    }
-    else {
+    } else {
         view.visibility = View.VISIBLE
         view.text = list[0].example
     }
@@ -249,7 +240,7 @@ fun setWordDetailExampleText(view: TextView, list: List<Ex>?) {
 @BindingAdapter("loading")
 fun onLoad(view: View, loadingStatus: LoadingStatus?) {
     loadingStatus?.let {
-        when(it) {
+        when (it) {
             LoadingStatus.RUNNING -> view.visibility = View.INVISIBLE
             LoadingStatus.SUCCESS -> view.visibility = View.VISIBLE
             LoadingStatus.FAILED -> view.visibility = View.GONE
@@ -280,3 +271,49 @@ fun setAnswer(view: TextView, option: QuizOption?, isEnglish: Boolean) {
         view.text = option.word.text
     }
 }
+
+@BindingAdapter(value = ["bind:multiple"])
+fun setVisibleMultiple(view: LinearLayout, state: QuestionState?) {
+    if (state == null) {
+        return
+    }
+    when (state) {
+        QuestionState.NEXT_QUESTION -> view.visibility = View.GONE
+        QuestionState.MANUAL -> view.visibility = View.GONE
+        QuestionState.MULTIPLE -> view.visibility = View.VISIBLE
+    }
+}
+
+@BindingAdapter(value = ["bind:manual"])
+fun setVisibleManual(view: LinearLayout, state: QuestionState?) {
+    if (state == null) {
+        return
+    }
+    when (state) {
+        QuestionState.NEXT_QUESTION -> view.visibility = View.GONE
+        QuestionState.MANUAL -> view.visibility = View.VISIBLE
+        QuestionState.MULTIPLE -> view.visibility = View.GONE
+    }
+}
+
+@BindingAdapter(value = ["bind:choice"])
+fun setVisibleChoice(view: LinearLayout, state: QuestionState?) {
+    if (state == null) {
+        return
+    }
+    when (state) {
+        QuestionState.NEXT_QUESTION -> view.visibility = View.VISIBLE
+        QuestionState.MANUAL -> view.visibility = View.GONE
+        QuestionState.MULTIPLE -> view.visibility = View.GONE
+    }
+}
+
+@BindingAdapter(value = ["bind:stateManual"])
+fun setCorrectnessManual(view: ImageView, state: State?) {
+    when (state) {
+        State.DEFAULT -> view.setImageResource(R.drawable.ic_unknown)
+        State.WRONG -> view.setImageResource(R.drawable.ic_wrong)
+        State.RIGHT -> view.setImageResource(R.drawable.ic_correct)
+    }
+}
+

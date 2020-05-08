@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="quizViewModel"
+            type="ru.itis.sing_english.presentation.viewmodel.QuizViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:manual="@{quizViewModel.stateQuestion}">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_unknown"
+                app:stateManual="@{quizViewModel.stateManualAnswer}" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_answer"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/til_hint_answer"
+                app:boxBackgroundColor="@color/colorWordBackground"
+                app:boxStrokeColor="@color/colorAccent"
+                app:hintTextColor="@color/colorAccent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:text="@{quizViewModel.textInput}" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/ibHelp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="@null"
+                android:onClick="@{ () -> quizViewModel.showAnswer() }"
+                android:src="@drawable/ic_help" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCheck"
+                style="@style/ButtonStyle"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:clickable="@{quizViewModel.clickable}"
+                android:onClick="@{ (answer) -> quizViewModel.answerManual(etAnswer.getText().toString()) }"
+                android:text="@string/btn_title_check" />
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>
