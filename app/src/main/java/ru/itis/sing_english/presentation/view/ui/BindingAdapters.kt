@@ -256,3 +256,27 @@ fun onLoad(view: View, loadingStatus: LoadingStatus?) {
         }
     }
 }
+
+@BindingAdapter("question")
+fun setQuestion(view: TextView, option: QuizOption?) {
+    if (option == null) {
+        return
+    }
+    if (option.isEnglish) {
+        view.text = option.word.text
+    } else {
+        view.text = option.word.translation
+    }
+}
+
+@BindingAdapter(value = ["bind:option", "bind:quest"])
+fun setAnswer(view: TextView, option: QuizOption?, isEnglish: Boolean) {
+    if (option == null) {
+        return
+    }
+    if (isEnglish) {
+        view.text = option.word.translation
+    } else {
+        view.text = option.word.text
+    }
+}

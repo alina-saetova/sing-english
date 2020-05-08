@@ -55,8 +55,10 @@ class QuizViewModel @Inject constructor(
         wordsList = mutableListOf()
         viewModelJob = viewModelScope.launch {
             val list = interactor.getWords()
+            var isEnglish = true
             for (word in list) {
-                wordsList.add(QuizOption(word, State.DEFAULT))
+                isEnglish = !isEnglish
+                wordsList.add(QuizOption(word, isEnglish, State.DEFAULT))
             }
             wordsList.shuffle()
             loadNext()
@@ -65,7 +67,7 @@ class QuizViewModel @Inject constructor(
 
     private fun loadNext() {
         _currentWord.postValue(wordsList[0])
-        indexOfRightAnswer = (0..3).random()
+        indexOfRightAnswer = RANGE_BUTTON.random()
         val listOptions = mutableListOf(_firstOption, _secondOption, _thirdOption, _fourthOption)
         listOptions[indexOfRightAnswer].postValue(wordsList[0])
         listOptions.removeAt(indexOfRightAnswer)
@@ -76,6 +78,7 @@ class QuizViewModel @Inject constructor(
             opt.postValue(wordsList[i])
         }
         wordsList.add(w)
+        wordsList.shuffle()
     }
 
     fun answer(view: View) {
@@ -91,14 +94,14 @@ class QuizViewModel @Inject constructor(
         viewModelScope.launch {
             if (userOption.value?.word?.text == _currentWord.value?.word?.text) {
                 goToNext = true
-                userOption.postValue(userOption.value?.word?.let { QuizOption(it, State.RIGHT) })
+                userOption.postValue(userOption.value?.let { QuizOption(it.word, it.isEnglish, State.RIGHT) })
             }
             else {
-                userOption.postValue(userOption.value?.word?.let { QuizOption(it, State.WRONG) })
+                userOption.postValue(userOption.value?.let { QuizOption(it.word, it.isEnglish, State.WRONG) })
             }
             delay(DELAY_FOR_ANSWER)
             _clickable.postValue(true)
-            userOption.postValue(userOption.value?.word?.let { QuizOption(it, State.DEFAULT) })
+            userOption.postValue(userOption.value?.let { QuizOption(it.word, it.isEnglish, State.DEFAULT) })
             if (goToNext) {
                 loadNext()
             }
@@ -112,5 +115,6 @@ class QuizViewModel @Inject constructor(
 
     companion object {
         const val DELAY_FOR_ANSWER = 1000L
+        val RANGE_BUTTON = (0..3)
     }
 }

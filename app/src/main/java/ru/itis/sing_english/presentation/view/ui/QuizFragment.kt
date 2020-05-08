@@ -11,6 +11,7 @@ import ru.itis.sing_english.di.AppInjector
 import ru.itis.sing_english.presentation.viewmodel.QuizViewModel
 import javax.inject.Inject
 
+
 class QuizFragment : Fragment() {
 
     @Inject

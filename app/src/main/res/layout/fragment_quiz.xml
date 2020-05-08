@@ -24,7 +24,7 @@
             tools:text="protect"
             android:textSize="20sp"
             android:layout_marginTop="60dp"
-            android:text="@{quizViewModel.currentWord.word.text}"
+            app:question="@{quizViewModel.currentWord}"
             android:textAlignment="center"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,7 +39,8 @@
             android:layout_marginTop="36dp"
             android:clickable="@{quizViewModel.clickable}"
             android:onClick="@{ (view) -> quizViewModel.answer(view) }"
-            android:text="@{quizViewModel.firstOption.word.translation}"
+            app:option="@{quizViewModel.firstOption}"
+            app:quest="@{quizViewModel.currentWord.english}"
             app:layout_constraintTop_toBottomOf="@+id/tv_word" />
 
         <com.google.android.material.button.MaterialButton
@@ -52,7 +53,8 @@
             android:layout_marginTop="40dp"
             android:clickable="@{quizViewModel.clickable}"
             android:onClick="@{ (view) -> quizViewModel.answer(view) }"
-            android:text="@{quizViewModel.secondOption.word.translation}"
+            app:option="@{quizViewModel.secondOption}"
+            app:quest="@{quizViewModel.currentWord.english}"
             app:layout_constraintTop_toBottomOf="@+id/btn_first" />
 
         <com.google.android.material.button.MaterialButton
@@ -65,7 +67,8 @@
             android:layout_marginTop="36dp"
             android:clickable="@{quizViewModel.clickable}"
             android:onClick="@{ (view) -> quizViewModel.answer(view) }"
-            android:text="@{quizViewModel.thirdOption.word.translation}" />
+            app:option="@{quizViewModel.thirdOption}"
+            app:quest="@{quizViewModel.currentWord.english}"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_fourth"
@@ -77,7 +80,7 @@
             android:layout_marginTop="28dp"
             android:clickable="@{quizViewModel.clickable}"
             android:onClick="@{ (view) -> quizViewModel.answer(view) }"
-            android:text="@{quizViewModel.fourthOption.word.translation}" />
-
+            app:option="@{quizViewModel.fourthOption}"
+            app:quest="@{quizViewModel.currentWord.english}"/>
     </LinearLayout>
 </layout>

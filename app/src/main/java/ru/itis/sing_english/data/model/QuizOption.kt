@@ -2,6 +2,7 @@ package ru.itis.sing_english.data.model
 
 data class QuizOption (
     val word: Word,
+    var isEnglish: Boolean,
     var state: State? = State.DEFAULT
 )
 
