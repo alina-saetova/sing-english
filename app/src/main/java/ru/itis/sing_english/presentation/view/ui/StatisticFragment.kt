@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -16,17 +15,17 @@ import ru.itis.sing_english.di.AppInjector
 import ru.itis.sing_english.presentation.view.recyclerview.songsrow.SongRowAdapter
 import ru.itis.sing_english.presentation.view.ui.FavouritesFragment.Companion.FROM
 import ru.itis.sing_english.presentation.view.ui.FavouritesFragment.Companion.FROM_FAV
-import ru.itis.sing_english.presentation.view.ui.Song5RowsFragment.Companion.ANSWERS_PARAM
-import ru.itis.sing_english.presentation.view.ui.Song5RowsFragment.Companion.LYRIC_PARAM
+import ru.itis.sing_english.presentation.view.ui.SongFragment.Companion.ANSWERS_PARAM
+import ru.itis.sing_english.presentation.view.ui.SongFragment.Companion.LYRIC_PARAM
 import ru.itis.sing_english.presentation.viewmodel.StatisticViewModel
 import javax.inject.Inject
 
-class StatisticFragment : Fragment() {
+class StatisticFragment : Fragment(), View.OnClickListener {
 
     @Inject
     lateinit var viewModel: StatisticViewModel
     lateinit var binding: FragmentStatisticBinding
-    private lateinit var lyric: List<SongRow>
+    private lateinit var lyric: MutableList<SongRow>
     private lateinit var answers: List<String>
     private lateinit var from: String
 
@@ -34,7 +33,7 @@ class StatisticFragment : Fragment() {
         AppInjector.plusStatisticComponent().inject(this)
         super.onCreate(savedInstanceState)
         arguments?.let {
-            lyric = it.getParcelableArrayList<SongRow>(LYRIC_PARAM) as List<SongRow>
+            lyric = it.getParcelableArrayList<SongRow>(LYRIC_PARAM) as MutableList<SongRow>
             answers = it.getStringArrayList(ANSWERS_PARAM) as List<String>
             from = it.getString(FROM).toString()
         }
@@ -55,12 +54,7 @@ class StatisticFragment : Fragment() {
         binding.rvLyric.adapter = adapter
         viewModel.loadStatistic(lyric, answers)
 
-        binding.btnContinue.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString(FROM, from)
-            bundle.putStringArrayList(ANSWERS_PARAM, ArrayList(answers))
-            findNavController().navigate(R.id.action_statistic_to_chooseWords, bundle)
-        }
+        binding.btnContinue.setOnClickListener(this)
         return binding.root
     }
 
@@ -80,6 +74,13 @@ class StatisticFragment : Fragment() {
                 dialog.dismiss()
             }
             .show()
+    }
+
+    override fun onClick(p0: View?) {
+        val bundle = Bundle()
+        bundle.putString(FROM, from)
+        bundle.putStringArrayList(ANSWERS_PARAM, ArrayList(answers))
+        findNavController().navigate(R.id.action_statistic_to_chooseWords, bundle)
     }
 
     override fun onDestroy() {

@@ -16,10 +16,9 @@ import ru.itis.sing_english.di.AppInjector
 import ru.itis.sing_english.presentation.view.recyclerview.wordsgrid.WordGridAdapter
 import ru.itis.sing_english.presentation.view.ui.FavouritesFragment.Companion.FROM
 import ru.itis.sing_english.presentation.view.ui.FavouritesFragment.Companion.FROM_FAV
-import ru.itis.sing_english.presentation.view.ui.Song5RowsFragment.Companion.ANSWERS_PARAM
+import ru.itis.sing_english.presentation.view.ui.SongFragment.Companion.ANSWERS_PARAM
 import ru.itis.sing_english.presentation.viewmodel.ChooseWordsViewModel
 import javax.inject.Inject
-import kotlin.properties.Delegates
 
 class ChooseWordsFragment : Fragment() {
 

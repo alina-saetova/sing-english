@@ -11,8 +11,7 @@ import ru.itis.sing_english.data.model.Video
 import ru.itis.sing_english.databinding.FragmentFavouritesBinding
 import ru.itis.sing_english.di.AppInjector
 import ru.itis.sing_english.presentation.view.recyclerview.videos.VideoBigAdapter
-import ru.itis.sing_english.presentation.view.recyclerview.videos.VideoSmallAdapter
-import ru.itis.sing_english.presentation.view.ui.Song5RowsFragment.Companion.ID_PARAM
+import ru.itis.sing_english.presentation.view.ui.SongFragment.Companion.ID_PARAM
 import ru.itis.sing_english.presentation.viewmodel.FavouritesViewModel
 import javax.inject.Inject
 

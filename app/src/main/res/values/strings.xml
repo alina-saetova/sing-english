@@ -11,9 +11,8 @@
     <string name="quiz_warning">For quiz you should have at least 4 words</string>
     <string name="tv_popular_videos">Most popular videos</string>
     <string name="choose_difficulty_level">Choose difficulty level</string>
-    <string name="btnTitleChallenging">Challenging</string>
     <string name="btnTitleHard">Hard</string>
-    <string name="btnTitleNormal">Normal</string>
+    <string name="btnTitleMedium">Medium</string>
     <string name="btnTitleEasy">Easy</string>
     <string name="tv_statistic">Statistic</string>
     <string name="btn_continue">Continue</string>

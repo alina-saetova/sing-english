@@ -14,25 +14,26 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstan
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-import kotlinx.android.synthetic.main.fragment_song5_rows.*
+import kotlinx.android.synthetic.main.fragment_song.*
 import ru.itis.sing_english.R
-import ru.itis.sing_english.databinding.FragmentSong5RowsBinding
+import ru.itis.sing_english.data.model.DifficultyLevel
+import ru.itis.sing_english.databinding.FragmentSongBinding
 import ru.itis.sing_english.di.AppInjector
-import ru.itis.sing_english.presentation.view.ui.ChooseLevelFragment.Companion.FLAG_PARAM
+import ru.itis.sing_english.presentation.view.ui.ChooseLevelFragment.Companion.DIFF_LEVEL_PARAM
 import ru.itis.sing_english.presentation.view.ui.FavouritesFragment.Companion.FROM
 import ru.itis.sing_english.presentation.view.ui.FavouritesFragment.Companion.FROM_FAV
 import ru.itis.sing_english.presentation.viewmodel.SongViewModel
 import javax.inject.Inject
 
-class Song5RowsFragment : Fragment() {
+class SongFragment : Fragment() {
 
     @Inject
     lateinit var viewModel: SongViewModel
-    lateinit var binding: FragmentSong5RowsBinding
+    lateinit var binding: FragmentSongBinding
     private lateinit var youTubePlayerView: YouTubePlayerView
     lateinit var videoId: String
     lateinit var from: String
-    var flag = false
+    private lateinit var diffLevel: DifficultyLevel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppInjector.plusSongComponent().inject(this)
@@ -40,7 +41,7 @@ class Song5RowsFragment : Fragment() {
         arguments?.let {
             videoId = it.getString(ID_PARAM).toString()
             from = it.getString(FROM).toString()
-            flag = it.getBoolean(FLAG_PARAM)
+            diffLevel = it.getSerializable(DIFF_LEVEL_PARAM) as DifficultyLevel
         }
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             showWarningDialog()
@@ -51,10 +52,10 @@ class Song5RowsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSong5RowsBinding.inflate(inflater)
+        binding = FragmentSongBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        viewModel.loadSong(videoId, flag, ROWS_NUM)
+        viewModel.loadSong(videoId, diffLevel)
         binding.viewModel = viewModel
 
         return binding.root
@@ -140,7 +141,6 @@ class Song5RowsFragment : Fragment() {
 
     companion object {
         const val START_SECOND = 0f
-        const val ROWS_NUM = 5
         const val ID_PARAM = "videoId"
         const val LYRIC_PARAM = "lyric"
         const val ANSWERS_PARAM = "answers"

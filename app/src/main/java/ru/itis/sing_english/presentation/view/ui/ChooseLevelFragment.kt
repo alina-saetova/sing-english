@@ -9,9 +9,10 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.itis.sing_english.R
+import ru.itis.sing_english.data.model.DifficultyLevel
 import ru.itis.sing_english.databinding.FragmentChooseLevelBinding
 import ru.itis.sing_english.presentation.view.ui.FavouritesFragment.Companion.FROM
-import ru.itis.sing_english.presentation.view.ui.Song5RowsFragment.Companion.ID_PARAM
+import ru.itis.sing_english.presentation.view.ui.SongFragment.Companion.ID_PARAM
 
 class ChooseLevelFragment : Fragment() {
 
@@ -39,35 +40,22 @@ class ChooseLevelFragment : Fragment() {
         binding.btnEasy.setOnClickListener(onClickListener)
         binding.btnNormal.setOnClickListener(onClickListener)
         binding.btnHard.setOnClickListener(onClickListener)
-        binding.btnChallenging.setOnClickListener(onClickListener)
     }
 
     private val onClickListener = View.OnClickListener { view ->
-        var flag = false
-        var action = 0
+        var diffLevel = DifficultyLevel.EASY
         when ((view as Button).text.toString()) {
-            resources.getString(R.string.btnTitleEasy) -> {
-                flag = false
-                action = R.id.action_chooseLevel_to_song5Rows
-            }
-            resources.getString(R.string.btnTitleNormal) -> {
-                flag = false
-                action = R.id.action_chooseLevel_to_song3Rows
-            }
-            resources.getString(R.string.btnTitleHard) -> {
-                flag = true
-                action = R.id.action_chooseLevel_to_song5Rows
-            }
-            resources.getString(R.string.btnTitleChallenging) -> {
-                flag = true
-                action = R.id.action_chooseLevel_to_song3Rows
-            }
+            resources.getString(R.string.btnTitleEasy) -> diffLevel = DifficultyLevel.EASY
+
+            resources.getString(R.string.btnTitleMedium) -> diffLevel = DifficultyLevel.MEDIUM
+
+            resources.getString(R.string.btnTitleHard) -> diffLevel = DifficultyLevel.HARD
         }
         val bundle = Bundle()
         bundle.putString(ID_PARAM, videoId)
         bundle.putString(FROM, from)
-        bundle.putBoolean(FLAG_PARAM, flag)
-        findNavController().navigate(action, bundle)
+        bundle.putSerializable(DIFF_LEVEL_PARAM, diffLevel)
+        findNavController().navigate(R.id.action_chooseLevel_to_song5Rows, bundle)
     }
 
     override fun onAttach(context: Context) {
@@ -81,6 +69,6 @@ class ChooseLevelFragment : Fragment() {
     }
 
     companion object {
-        const val FLAG_PARAM = "flag"
+        const val DIFF_LEVEL_PARAM = "diff"
     }
 }

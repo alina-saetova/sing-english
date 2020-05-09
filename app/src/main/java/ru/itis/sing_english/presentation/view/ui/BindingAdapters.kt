@@ -79,27 +79,34 @@ fun ProgressBar.progressVisibility(loadingStatus: LoadingStatus?) {
     }
 }
 
-@BindingAdapter(value = ["bind:correctness", "bind:missed", "bind:index", "bind:row"])
+@BindingAdapter(value = ["bind:correctness", "bind:missed", "bind:indices", "bind:row"])
 fun setColorByCorrectness(
     view: TextView,
-    isCorrect: Boolean,
+    isCorrect:  MutableList<Boolean>,
     wasMissed: Boolean,
-    ind: Int,
+    indicesOfAnswers: MutableList<Int>,
     rowText: String
 ) {
-    val rowsWords = rowText.split(" ")
-    val startIndex = rowsWords.subList(0, ind).joinToString(" ").length
-    val endIndex =
-        rowText.length - rowsWords.subList(ind + 1, rowsWords.size).joinToString(" ").length
-    val spannable = SpannableString(rowText)
-    var colorWord = 0
-    if (wasMissed) {
-        colorWord = if (isCorrect) {
-            view.context.getColor(R.color.colorRight)
-        } else {
-            view.context.getColor(R.color.colorWrong)
-        }
+    when(indicesOfAnswers.size) {
+        2 -> setSpannableTwoWords(view, rowText, indicesOfAnswers, isCorrect)
+        1 -> setSpannableOneWord(view, rowText, indicesOfAnswers[0], isCorrect[0])
+        0 -> view.text = rowText
     }
+}
+
+private fun setSpannableOneWord(view: TextView, rowText: String, index: Int, isCorrect: Boolean) {
+    val rowsWords = rowText.split(" ")
+    val startIndex = rowsWords.subList(0, index).joinToString(" ").length
+    val endIndex = rowText.length - rowsWords.subList(index + 1, rowsWords.size).joinToString(" ").length
+
+    val spannable = SpannableString(rowText)
+
+    val colorWord= if (isCorrect) {
+        view.context.getColor(R.color.colorRight)
+    } else {
+        view.context.getColor(R.color.colorWrong)
+    }
+
     spannable.setSpan(
         ForegroundColorSpan(colorWord),
         startIndex, endIndex,
@@ -108,6 +115,52 @@ fun setColorByCorrectness(
     spannable.setSpan(
         StyleSpan(BOLD),
         startIndex, endIndex,
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+    view.text = spannable
+}
+
+private fun setSpannableTwoWords(view: TextView, rowText: String, indicesOfAnswers: MutableList<Int>, isCorrect:  MutableList<Boolean>) {
+    val rowsWords = rowText.split(" ")
+    val startIndexOne = rowsWords.subList(0, indicesOfAnswers[0]).joinToString(" ").length
+    val endIndexOne = rowText.length - rowsWords.subList(indicesOfAnswers[0] + 1, rowsWords.size).joinToString(" ").length
+
+    val startIndexTwo = rowsWords.subList(0, indicesOfAnswers[1]).joinToString(" ").length
+    val endIndexTwo = rowText.length - rowsWords.subList(indicesOfAnswers[1] + 1, rowsWords.size).joinToString(" ").length
+
+    val spannable = SpannableString(rowText)
+
+    val colorWordOne = if (isCorrect[0]) {
+        view.context.getColor(R.color.colorRight)
+    } else {
+        view.context.getColor(R.color.colorWrong)
+    }
+
+    val colorWordTwo = if (isCorrect[1]) {
+        view.context.getColor(R.color.colorRight)
+    } else {
+        view.context.getColor(R.color.colorWrong)
+    }
+
+    spannable.setSpan(
+        ForegroundColorSpan(colorWordOne),
+        startIndexOne, endIndexOne,
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+    spannable.setSpan(
+        StyleSpan(BOLD),
+        startIndexOne, endIndexOne,
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+
+    spannable.setSpan(
+        ForegroundColorSpan(colorWordTwo),
+        startIndexTwo, endIndexTwo,
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+    spannable.setSpan(
+        StyleSpan(BOLD),
+        startIndexTwo, endIndexTwo,
         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
     )
     view.text = spannable
@@ -316,4 +369,3 @@ fun setCorrectnessManual(view: ImageView, state: State?) {
         State.RIGHT -> view.setImageResource(R.drawable.ic_correct)
     }
 }
-

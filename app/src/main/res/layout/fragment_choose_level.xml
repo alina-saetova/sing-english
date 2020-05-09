@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,35 +14,28 @@
             android:id="@+id/tvChoose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/choose_difficulty_level" />
+            android:text="@string/choose_difficulty_level"
+            android:textSize="20sp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnEasy"
-            app:strokeColor="@color/colorDiffEasy"
-            android:textColor="@color/colorDiffEasy"
             style="@style/ButtonDifficultyStyle"
-            android:text="@string/btnTitleEasy" />
+            android:text="@string/btnTitleEasy"
+            android:textColor="@color/colorDiffEasy"
+            app:strokeColor="@color/colorDiffEasy" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNormal"
-            app:strokeColor="@color/colorDiffMedium"
-            android:textColor="@color/colorDiffMedium"
             style="@style/ButtonDifficultyStyle"
-            android:text="@string/btnTitleNormal" />
+            android:text="@string/btnTitleMedium"
+            android:textColor="@color/colorDiffMedium"
+            app:strokeColor="@color/colorDiffMedium" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnHard"
-            app:strokeColor="@color/colorDiffHard"
+            style="@style/ButtonDifficultyStyle"
+            android:text="@string/btnTitleHard"
             android:textColor="@color/colorDiffHard"
-            style="@style/ButtonDifficultyStyle"
-            android:text="@string/btnTitleHard" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnChallenging"
-            app:strokeColor="@color/colorDiffUltrahard"
-            android:textColor="@color/colorDiffUltrahard"
-            style="@style/ButtonDifficultyStyle"
-            android:text="@string/btnTitleChallenging" />
+            app:strokeColor="@color/colorDiffHard" />
     </LinearLayout>
 </layout>

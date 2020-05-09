@@ -4,8 +4,6 @@
 
     <data>
 
-        <import type="android.view.View" />
-
         <variable
             name="songRow"
             type="ru.itis.sing_english.data.model.SongRow" />
@@ -14,7 +12,9 @@
     <LinearLayout
         android:id="@+id/row"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent">
@@ -26,7 +26,7 @@
             android:layout_weight="1"
             android:textAlignment="center"
             app:correctness="@{songRow.isCorrect}"
-            app:index="@{songRow.indexOfAnswer}"
+            app:indices="@{songRow.indicesOfAnswer}"
             app:missed="@{songRow.wasMissed}"
             app:row="@{songRow.text}" />
     </LinearLayout>

@@ -24,39 +24,41 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tv_statistic"
                     android:layout_marginTop="20dp"
-                    android:textSize="24sp"
-                    android:textColor="@color/colorAccent" />
+                    android:text="@string/tv_statistic"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="26sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:textSize="20sp"
-                    app:numCorrect="@{viewModel.numOfCorrectAnswers}"
-                    app:numAll="@{viewModel.statistic.size()}" />
+                    android:textColor="@color/colorAccent"
+                    android:textSize="22sp"
+                    app:numAll="@{viewModel.statistic.size()}"
+                    app:numCorrect="@{viewModel.numOfCorrectAnswers}" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvLyric"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
+                    android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintHorizontal_bias="0.577"
-                    tools:listitem="@layout/item_song_row"
-                    app:recycler="@{viewModel.statistic}" />
+                    app:recycler="@{viewModel.statistic}"
+                    tools:listitem="@layout/item_song_row" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnContinue"
-                    android:layout_width="200dp"
                     style="@style/ButtonStyle"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:text="@string/btn_continue" />
             </LinearLayout>

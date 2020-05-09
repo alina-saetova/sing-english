@@ -11,33 +11,11 @@
         <action
             android:id="@+id/action_chooseLevel_to_song5Rows"
             app:destination="@id/song5Rows" />
-        <action
-            android:id="@+id/action_chooseLevel_to_song3Rows"
-            app:destination="@id/song3Rows" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/song3Rows"
-        android:name="ru.itis.sing_english.presentation.view.ui.Song3RowsFragment"
-        android:label="Song3Rows">
-        <action
-            android:id="@+id/action_song3Rows_to_statistic"
-            app:destination="@id/statistic" />
-        <action
-            android:id="@+id/action_back_fromSong3Rows_to_main"
-            app:destination="@id/navigation_main_page"
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/navigation_main_page" />
-        <action
-            android:id="@+id/action_back_fromSong3Rows_to_favourites"
-            app:destination="@id/navigation_favourites"
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/navigation_favourites" />
     </fragment>
 
     <fragment
         android:id="@+id/song5Rows"
-        android:name="ru.itis.sing_english.presentation.view.ui.Song5RowsFragment"
+        android:name="ru.itis.sing_english.presentation.view.ui.SongFragment"
         android:label="Song5Rows">
         <action
             android:id="@+id/action_song5Rows_to_statistic"

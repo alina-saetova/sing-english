@@ -51,7 +51,7 @@ class MainPageViewModel @Inject constructor(
         get() = _progress
 
     init {
-        loadVideos()
+//        loadVideos()
     }
 
     private fun loadVideos() {
