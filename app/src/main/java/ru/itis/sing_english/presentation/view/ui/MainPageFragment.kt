@@ -11,8 +11,8 @@ import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.Video
 import ru.itis.sing_english.databinding.FragmentMainpageBinding
 import ru.itis.sing_english.di.AppInjector
-import ru.itis.sing_english.presentation.view.recyclerview.videos.VideoSmallAdapter
 import ru.itis.sing_english.presentation.view.recyclerview.videos.VideoBigAdapter
+import ru.itis.sing_english.presentation.view.recyclerview.videos.VideoSmallAdapter
 import ru.itis.sing_english.presentation.view.ui.SongFragment.Companion.ID_PARAM
 import ru.itis.sing_english.presentation.viewmodel.MainPageViewModel
 import javax.inject.Inject
@@ -107,23 +107,48 @@ class MainPageFragment : Fragment() {
 
     private fun setAdapters() {
         val adapterAll =
-            VideoSmallAdapter(emptyList<Video>().toMutableList(), TYPE_VIDEO_ALL, videoClickListener, likeClickListener)
+            VideoSmallAdapter(
+                emptyList<Video>().toMutableList(),
+                TYPE_VIDEO_ALL,
+                videoClickListener,
+                likeClickListener
+            )
         binding.rvAllVideos.adapter = adapterAll
 
         val adapterPop =
-            VideoSmallAdapter(emptyList<Video>().toMutableList(), TYPE_VIDEO_POP, videoClickListener, likeClickListener)
+            VideoSmallAdapter(
+                emptyList<Video>().toMutableList(),
+                TYPE_VIDEO_POP,
+                videoClickListener,
+                likeClickListener
+            )
         binding.rvPopVideos.adapter = adapterPop
 
         val adapterHipHop =
-            VideoSmallAdapter(emptyList<Video>().toMutableList(), TYPE_VIDEO_HIPHOP, videoClickListener, likeClickListener)
+            VideoSmallAdapter(
+                emptyList<Video>().toMutableList(),
+                TYPE_VIDEO_HIPHOP,
+                videoClickListener,
+                likeClickListener
+            )
         binding.rvHipHopideos.adapter = adapterHipHop
 
         val adapterRock =
-            VideoSmallAdapter(emptyList<Video>().toMutableList(), TYPE_VIDEO_ROCK, videoClickListener, likeClickListener)
+            VideoSmallAdapter(
+                emptyList<Video>().toMutableList(),
+                TYPE_VIDEO_ROCK,
+                videoClickListener,
+                likeClickListener
+            )
         binding.rvRockVideos.adapter = adapterRock
 
         val adapterSearch =
-            VideoBigAdapter(emptyList<Video>().toMutableList(), TYPE_VIDEO_SEARCH, videoClickListener, likeClickListener)
+            VideoBigAdapter(
+                emptyList<Video>().toMutableList(),
+                TYPE_VIDEO_SEARCH,
+                videoClickListener,
+                likeClickListener
+            )
         binding.rvVideos.adapter = adapterSearch
     }
 

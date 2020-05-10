@@ -36,8 +36,7 @@ class VocabularyViewModel @Inject constructor(
                 val words = interactor.getWords()
                 _words.postValue(words)
                 _progress.postValue(LoadingStatus.SUCCESS)
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 _progress.postValue(LoadingStatus.FAILED)
             }
         }

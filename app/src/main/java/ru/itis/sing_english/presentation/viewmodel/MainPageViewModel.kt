@@ -1,13 +1,14 @@
 package ru.itis.sing_english.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.channels.consumeEach
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import ru.itis.sing_english.data.model.LoadingStatus
 import ru.itis.sing_english.data.model.Video
@@ -67,8 +68,7 @@ class MainPageViewModel @Inject constructor(
                 _hipHopVideos.postValue(hipHopVideos)
                 _rockVideos.postValue(rockVideos)
                 _progress.postValue(LoadingStatus.SUCCESS)
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 _progress.postValue(LoadingStatus.FAILED)
             }
         }
@@ -84,9 +84,8 @@ class MainPageViewModel @Inject constructor(
                     _progress.postValue(LoadingStatus.RUNNING)
                     delay(1000)
                     try {
-                        val videos = withContext(Dispatchers.IO) {
-                            interactor.searchVideos(it)
-                        }
+                        val videos = interactor.searchVideos(it)
+
                         _searchVideos.postValue(videos)
                         _progress.postValue(LoadingStatus.SUCCESS)
                     } catch (e: HttpException) {
@@ -106,7 +105,7 @@ class MainPageViewModel @Inject constructor(
     fun like(video: Video, position: Int, type: String) {
         viewModelJob = viewModelScope.launch {
             interactor.addVideo(video)
-            when(type) {
+            when (type) {
                 TYPE_VIDEO_ALL -> _randomVideos.value?.get(position)?.like = true
                 TYPE_VIDEO_POP -> _popVideos.value?.get(position)?.like = true
                 TYPE_VIDEO_ROCK -> _rockVideos.value?.get(position)?.like = true
@@ -119,7 +118,7 @@ class MainPageViewModel @Inject constructor(
     fun unlike(video: Video, position: Int, type: String) {
         viewModelJob = viewModelScope.launch {
             interactor.deleteVideo(video)
-            when(type) {
+            when (type) {
                 TYPE_VIDEO_ALL -> _randomVideos.value?.get(position)?.like = false
                 TYPE_VIDEO_POP -> _popVideos.value?.get(position)?.like = false
                 TYPE_VIDEO_ROCK -> _rockVideos.value?.get(position)?.like = false

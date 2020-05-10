@@ -19,12 +19,12 @@
         <TextView
             android:id="@+id/tv_word"
             android:layout_width="wrap_content"
-            tools:text="happen"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@{word.text}"
             android:textAlignment="center"
-            android:gravity="center"
+            android:textSize="18sp"
             app:word="@{word.flag}"
-            android:textSize="18sp" />
+            tools:text="happen" />
     </LinearLayout>
 </layout>

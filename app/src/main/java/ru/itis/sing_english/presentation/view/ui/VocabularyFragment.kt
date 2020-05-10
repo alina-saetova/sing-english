@@ -38,7 +38,8 @@ class VocabularyFragment : Fragment() {
 
         binding.btnQuiz.setOnClickListener(onQuizButtonListener)
 
-        val adapter = WordAdapter(emptyList<Word>().toMutableList(), wordClickListener, deleteClickListener)
+        val adapter =
+            WordAdapter(emptyList<Word>().toMutableList(), wordClickListener, deleteClickListener)
         binding.rvWords.adapter = adapter
         binding.lifecycleOwner = viewLifecycleOwner
         binding.vocabViewModel = viewModel
@@ -58,7 +59,7 @@ class VocabularyFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    private val queryListener = object: SearchView.OnQueryTextListener {
+    private val queryListener = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(newText: String?): Boolean {
             newText?.let { wordClickListener(it) }
             return true

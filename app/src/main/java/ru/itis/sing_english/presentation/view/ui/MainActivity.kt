@@ -1,7 +1,6 @@
 package ru.itis.sing_english.presentation.view.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -22,7 +21,8 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.navFragment)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navFragment)!!
-        val navigator = KeepStateNavigator(this, navHostFragment.childFragmentManager,
+        val navigator = KeepStateNavigator(
+            this, navHostFragment.childFragmentManager,
             R.id.navFragment
         )
         navController.navigatorProvider += navigator

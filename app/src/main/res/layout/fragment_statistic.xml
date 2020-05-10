@@ -51,7 +51,6 @@
                     android:layout_margin="20dp"
                     android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintHorizontal_bias="0.577"
                     app:recycler="@{viewModel.statistic}"
                     tools:listitem="@layout/item_song_row" />
 

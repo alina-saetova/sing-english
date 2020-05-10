@@ -25,11 +25,11 @@ class ChooseWordsViewModel @Inject constructor(
         val i = list.listIterator()
         while (i.hasNext()) {
             var word = i.next()
-            if (word.text.contains(",")) {
+            if (word.text.contains(COMMA_REGEX)) {
                 word = WordGrid(word.text.substring(0, word.text.length - 1), word.flag)
                 i.set(word)
             }
-            if (!word.text.matches("[a-zA-Z]+".toRegex())) {
+            if (!word.text.matches(LETTERS_REGEX.toRegex())) {
                 i.remove()
             }
         }
@@ -56,5 +56,10 @@ class ChooseWordsViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+
+    companion object {
+        const val COMMA_REGEX = ","
+        const val LETTERS_REGEX = "[a-zA-Z]+"
     }
 }

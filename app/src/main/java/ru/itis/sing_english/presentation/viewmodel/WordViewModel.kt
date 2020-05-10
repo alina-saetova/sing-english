@@ -25,10 +25,6 @@ class WordViewModel @Inject constructor(
     val progress: LiveData<LoadingStatus>
         get() = _progress
 
-//    init {
-//        loadWord(searchedWord)
-//    }
-
     fun loadWord(searchedWord: String) {
         viewModelJob = viewModelScope.launch {
             try {
@@ -36,8 +32,7 @@ class WordViewModel @Inject constructor(
                 val resp = interactor.getWord(searchedWord)
                 _word.postValue(resp)
                 _progress.postValue(LoadingStatus.SUCCESS)
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 _progress.postValue(LoadingStatus.FAILED)
             }
         }

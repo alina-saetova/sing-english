@@ -36,14 +36,19 @@ class FavouritesFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         (activity as MainActivity).supportActionBar?.title = FAV_TITLE
-        val adapter = VideoBigAdapter(emptyList<Video>().toMutableList(), "",videoClickListener, likeClickListener)
+        val adapter = VideoBigAdapter(
+            emptyList<Video>().toMutableList(),
+            "",
+            videoClickListener,
+            likeClickListener
+        )
         binding.rvVideos.adapter = adapter
         binding.favViewModel = viewModel
 
         return binding.root
     }
 
-    private val videoClickListener =  { id: String ->
+    private val videoClickListener = { id: String ->
         val bundle = Bundle()
         bundle.putString(ID_PARAM, id)
         bundle.putString(FROM, FROM_FAV)
@@ -53,8 +58,7 @@ class FavouritesFragment : Fragment() {
     private val likeClickListener = { video: Video, like: String, position: Int, _: String ->
         if (like == "like") {
             viewModel.unlike(video, position)
-        }
-        else {
+        } else {
             viewModel.like(video, position)
         }
     }

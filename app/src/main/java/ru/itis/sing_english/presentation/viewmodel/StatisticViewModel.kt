@@ -1,10 +1,8 @@
 package ru.itis.sing_english.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.itis.sing_english.data.model.CorrectnessState
 import ru.itis.sing_english.data.model.SongRow
 import javax.inject.Inject
 
@@ -23,9 +21,7 @@ class StatisticViewModel @Inject constructor() : ViewModel() {
         lyric.removeAt(0)
         lyric.removeAt(0)
 
-        Log.e("laaaa", lyric.toString())
         var answIndex = 0
-        Log.e("answers", answers.toString())
         for (i in lyric.indices) {
             val wordsInRow = lyric[i].text.split(ROW_SEPARATOR)
             lyric[i].indicesOfAnswer.remove(RANDOM_CONST)
@@ -36,14 +32,12 @@ class StatisticViewModel @Inject constructor() : ViewModel() {
                     _numOfCorrectAnswers.value?.let { a ->
                         _numOfCorrectAnswers.value = a + 1
                     }
-                }
-                else {
+                } else {
                     lyric[i].isCorrect.add(false)
                 }
                 answIndex++
             }
         }
-        Log.e("asdfsfs", lyric.toString())
         _statistic.value = lyric
     }
 

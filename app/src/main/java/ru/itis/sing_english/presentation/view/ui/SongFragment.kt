@@ -67,35 +67,39 @@ class SongFragment : Fragment() {
         youTubePlayerView.addYouTubePlayerListener(playerListener)
     }
 
-    private val playerListener : AbstractYouTubePlayerListener = object: AbstractYouTubePlayerListener() {
-        override fun onReady(youTubePlayer: YouTubePlayer) {
-            youTubePlayer.cueVideo(videoId, START_SECOND)
-        }
-
-        var flag = false
-        override fun onStateChange(
-            youTubePlayer: YouTubePlayer,
-            state: PlayerConstants.PlayerState
-        ) {
-            if (state == PlayerConstants.PlayerState.PLAYING && !flag) {
-                viewModel.start()
-                flag = true
+    private val playerListener: AbstractYouTubePlayerListener =
+        object : AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                youTubePlayer.cueVideo(videoId, START_SECOND)
             }
-            if (state == PlayerConstants.PlayerState.ENDED) {
-                goToStatistic()
-            }
-            super.onStateChange(youTubePlayer, state)
-        }
 
-        override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {
-            viewModel.onPlaying(second)
+            var flag = false
+            override fun onStateChange(
+                youTubePlayer: YouTubePlayer,
+                state: PlayerConstants.PlayerState
+            ) {
+                if (state == PlayerConstants.PlayerState.PLAYING && !flag) {
+                    viewModel.start()
+                    flag = true
+                }
+                if (state == PlayerConstants.PlayerState.ENDED) {
+                    goToStatistic()
+                }
+                super.onStateChange(youTubePlayer, state)
+            }
+
+            override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {
+                viewModel.onPlaying(second)
+            }
         }
-    }
 
     private fun goToStatistic() {
         val bundle = Bundle()
         bundle.putString(FROM, from)
-        bundle.putParcelableArrayList(LYRIC_PARAM, ArrayList<Parcelable>(viewModel.fullLyricWithAnswers))
+        bundle.putParcelableArrayList(
+            LYRIC_PARAM,
+            ArrayList<Parcelable>(viewModel.fullLyricWithAnswers)
+        )
         bundle.putStringArrayList(ANSWERS_PARAM, ArrayList(viewModel.rightAnswers))
         findNavController().navigate(R.id.action_song5Rows_to_statistic, bundle)
     }

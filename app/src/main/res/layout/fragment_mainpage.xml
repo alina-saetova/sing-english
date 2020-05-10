@@ -36,14 +36,14 @@
                 android:id="@+id/rvVideos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never"
                 android:layout_marginTop="20dp"
                 android:orientation="vertical"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:recycler="@{mainPageViewModel.searchVideos}"
                 tools:listitem="@layout/item_search_video" />
 
@@ -57,17 +57,17 @@
                     android:id="@+id/tv_popular_videos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
-                    android:textSize="20sp"
-                    android:text="@string/tv_popular_videos" />
+                    android:layout_marginTop="10dp"
+                    android:text="@string/tv_popular_videos"
+                    android:textSize="20sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvAllVideos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:overScrollMode="never"
                     android:orientation="horizontal"
+                    android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:recycler="@{mainPageViewModel.randomVideos}"
                     tools:listitem="@layout/item_video" />
@@ -76,35 +76,36 @@
                     android:id="@+id/tv_pop_videos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
-                    android:textSize="20sp"
-                    android:text="@string/tv_title_pop" />
+                    android:layout_marginTop="10dp"
+                    android:text="@string/tv_title_pop"
+                    android:textSize="20sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvPopVideos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:overScrollMode="never"
                     android:orientation="horizontal"
+                    android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:recycler="@{mainPageViewModel.popVideos}"
                     tools:listitem="@layout/item_video" />
+
                 <TextView
                     android:id="@+id/tv_hiphop_videos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
-                    android:textSize="20sp"
-                    android:text="@string/tv_title_hip_hop" />
+                    android:layout_marginTop="10dp"
+                    android:text="@string/tv_title_hip_hop"
+                    android:textSize="20sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvHipHopideos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:overScrollMode="never"
                     android:orientation="horizontal"
+                    android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:recycler="@{mainPageViewModel.hipHopVideos}"
                     tools:listitem="@layout/item_video" />
@@ -113,18 +114,18 @@
                     android:id="@+id/tv_rock_videos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
-                    android:textSize="20sp"
-                    android:text="@string/tv_title_rock" />
+                    android:layout_marginTop="10dp"
+                    android:text="@string/tv_title_rock"
+                    android:textSize="20sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvRockVideos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:overScrollMode="never"
                     android:layout_marginTop="20dp"
                     android:orientation="horizontal"
+                    android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:recycler="@{mainPageViewModel.rockVideos}"
                     tools:listitem="@layout/item_video" />

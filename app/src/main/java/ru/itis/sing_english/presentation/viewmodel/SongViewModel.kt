@@ -1,6 +1,5 @@
 package ru.itis.sing_english.presentation.viewmodel
 
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.lifecycle.LiveData
@@ -187,7 +186,7 @@ class SongViewModel @Inject constructor(
         val cur = rowsLiveData[currentRowIndex].value
 
         //check if user is allowed to answer
-        if (cur?.indicesOfAnswer?.size == 0||cur?.indicesOfAnswer?.get(0) ?: 0 == RANDOM_CONST) {
+        if (cur?.indicesOfAnswer?.size == 0 || cur?.indicesOfAnswer?.get(0) ?: 0 == RANDOM_CONST) {
             return
         }
 
@@ -265,7 +264,6 @@ class SongViewModel @Inject constructor(
         //create new row and put it in the list
         val newTextRow = wordsInRow.joinToString(ROW_SEPARATOR)
         val songRow = SongRow(newTextRow, indices, isMissed, diffLevel)
-        Log.e("ALLLLL", songRow.toString())
         rowsList.add(songRow)
     }
 
@@ -294,7 +292,6 @@ class SongViewModel @Inject constructor(
         indicesOfMissingWords.add(RANDOM_CONST)
         val newTextRow = wordsInRow.joinToString(ROW_SEPARATOR)
         val songRow = SongRow(newTextRow, indicesOfMissingWords, diffLevel = DifficultyLevel.HARD)
-        Log.e("ALLLLL", songRow.toString())
         rowsList.add(songRow)
     }
 

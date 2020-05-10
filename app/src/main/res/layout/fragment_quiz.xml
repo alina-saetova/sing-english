@@ -24,7 +24,6 @@
             android:layout_marginTop="60dp"
             android:textAlignment="center"
             android:textSize="20sp"
-            app:layout_constraintTop_toTopOf="parent"
             app:question="@{quizViewModel.currentWord}"
             tools:text="protect" />
 

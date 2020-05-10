@@ -5,8 +5,6 @@
 
     <data>
 
-        <import type="android.view.View" />
-
         <variable
             name="video"
             type="ru.itis.sing_english.data.model.Video" />
@@ -24,8 +22,8 @@
             android:id="@+id/iv_cover"
             android:layout_width="280dp"
             android:layout_height="210dp"
-            app:image="@{video.imgUrl}"
             android:layout_gravity="center"
+            app:image="@{video.imgUrl}"
             tools:srcCompat="@drawable/placeholder" />
 
         <LinearLayout
@@ -44,11 +42,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:ellipsize="end"
+                    android:paddingEnd="10dp"
+                    android:singleLine="true"
                     android:text="@{video.title}"
                     android:textSize="18sp"
-                    android:paddingEnd="10dp"
-                    android:ellipsize="end"
-                    android:singleLine="true"
                     tools:text="lalallala" />
 
                 <TextView
@@ -56,13 +54,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:ellipsize="end"
+                    android:paddingEnd="10dp"
+                    android:singleLine="true"
                     android:text="@{video.channelTitle}"
                     android:textColor="@color/colorAccent"
                     android:textSize="18sp"
-                    tools:text="lana del rey"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:paddingEnd="10dp"/>
+                    tools:text="lana del rey" />
 
             </LinearLayout>
 
@@ -70,13 +68,12 @@
                 android:id="@+id/ib_like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 android:layout_marginTop="20dp"
                 android:background="@null"
                 app:btnlike="@{video.like}"
-                android:layout_gravity="bottom"
                 tools:srcCompat="@drawable/ic_favourites_full" />
 
         </LinearLayout>
-
     </LinearLayout>
 </layout>

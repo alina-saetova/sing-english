@@ -3,7 +3,6 @@ package ru.itis.sing_english.presentation.view.ui
 import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -98,7 +97,7 @@ class WordDetailFragment : Fragment() {
             .build()
         val shapeDrawable = MaterialShapeDrawable(shapeAppearanceModel)
         shapeDrawable.apply {
-            strokeWidth = 4f
+            strokeWidth = STROKE_WIDTH
             strokeColor = context?.let { ContextCompat.getColor(it, R.color.colorAccent) }?.let {
                 ColorStateList.valueOf(
                     it
@@ -111,8 +110,10 @@ class WordDetailFragment : Fragment() {
             binding.examplesBlock.background = it
         }
     }
+
     companion object {
         const val WORD_DETAIL_TITLE = "Detail"
         const val WORD_PARAM = "word"
+        const val STROKE_WIDTH = 4f
     }
 }

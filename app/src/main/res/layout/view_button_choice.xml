@@ -27,7 +27,6 @@
             android:layout_marginTop="36dp"
             android:clickable="@{quizViewModel.clickable}"
             android:onClick="@{ (view) -> quizViewModel.answerBtn(view) }"
-            app:layout_constraintTop_toBottomOf="@+id/tv_word"
             app:option="@{quizViewModel.firstOption}"
             app:quest="@{quizViewModel.currentWord.english}"
             tools:text="защищать" />
@@ -41,7 +40,6 @@
             android:layout_marginTop="40dp"
             android:clickable="@{quizViewModel.clickable}"
             android:onClick="@{ (view) -> quizViewModel.answerBtn(view) }"
-            app:layout_constraintTop_toBottomOf="@+id/btn_first"
             app:option="@{quizViewModel.secondOption}"
             app:quest="@{quizViewModel.currentWord.english}" />
 

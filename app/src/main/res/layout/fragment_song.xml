@@ -13,8 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.view.ui.SongFragment"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".presentation.view.ui.SongFragment">
 
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
             android:id="@+id/youtube_player_view"
@@ -40,17 +40,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/llRow1"
+                    style="@style/RowsStyle"
                     android:layout_width="match_parent"
-                    android:orientation="horizontal"
                     android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"
-                    style="@style/RowsStyle">
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
                         android:id="@+id/tv_second1"
@@ -63,11 +63,11 @@
 
                 <LinearLayout
                     android:id="@+id/llRow2"
+                    style="@style/RowsStyle"
                     android:layout_width="match_parent"
-                    android:orientation="horizontal"
                     android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"
-                    style="@style/RowsStyle">
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
                         android:id="@+id/tv_second2"
@@ -80,30 +80,30 @@
 
                 <LinearLayout
                     android:id="@+id/llRow3"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"
                     style="@style/RowsStyle"
-                    android:background="@color/colorSongRow">
+                    android:layout_width="match_parent"
+                    android:background="@color/colorSongRow"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
                         android:id="@+id/tv_second3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textColor="@color/colorTheme"
                         android:text="@{viewModel.row3.text}"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@color/colorTheme" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/llRow4"
+                    style="@style/RowsStyle"
                     android:layout_width="match_parent"
-                    android:orientation="horizontal"
                     android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"
-                    style="@style/RowsStyle">
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
                         android:id="@+id/tv_second4"
@@ -116,11 +116,11 @@
 
                 <LinearLayout
                     android:id="@+id/llRow5"
+                    style="@style/RowsStyle"
                     android:layout_width="match_parent"
-                    android:orientation="horizontal"
                     android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"
-                    style="@style/RowsStyle">
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
                         android:id="@+id/tv_second5"
@@ -137,61 +137,61 @@
                 android:id="@+id/ll_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
+                android:layout_weight="0"
+                android:baselineAligned="false"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_weight="0"
-                android:baselineAligned="false">
+                app:layout_constraintStart_toStartOf="parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:layout_weight="1"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_first"
+                        style="@style/ButtonStyle"
                         android:layout_width="160dp"
                         android:layout_height="60dp"
-                        style="@style/ButtonStyle"
-                        android:text="@{viewModel.option1}"
-                        android:onClick="@{ (view) -> viewModel.answer(view) }" />
+                        android:onClick="@{ (view) -> viewModel.answer(view) }"
+                        android:text="@{viewModel.option1}" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_third"
+                        style="@style/ButtonStyle"
                         android:layout_width="160dp"
                         android:layout_height="60dp"
                         android:layout_marginTop="10dp"
-                        style="@style/ButtonStyle"
-                        android:text="@{viewModel.option3}"
-                        android:onClick="@{ (view) -> viewModel.answer(view) }" />
+                        android:onClick="@{ (view) -> viewModel.answer(view) }"
+                        android:text="@{viewModel.option3}" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:layout_weight="1"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_second"
+                        style="@style/ButtonStyle"
                         android:layout_width="160dp"
                         android:layout_height="60dp"
                         android:layout_marginBottom="10dp"
-                        style="@style/ButtonStyle"
-                        android:text="@{viewModel.option2}"
-                        android:onClick="@{ (view) -> viewModel.answer(view) }" />
+                        android:onClick="@{ (view) -> viewModel.answer(view) }"
+                        android:text="@{viewModel.option2}" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_fourth"
+                        style="@style/ButtonStyle"
                         android:layout_width="160dp"
                         android:layout_height="60dp"
-                        style="@style/ButtonStyle"
-                        android:text="@{viewModel.option4}"
-                        android:onClick="@{ (view) -> viewModel.answer(view) }" />
+                        android:onClick="@{ (view) -> viewModel.answer(view) }"
+                        android:text="@{viewModel.option4}" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
