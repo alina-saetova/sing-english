@@ -22,6 +22,7 @@ fun ProgressBar.progressVisibility(loadingStatus: LoadingStatus?) {
             LoadingStatus.RUNNING -> true
             LoadingStatus.SUCCESS -> false
             LoadingStatus.FAILED -> false
+            LoadingStatus.NOT_FOUND -> false
         }
     }
 }
@@ -33,6 +34,7 @@ fun onLoad(view: View, loadingStatus: LoadingStatus?) {
             LoadingStatus.RUNNING -> view.visibility = View.INVISIBLE
             LoadingStatus.SUCCESS -> view.visibility = View.VISIBLE
             LoadingStatus.FAILED -> view.visibility = View.GONE
+            LoadingStatus.NOT_FOUND -> view.visibility = View.GONE
         }
     }
 }

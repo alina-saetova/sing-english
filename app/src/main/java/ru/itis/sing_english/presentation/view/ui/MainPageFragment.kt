@@ -149,7 +149,7 @@ class MainPageFragment : Fragment() {
                 videoClickListener,
                 likeClickListener
             )
-        binding.rvVideos.adapter = adapterSearch
+        binding.searchVideos.adapter = adapterSearch
     }
 
     override fun onDestroy() {

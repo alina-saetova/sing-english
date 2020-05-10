@@ -30,22 +30,53 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:setupVisibility="@{mainPageViewModel.progress}" />
+                app:setupVisibility="@{mainPageViewModel.progressBar}" />
 
-            <androidx.recyclerview.widget.RecyclerView
+            <LinearLayout
                 android:id="@+id/rvVideos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical"
-                android:overScrollMode="never"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:recycler="@{mainPageViewModel.searchVideos}"
-                tools:listitem="@layout/item_search_video" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/searchVideos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:loading="@{mainPageViewModel.searchLoadingStatus}"
+                    app:recycler="@{mainPageViewModel.searchVideos}"
+                    tools:listitem="@layout/item_search_video" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layoutError="@{mainPageViewModel.searchLoadingStatus}">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_nothing_found" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:text="@string/tv_nothing_found"
+                        android:textAlignment="center"
+                        android:textSize="24sp" />
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/recyclerViews"
@@ -53,82 +84,112 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_popular_videos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/tv_popular_videos"
-                    android:textSize="20sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:loading="@{mainPageViewModel.mainLoadingStatus}">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvAllVideos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:overScrollMode="never"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:recycler="@{mainPageViewModel.randomVideos}"
-                    tools:listitem="@layout/item_video" />
+                    <TextView
+                        android:id="@+id/tv_popular_videos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/tv_popular_videos"
+                        android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/tv_pop_videos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/tv_title_pop"
-                    android:textSize="20sp" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvAllVideos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:overScrollMode="never"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:recycler="@{mainPageViewModel.randomVideos}"
+                        tools:listitem="@layout/item_video" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvPopVideos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:overScrollMode="never"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:recycler="@{mainPageViewModel.popVideos}"
-                    tools:listitem="@layout/item_video" />
+                    <TextView
+                        android:id="@+id/tv_pop_videos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/tv_title_pop"
+                        android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/tv_hiphop_videos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/tv_title_hip_hop"
-                    android:textSize="20sp" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvPopVideos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:overScrollMode="never"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:recycler="@{mainPageViewModel.popVideos}"
+                        tools:listitem="@layout/item_video" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvHipHopideos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:overScrollMode="never"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:recycler="@{mainPageViewModel.hipHopVideos}"
-                    tools:listitem="@layout/item_video" />
+                    <TextView
+                        android:id="@+id/tv_hiphop_videos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/tv_title_hip_hop"
+                        android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/tv_rock_videos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/tv_title_rock"
-                    android:textSize="20sp" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvHipHopideos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:overScrollMode="never"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:recycler="@{mainPageViewModel.hipHopVideos}"
+                        tools:listitem="@layout/item_video" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvRockVideos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
-                    android:overScrollMode="never"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:recycler="@{mainPageViewModel.rockVideos}"
-                    tools:listitem="@layout/item_video" />
+                    <TextView
+                        android:id="@+id/tv_rock_videos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/tv_title_rock"
+                        android:textSize="20sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvRockVideos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:overScrollMode="never"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:recycler="@{mainPageViewModel.rockVideos}"
+                        tools:listitem="@layout/item_video" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layoutError="@{mainPageViewModel.mainLoadingStatus}">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_no_internet" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:text="@string/tv_no_internet"
+                        android:textAlignment="center"
+                        android:textSize="24sp" />
+                </LinearLayout>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

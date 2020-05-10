@@ -47,8 +47,8 @@ class WordDetailFragment : Fragment() {
     ): View? {
         binding = WordDetailFragmentBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
-        setShapesInView()
         viewModel.loadWord(word)
+        setShapesInView()
         binding.wordViewModel = viewModel
         return binding.root
     }

@@ -1,11 +1,14 @@
 package ru.itis.sing_english.presentation.view.ui
 
+import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.itis.sing_english.R
@@ -61,6 +64,7 @@ class VocabularyFragment : Fragment() {
 
     private val queryListener = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(newText: String?): Boolean {
+            hideKeyboard()
             newText?.let { wordClickListener(it) }
             return true
         }
@@ -68,6 +72,11 @@ class VocabularyFragment : Fragment() {
         override fun onQueryTextChange(newText: String?): Boolean {
             return false
         }
+    }
+
+    private fun hideKeyboard() {
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
     private val deleteClickListener = { word: Word ->

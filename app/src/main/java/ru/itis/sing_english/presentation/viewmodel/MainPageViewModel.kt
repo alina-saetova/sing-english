@@ -47,18 +47,27 @@ class MainPageViewModel @Inject constructor(
     val searchVideos: LiveData<List<Video>>
         get() = _searchVideos
 
-    private var _progress = MutableLiveData<LoadingStatus>()
-    val progress: LiveData<LoadingStatus>
-        get() = _progress
+    private var _progressBar = MutableLiveData<LoadingStatus>()
+    val progressBar: LiveData<LoadingStatus>
+        get() = _progressBar
+
+    private var _searchLoadingStatus = MutableLiveData<LoadingStatus>()
+    val searchLoadingStatus: LiveData<LoadingStatus>
+        get() = _searchLoadingStatus
+
+    private var _mainLoadingStatus = MutableLiveData<LoadingStatus>()
+    val mainLoadingStatus: LiveData<LoadingStatus>
+        get() = _mainLoadingStatus
 
     init {
-//        loadVideos()
+        loadVideos()
     }
 
     private fun loadVideos() {
         viewModelJob = viewModelScope.launch {
             try {
-                _progress.postValue(LoadingStatus.RUNNING)
+                _mainLoadingStatus.postValue(LoadingStatus.RUNNING)
+                _progressBar.postValue(LoadingStatus.RUNNING)
                 val videos = interactor.getPopularVideos()
                 val popVideos = interactor.getVideosByTopic(TOPIC_POP)
                 val hipHopVideos = interactor.getVideosByTopic(TOPIC_HIP_HOP)
@@ -67,9 +76,10 @@ class MainPageViewModel @Inject constructor(
                 _popVideos.postValue(popVideos)
                 _hipHopVideos.postValue(hipHopVideos)
                 _rockVideos.postValue(rockVideos)
-                _progress.postValue(LoadingStatus.SUCCESS)
+                _mainLoadingStatus.postValue(LoadingStatus.SUCCESS)
+                _progressBar.postValue(LoadingStatus.SUCCESS)
             } catch (e: Exception) {
-                _progress.postValue(LoadingStatus.FAILED)
+                _mainLoadingStatus.postValue(LoadingStatus.FAILED)
             }
         }
     }
@@ -81,15 +91,20 @@ class MainPageViewModel @Inject constructor(
                 lastTimeout?.cancel()
                 lastTimeout = launch {
                     _searchVideos.postValue(emptyList())
-                    _progress.postValue(LoadingStatus.RUNNING)
+                    _progressBar.postValue(LoadingStatus.RUNNING)
+                    _searchLoadingStatus.postValue(LoadingStatus.RUNNING)
                     delay(1000)
                     try {
                         val videos = interactor.searchVideos(it)
-
-                        _searchVideos.postValue(videos)
-                        _progress.postValue(LoadingStatus.SUCCESS)
+                        _progressBar.postValue(LoadingStatus.SUCCESS)
+                        if (videos.isEmpty()) {
+                            _searchLoadingStatus.postValue(LoadingStatus.NOT_FOUND)
+                        } else {
+                            _searchVideos.postValue(videos)
+                            _searchLoadingStatus.postValue(LoadingStatus.SUCCESS)
+                        }
                     } catch (e: HttpException) {
-                        _progress.postValue(LoadingStatus.FAILED)
+                        _searchLoadingStatus.postValue(LoadingStatus.FAILED)
                     }
                 }
             }

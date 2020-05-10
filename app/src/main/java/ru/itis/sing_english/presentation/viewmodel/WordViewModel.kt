@@ -1,5 +1,6 @@
 package ru.itis.sing_english.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,19 +22,23 @@ class WordViewModel @Inject constructor(
     val word: LiveData<DictionaryResponse>
         get() = _word
 
-    private var _progress = MutableLiveData<LoadingStatus>()
-    val progress: LiveData<LoadingStatus>
-        get() = _progress
+    private var _loadingStatus = MutableLiveData<LoadingStatus>()
+    val loadingStatus: LiveData<LoadingStatus>
+        get() = _loadingStatus
 
     fun loadWord(searchedWord: String) {
         viewModelJob = viewModelScope.launch {
             try {
-                _progress.postValue(LoadingStatus.RUNNING)
+                _loadingStatus.postValue(LoadingStatus.RUNNING)
                 val resp = interactor.getWord(searchedWord)
-                _word.postValue(resp)
-                _progress.postValue(LoadingStatus.SUCCESS)
+                if (resp.def.isEmpty()) {
+                    _loadingStatus.postValue(LoadingStatus.NOT_FOUND)
+                } else {
+                    _word.postValue(resp)
+                    _loadingStatus.postValue(LoadingStatus.SUCCESS)
+                }
             } catch (e: Exception) {
-                _progress.postValue(LoadingStatus.FAILED)
+                _loadingStatus.postValue(LoadingStatus.FAILED)
             }
         }
     }

@@ -2,10 +2,13 @@ package ru.itis.sing_english.presentation.view.ui.binding
 
 import android.content.res.ColorStateList
 import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import ru.itis.sing_english.R
 import ru.itis.sing_english.data.model.Ex
+import ru.itis.sing_english.data.model.LoadingStatus
 import ru.itis.sing_english.data.model.Mean
 import ru.itis.sing_english.data.model.Tr
 
@@ -113,5 +116,47 @@ fun setWordDetailExampleText(view: TextView, list: List<Ex>?) {
     } else {
         view.visibility = View.VISIBLE
         view.text = list[0].example
+    }
+}
+
+@BindingAdapter("layoutError")
+fun setLayoutError(layout: LinearLayout, status: LoadingStatus?) {
+    if (status == null) {
+        return
+    }
+
+    when (status) {
+        LoadingStatus.RUNNING -> layout.visibility = View.GONE
+        LoadingStatus.SUCCESS -> layout.visibility = View.GONE
+        LoadingStatus.FAILED -> layout.visibility = View.VISIBLE
+        LoadingStatus.NOT_FOUND -> layout.visibility = View.VISIBLE
+    }
+}
+
+@BindingAdapter("imageError")
+fun setImageError(view: ImageView, status: LoadingStatus?) {
+    if (status == null) {
+        return
+    }
+
+    when (status) {
+        LoadingStatus.RUNNING -> return
+        LoadingStatus.SUCCESS -> return
+        LoadingStatus.FAILED -> view.setImageResource(R.drawable.ic_no_internet)
+        LoadingStatus.NOT_FOUND -> view.setImageResource(R.drawable.ic_nothing_found)
+    }
+}
+
+@BindingAdapter("textError")
+fun setTextError(view: TextView, status: LoadingStatus?) {
+    if (status == null) {
+        return
+    }
+
+    when (status) {
+        LoadingStatus.RUNNING -> return
+        LoadingStatus.SUCCESS -> return
+        LoadingStatus.FAILED -> view.text = view.resources.getString(R.string.tv_no_internet)
+        LoadingStatus.NOT_FOUND -> view.text = view.resources.getString(R.string.tv_nothing_found)
     }
 }
