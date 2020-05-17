@@ -51,13 +51,15 @@ android {
 
 dependencies {
     def lifecycle_version = "2.2.0"
-    def arch_version = "2.1.0"
     def room_version = "2.2.5"
     def dagger_version = "2.26"
     def glide_version = "4.11.0"
     def coroutines_version = "1.3.2"
     def nav_version = "2.3.0-alpha04"
     def retrofit_version = "2.8.1"
+    def mockito_version = "3.3.3"
+    def jupiter_version = "5.5.1"
+    def junit_platform_version = "1.6.2"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -116,4 +118,17 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
+
+    testImplementation 'junit:junit:4.13'
+    testImplementation "org.junit.jupiter:junit-jupiter:$jupiter_version"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$jupiter_version"
+    testImplementation "org.junit.vintage:junit-vintage-engine:$jupiter_version"
+    testImplementation "org.junit.jupiter:junit-jupiter-engine:$jupiter_version"
+
+    testImplementation "org.junit.platform:junit-platform-launcher:$junit_platform_version"
+    testImplementation "org.junit.platform:junit-platform-runner:$junit_platform_version"
+
+    testImplementation 'io.mockk:mockk:1.10.0'
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.6"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
 }

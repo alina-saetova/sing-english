@@ -42,9 +42,8 @@ class ChooseWordsViewModel @Inject constructor(
                 savedWords.add(word)
                 interactor.saveWord(word)
 
-                _words.value?.get(position)?.flag =  true
-            }
-            else {
+                _words.value?.get(position)?.flag = true
+            } else {
                 savedWords.remove(word)
                 interactor.deleteWord(word)
 

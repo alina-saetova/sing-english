@@ -51,4 +51,9 @@ class FavouritesViewModel @Inject constructor(
             _videos.value?.get(position)?.like = true
         }
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
 }
