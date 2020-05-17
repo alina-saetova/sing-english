@@ -44,8 +44,8 @@ class SubtitlesRepositoryImpl @Inject constructor(
             s.row.text = s.row.text.replace(" ♪", "")
             s.row.text = s.row.text.replace("&#39;", "'")
             s.row.text = s.row.text.replace("\n", " ")
+            s.row.text = s.row.text.replace("&quot;", "\"")
         }
         return subs
     }
-
 }

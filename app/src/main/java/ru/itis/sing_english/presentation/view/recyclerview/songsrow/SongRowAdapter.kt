@@ -5,8 +5,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.itis.sing_english.data.model.SongRow
 import ru.itis.sing_english.presentation.view.recyclerview.BindableAdapter
 
-class SongRowAdapter(private var list: MutableList<SongRow>)
-    : RecyclerView.Adapter<SongRowViewHolder>(),
+class SongRowAdapter(private var list: MutableList<SongRow>) :
+    RecyclerView.Adapter<SongRowViewHolder>(),
     BindableAdapter<MutableList<SongRow>> {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongRowViewHolder =

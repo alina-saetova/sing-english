@@ -10,7 +10,6 @@ import ru.itis.sing_english.presentation.view.ui.MainActivity
 
 @ApplicationScope
 @Component(modules = [
-    AppModule::class,
     NetModule::class,
     LocalDataModule::class,
     InteractorModule::class,

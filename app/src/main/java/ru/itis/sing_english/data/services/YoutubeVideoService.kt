@@ -13,7 +13,7 @@ interface YoutubeVideoService {
         @Query("part") part: String = "snippet",
         @Query("order") order: String = "relevance",
         @Query("type") type: String = "video",
-        @Query("maxResults") maxResults: String = "3",
+        @Query("maxResults") maxResults: String = "10",
         @Query("videoCaption") videoCaption: String = "closedCaption",
         @Query("topicId") topicId: String = "/m/04rlf"
     ): SearchResponse
@@ -24,7 +24,7 @@ interface YoutubeVideoService {
         @Query("part") part: String = "snippet",
         @Query("order") order: String = "relevance",
         @Query("type") type: String = "video",
-        @Query("maxResults") maxResults: String = "3",
+        @Query("maxResults") maxResults: String = "10",
         @Query("videoCaption") videoCaption: String = "closedCaption"
     ): SearchResponse
 

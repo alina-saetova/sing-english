@@ -1,6 +1,5 @@
 package ru.itis.sing_english.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,7 +25,12 @@ class WordViewModel @Inject constructor(
     val loadingStatus: LiveData<LoadingStatus>
         get() = _loadingStatus
 
-    fun loadWord(searchedWord: String) {
+    private var _buttonSaveState = MutableLiveData<Boolean>()
+    val buttonSaveState: LiveData<Boolean>
+        get() = _buttonSaveState
+
+    fun loadWord(searchedWord: String, isSaved: Boolean) {
+        _buttonSaveState.value = isSaved
         viewModelJob = viewModelScope.launch {
             try {
                 _loadingStatus.postValue(LoadingStatus.RUNNING)

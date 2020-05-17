@@ -12,11 +12,11 @@ class WordsViewHolder (val binding: ItemWordBinding)
     : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(word: Word,
-             wordClickListener: (String) -> Unit
+             wordClickListener: (String, Boolean) -> Unit
     ) {
         binding.word = word
         binding.root.setOnClickListener {
-            wordClickListener(word.text)
+            wordClickListener(word.text, true)
         }
     }
 

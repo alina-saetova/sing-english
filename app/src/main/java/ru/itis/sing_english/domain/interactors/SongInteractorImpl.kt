@@ -9,9 +9,8 @@ import javax.inject.Inject
 class SongInteractorImpl @Inject constructor(
     val repository: SubtitleRepository
 ) : SongInteractor {
+
     override suspend fun getSubtitles(videoId: String): MutableList<Subtitle> {
         return repository.getSubtitles(videoId).toMutableList()
     }
-
-
 }

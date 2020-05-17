@@ -7,7 +7,7 @@ import ru.itis.sing_english.presentation.view.recyclerview.BindableAdapter
 
 class WordAdapter(
     private var list: MutableList<Word>,
-    private var wordClickListener: (String) -> Unit,
+    private var wordClickListener: (String, Boolean) -> Unit,
     private var deleteClickListener: (Word) -> Unit
 ) : RecyclerView.Adapter<WordsViewHolder>(),
     BindableAdapter<MutableList<Word>> {

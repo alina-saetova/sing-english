@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.word_detail_fragment.*
 import ru.itis.sing_english.R
 import ru.itis.sing_english.databinding.WordDetailFragmentBinding
 import ru.itis.sing_english.di.AppInjector
+import ru.itis.sing_english.presentation.view.ui.VocabularyFragment.Companion.IS_SAVED
 import ru.itis.sing_english.presentation.viewmodel.WordViewModel
 import javax.inject.Inject
 
@@ -27,6 +28,7 @@ class WordDetailFragment : Fragment() {
     lateinit var viewModel: WordViewModel
     lateinit var binding: WordDetailFragmentBinding
     lateinit var word: String
+    private var isSaved: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppInjector.plusWordDetailComponent().inject(this)
@@ -37,6 +39,7 @@ class WordDetailFragment : Fragment() {
         }
         arguments?.let {
             word = it.getString(WORD_PARAM).toString()
+            isSaved = it.getBoolean(IS_SAVED)
         }
         setHasOptionsMenu(true)
     }
@@ -47,7 +50,7 @@ class WordDetailFragment : Fragment() {
     ): View? {
         binding = WordDetailFragmentBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
-        viewModel.loadWord(word)
+        viewModel.loadWord(word, isSaved)
         setShapesInView()
         binding.wordViewModel = viewModel
         return binding.root

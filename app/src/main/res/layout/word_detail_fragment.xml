@@ -221,6 +221,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
+                    app:saveVisibility="@{wordViewModel.buttonSaveState}"
                     android:onClick="@{() -> wordViewModel.saveWord()}"
                     android:text="@string/save" />
 

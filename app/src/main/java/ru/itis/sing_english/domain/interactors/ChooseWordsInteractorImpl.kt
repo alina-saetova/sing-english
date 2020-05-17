@@ -16,5 +16,4 @@ class ChooseWordsInteractorImpl @Inject constructor(
     override suspend fun deleteWord(word: String) {
         repository.deleteWord(word.toLowerCase())
     }
-
 }

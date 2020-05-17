@@ -53,8 +53,8 @@ class ChooseWordsFragment : Fragment() {
         binding = FragmentChooseWordsBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        val manager = GridLayoutManager(activity, 3)
-        val adapter = WordGridAdapter(emptyList<WordGrid>().toMutableList(), wordClickListener)
+        val manager = GridLayoutManager(activity, SPAN_COUNT)
+        val adapter = WordGridAdapter(mutableListOf(), wordClickListener)
         binding.rvWords.adapter = adapter
         binding.rvWords.layoutManager = manager
 
@@ -98,5 +98,9 @@ class ChooseWordsFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         AppInjector.clearChooseWordsComponent()
+    }
+
+    companion object {
+        const val SPAN_COUNT = 3
     }
 }

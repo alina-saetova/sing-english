@@ -63,7 +63,7 @@ class MainPageViewModel @Inject constructor(
         loadVideos()
     }
 
-    private fun loadVideos() {
+    fun loadVideos() {
         viewModelJob = viewModelScope.launch {
             try {
                 _mainLoadingStatus.postValue(LoadingStatus.RUNNING)
@@ -80,6 +80,7 @@ class MainPageViewModel @Inject constructor(
                 _progressBar.postValue(LoadingStatus.SUCCESS)
             } catch (e: Exception) {
                 _mainLoadingStatus.postValue(LoadingStatus.FAILED)
+                _progressBar.postValue(LoadingStatus.FAILED)
             }
         }
     }

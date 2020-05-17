@@ -50,7 +50,7 @@ class StatisticFragment : Fragment(), View.OnClickListener {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        val adapter = SongRowAdapter(emptyList<SongRow>().toMutableList())
+        val adapter = SongRowAdapter(mutableListOf())
         binding.rvLyric.adapter = adapter
         viewModel.loadStatistic(lyric, answers)
 

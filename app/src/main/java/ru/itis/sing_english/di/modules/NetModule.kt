@@ -21,7 +21,7 @@ class NetModule {
 
     @Provides
     @ApplicationScope
-    @Named("ok-youtube")
+    @Named(TAG_OK_YOUTUBE)
     fun provideYoutubeOkHttpClient(): OkHttpClient {
         return OkHttpClient().newBuilder()
             .addInterceptor(YoutubeAuthInterceptor())
@@ -31,8 +31,8 @@ class NetModule {
 
     @Provides
     @ApplicationScope
-    @Named("youtube-retrofit")
-    fun provideYoutubeRetrofit(@Named("ok-youtube") client: OkHttpClient): Retrofit {
+    @Named(TAG_RETROFIT_YOUTUBE)
+    fun provideYoutubeRetrofit(@Named(TAG_OK_YOUTUBE) client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(client)
             .baseUrl(BuildConfig.YOUTUBE_API_ENDPOINT)
@@ -42,13 +42,13 @@ class NetModule {
 
     @Provides
     @ApplicationScope
-    fun provideYoutubeService( @Named("youtube-retrofit")retrofit: Retrofit): YoutubeVideoService {
+    fun provideYoutubeService( @Named(TAG_RETROFIT_YOUTUBE)retrofit: Retrofit): YoutubeVideoService {
         return retrofit.create(YoutubeVideoService::class.java)
     }
 
     @Provides
     @ApplicationScope
-    @Named("ok-subtitle")
+    @Named(TAG_OK_SUB)
     fun provideSubtitleOkHttpClient(): OkHttpClient {
         return OkHttpClient().newBuilder()
             .addInterceptor(SubtitleAuthInterceptor())
@@ -58,8 +58,8 @@ class NetModule {
 
     @Provides
     @ApplicationScope
-    @Named("subtitle-retrofit")
-    fun provideSubtitleRetrofit(@Named("ok-subtitle") client: OkHttpClient): Retrofit {
+    @Named(TAG_RETROFIT_SUB)
+    fun provideSubtitleRetrofit(@Named(TAG_OK_SUB) client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(client)
             .baseUrl(BuildConfig.SUBTITLES_API_ENDPOINT)
@@ -69,13 +69,13 @@ class NetModule {
 
     @Provides
     @ApplicationScope
-    fun provideSubtitleService(@Named("subtitle-retrofit")retrofit: Retrofit): SubtitleService {
+    fun provideSubtitleService(@Named(TAG_RETROFIT_SUB)retrofit: Retrofit): SubtitleService {
         return retrofit.create(SubtitleService::class.java)
     }
 
     @Provides
     @ApplicationScope
-    @Named("ok-yandex")
+    @Named(TAG_OK_YANDEX)
     fun provideYandexOkHttpClient(): OkHttpClient {
         return OkHttpClient().newBuilder()
             .addInterceptor(YandexDefReqInterceptor())
@@ -85,8 +85,8 @@ class NetModule {
 
     @Provides
     @ApplicationScope
-    @Named("yandex-retrofit")
-    fun provideYandexRetrofit(@Named("ok-yandex") client: OkHttpClient): Retrofit {
+    @Named(TAG_RETROFIT_YANDEX)
+    fun provideYandexRetrofit(@Named(TAG_OK_YANDEX) client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(client)
             .baseUrl(BuildConfig.DICT_API_ENDPOINT)
@@ -96,7 +96,16 @@ class NetModule {
 
     @Provides
     @ApplicationScope
-    fun provideYandexService(@Named("yandex-retrofit")retrofit: Retrofit): WordService {
+    fun provideYandexService(@Named(TAG_RETROFIT_YANDEX)retrofit: Retrofit): WordService {
         return retrofit.create(WordService::class.java)
+    }
+
+    companion object {
+        const val TAG_OK_YOUTUBE = "ok-youtube"
+        const val TAG_RETROFIT_YOUTUBE = "youtube-retrofit"
+        const val TAG_OK_SUB = "ok-subtitle"
+        const val TAG_RETROFIT_SUB = "subtitle-retrofit"
+        const val TAG_OK_YANDEX = "ok-yandex"
+        const val TAG_RETROFIT_YANDEX = "yandex-retrofit"
     }
 }

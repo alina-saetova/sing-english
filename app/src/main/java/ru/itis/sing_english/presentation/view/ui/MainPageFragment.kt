@@ -87,7 +87,6 @@ class MainPageFragment : Fragment() {
             binding.rvVideos.visibility = View.GONE
             return true
         }
-
     }
 
     private val videoClickListener = { id: String ->
@@ -98,7 +97,7 @@ class MainPageFragment : Fragment() {
     }
 
     private val likeClickListener = { video: Video, like: String, position: Int, type: String ->
-        if (like == "like") {
+        if (like == LIKE) {
             viewModel.unlike(video, position, type)
         } else {
             viewModel.like(video, position, type)
@@ -108,7 +107,7 @@ class MainPageFragment : Fragment() {
     private fun setAdapters() {
         val adapterAll =
             VideoSmallAdapter(
-                emptyList<Video>().toMutableList(),
+                mutableListOf(),
                 TYPE_VIDEO_ALL,
                 videoClickListener,
                 likeClickListener
@@ -117,7 +116,7 @@ class MainPageFragment : Fragment() {
 
         val adapterPop =
             VideoSmallAdapter(
-                emptyList<Video>().toMutableList(),
+                mutableListOf(),
                 TYPE_VIDEO_POP,
                 videoClickListener,
                 likeClickListener
@@ -126,7 +125,7 @@ class MainPageFragment : Fragment() {
 
         val adapterHipHop =
             VideoSmallAdapter(
-                emptyList<Video>().toMutableList(),
+                mutableListOf(),
                 TYPE_VIDEO_HIPHOP,
                 videoClickListener,
                 likeClickListener
@@ -135,7 +134,7 @@ class MainPageFragment : Fragment() {
 
         val adapterRock =
             VideoSmallAdapter(
-                emptyList<Video>().toMutableList(),
+                mutableListOf(),
                 TYPE_VIDEO_ROCK,
                 videoClickListener,
                 likeClickListener
@@ -144,7 +143,7 @@ class MainPageFragment : Fragment() {
 
         val adapterSearch =
             VideoBigAdapter(
-                emptyList<Video>().toMutableList(),
+                mutableListOf(),
                 TYPE_VIDEO_SEARCH,
                 videoClickListener,
                 likeClickListener
@@ -161,6 +160,7 @@ class MainPageFragment : Fragment() {
         const val MAIN_TITLE = "SingEnglish!"
         const val FROM_MAIN = "main"
         const val FROM = "from"
+        const val LIKE = "like"
         const val TYPE_VIDEO_ALL = "all"
         const val TYPE_VIDEO_POP = "pop"
         const val TYPE_VIDEO_HIPHOP = "hiphop"

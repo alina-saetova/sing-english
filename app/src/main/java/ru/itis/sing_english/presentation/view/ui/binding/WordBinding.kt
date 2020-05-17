@@ -2,6 +2,7 @@ package ru.itis.sing_english.presentation.view.ui.binding
 
 import android.content.res.ColorStateList
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -158,5 +159,14 @@ fun setTextError(view: TextView, status: LoadingStatus?) {
         LoadingStatus.SUCCESS -> return
         LoadingStatus.FAILED -> view.text = view.resources.getString(R.string.tv_no_internet)
         LoadingStatus.NOT_FOUND -> view.text = view.resources.getString(R.string.tv_nothing_found)
+    }
+}
+
+@BindingAdapter("saveVisibility")
+fun setButtonSaveVisibility(view: Button, isSaved: Boolean) {
+    if (isSaved) {
+        view.visibility = View.GONE
+    } else {
+        view.visibility = View.VISIBLE
     }
 }

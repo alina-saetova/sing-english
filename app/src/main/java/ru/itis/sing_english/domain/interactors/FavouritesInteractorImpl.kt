@@ -21,6 +21,4 @@ class FavouritesInteractorImpl @Inject constructor(
     override suspend fun addVideo(video: Video) {
         repository.addVideoToFavourite(video)
     }
-
-
 }

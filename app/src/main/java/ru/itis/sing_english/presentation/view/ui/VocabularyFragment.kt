@@ -1,6 +1,5 @@
 package ru.itis.sing_english.presentation.view.ui
 
-import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
@@ -8,7 +7,6 @@ import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.itis.sing_english.R
@@ -16,6 +14,7 @@ import ru.itis.sing_english.data.model.Word
 import ru.itis.sing_english.databinding.FragmentVocabularyBinding
 import ru.itis.sing_english.di.AppInjector
 import ru.itis.sing_english.presentation.view.recyclerview.words.WordAdapter
+import ru.itis.sing_english.presentation.view.ui.WordDetailFragment.Companion.WORD_PARAM
 import ru.itis.sing_english.presentation.viewmodel.VocabularyViewModel
 import javax.inject.Inject
 
@@ -42,7 +41,7 @@ class VocabularyFragment : Fragment() {
         binding.btnQuiz.setOnClickListener(onQuizButtonListener)
 
         val adapter =
-            WordAdapter(emptyList<Word>().toMutableList(), wordClickListener, deleteClickListener)
+            WordAdapter(mutableListOf(), wordClickListener, deleteClickListener)
         binding.rvWords.adapter = adapter
         binding.lifecycleOwner = viewLifecycleOwner
         binding.vocabViewModel = viewModel
@@ -65,7 +64,7 @@ class VocabularyFragment : Fragment() {
     private val queryListener = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(newText: String?): Boolean {
             hideKeyboard()
-            newText?.let { wordClickListener(it) }
+            newText?.let { wordClickListener(it, false) }
             return true
         }
 
@@ -83,9 +82,10 @@ class VocabularyFragment : Fragment() {
         viewModel.deleteWord(word)
     }
 
-    private val wordClickListener = { query: String ->
+    private val wordClickListener = { query: String, isSaved: Boolean ->
         val bundle = Bundle()
-        bundle.putString(WordDetailFragment.WORD_PARAM, query)
+        bundle.putString(WORD_PARAM, query)
+        bundle.putBoolean(IS_SAVED, isSaved)
         findNavController().navigate(R.id.action_vocabulary_to_wordDetail, bundle)
     }
 
@@ -115,5 +115,6 @@ class VocabularyFragment : Fragment() {
     companion object {
         const val MIN_NUM_QUIZ = 4
         const val VOCAB_TITLE = "Vocabulary"
+        const val IS_SAVED = "savedWord"
     }
 }

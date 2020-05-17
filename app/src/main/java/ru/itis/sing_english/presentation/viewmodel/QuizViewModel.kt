@@ -111,7 +111,7 @@ class QuizViewModel @Inject constructor(
                     _stateManualAnswer.value = State.RIGHT
                     delay(DELAY_FOR_ANSWER)
                     _stateQuestion.value = QuestionState.NEXT_QUESTION
-                    _textInput.value = ""
+                    _textInput.value = EMPTY_INPUT
                     _stateManualAnswer.value = State.DEFAULT
                     loadNext()
                 } else {
@@ -122,7 +122,7 @@ class QuizViewModel @Inject constructor(
                     _stateManualAnswer.value = State.RIGHT
                     delay(DELAY_FOR_ANSWER)
                     _stateQuestion.value = QuestionState.NEXT_QUESTION
-                    _textInput.value = ""
+                    _textInput.value = EMPTY_INPUT
                     _stateManualAnswer.value = State.DEFAULT
                     loadNext()
                 } else {
@@ -192,6 +192,7 @@ class QuizViewModel @Inject constructor(
 
     companion object {
         const val DELAY_FOR_ANSWER = 1000L
+        const val EMPTY_INPUT = ""
         val RANGE_BUTTON = (0..3)
     }
 }

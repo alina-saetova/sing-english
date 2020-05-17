@@ -37,7 +37,7 @@ class FavouritesFragment : Fragment() {
 
         (activity as MainActivity).supportActionBar?.title = FAV_TITLE
         val adapter = VideoBigAdapter(
-            emptyList<Video>().toMutableList(),
+            mutableListOf(),
             "",
             videoClickListener,
             likeClickListener
@@ -56,7 +56,7 @@ class FavouritesFragment : Fragment() {
     }
 
     private val likeClickListener = { video: Video, like: String, position: Int, _: String ->
-        if (like == "like") {
+        if (like == LIKE) {
             viewModel.unlike(video, position)
         } else {
             viewModel.like(video, position)
@@ -74,7 +74,7 @@ class FavouritesFragment : Fragment() {
     }
 
     companion object {
-
+        const val LIKE = "like"
         const val FAV_TITLE = "Favourites"
         const val FROM = "from"
         const val FROM_FAV = "from_fav"
