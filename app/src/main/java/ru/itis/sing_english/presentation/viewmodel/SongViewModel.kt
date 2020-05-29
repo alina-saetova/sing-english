@@ -307,7 +307,7 @@ class SongViewModel @Inject constructor(
         val RANGE_BUTTON = (0..3)
         const val ROW_SEPARATOR = " "
         const val MISSING_PLACE = "___"
-        const val ROW_GAP = 0.08
+        const val ROW_GAP = 0.1
         const val RANDOM_CONST = 42
     }
 }

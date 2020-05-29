@@ -16,6 +16,10 @@ class StatisticViewModel @Inject constructor() : ViewModel() {
     val numOfCorrectAnswers: LiveData<Int>
         get() = _numOfCorrectAnswers
 
+    private var _numOfAllAnswers = MutableLiveData<Int>()
+    val numOfAllAnswers: LiveData<Int>
+        get() = _numOfAllAnswers
+
     fun loadStatistic(lyric: MutableList<SongRow>, answers: List<String>) {
         _numOfCorrectAnswers.value = 0
         lyric.removeAt(0)
@@ -39,6 +43,7 @@ class StatisticViewModel @Inject constructor() : ViewModel() {
             }
         }
         _statistic.value = lyric
+        _numOfAllAnswers.value = answers.size
     }
 
     companion object {
